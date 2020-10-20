@@ -11,8 +11,11 @@ require("dotenv").config();
 
 const devConfig = `postgresql://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`;
 
-const proConfig = process.env.DATABASE_URL; //heroku addons
+//woxzipji:E0G44eAjzW83QA1S7cTuP2toNxGezA11@lallah.db.elephantsql.com:5432/woxzipji
+const proConfig =
+  "postgres://woxzipji:E0G44eAjzW83QA1S7cTuP2toNxGezA11@lallah.db.elephantsql.com:5432/woxzipji";
 
+// process.env.DATABASE_URL    //heroku addons
 const pool = new Pool({
   connectionString:
     process.env.NODE_ENV === "production" ? proConfig : devConfig,
