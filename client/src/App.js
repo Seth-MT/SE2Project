@@ -1,15 +1,12 @@
 import React, { Fragment } from "react";
-import InputTodo from "./components/InputTodo";
-import ListTodos from "./components/ListTodos";
+import NavBar from "./components/NavBar";
 import "./App.css";
 
 function App() {
   return (
     <Fragment>
-      <div className="container">
-        <InputTodo />
-        <ListTodos />
-      </div>
+      <NavBar />
+      <div className="container"></div>
     </Fragment>
   );
 }
