@@ -8,11 +8,13 @@ R - React
 N - Nodejs
 
 #  LOCAL MACHINE DEV
-Start by installing nodemon globally on your system so changes can be seen on the website without having to stop and restart the server. Similar to Debug=True with flask
+Start by installing nodemon globally on your system so changes can be seen on the website without having to stop and restart the server. Similar to Debug=True with flask.
+
 npm install -g nodemon
 
 Next
-If the node_modules folder is empty in the root folder then
+If the node_modules folder is empty in the root folder then enter:
+
 npm -i express cors path jsonwebtoken bcrypt sequelize dotenv pg pg-hstore
 
 
