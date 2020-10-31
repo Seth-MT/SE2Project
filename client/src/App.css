@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+.calendar {
+  position: relative;
+  top: 30px;
+  left: 100px;
+  padding-bottom: 20px;
+}
+
+.calendar-card {
+  position: relative;
+  top: 30px;
+}

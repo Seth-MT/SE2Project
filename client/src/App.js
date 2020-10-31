@@ -1,14 +1,25 @@
-import React, { Fragment } from "react";
-import NavBar from "./components/NavBar";
-import "./App.css";
+import React, { Component } from 'react'
+import { BrowserRouter as Router , Switch, Route } from 'react-router-dom';
+import Main from './components/Main'
+import NavBar from './components/NavBar'
 
-function App() {
-  return (
-    <Fragment>
-      <NavBar />
-      <div className="container"></div>
-    </Fragment>
-  );
+class App extends Component {
+  render() {
+    return (
+      
+      <div className="wrapper">
+        <Router>
+
+        <NavBar />
+
+        <Switch>
+          <Route path='/' component={Main}/>
+        </Switch>
+
+        </Router>
+      </div>
+    )
+  }
 }
 
-export default App;
+export default App
