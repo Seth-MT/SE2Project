@@ -19,23 +19,17 @@ And deployed on Heroku
 https://thehairthing.herokuapp.com/
 
 # Prerequisites
-# LOCAL MACHINE DEVELOPMENT
-Node
-Start by installing nodemon globally on your system so changes can be seen on the website without having to stop and restart the server. Similar to Debug=True with flask.
-
+## Local Machine Development - Windows OS
+### Environment
+1. nodemon - install in working directory or on entire system
 npm install -g nodemon
 
-Next
-If the node_modules folder is empty in the root folder then enter:
-
+2. Dependencies if node_modules folder is absent or empty
 npm -i express cors path jsonwebtoken bcrypt sequelize dotenv pg pg-hstore
 
-
-dotenv allows us to use secret keys and not upload them to github:
-
-create a file called .env and put your keys in there e.g jwtSecret = 123
-
-access the keys in .env using process.env.jwtSecret as seen in utils/jwtGenerator.js
+#### For dotenv
+Create a file .env and save JWT key e.g. jwtSecret = 123
+Access the key using: process.env.jwtSecret
 
 # Start Express 
 nodemon index.js
