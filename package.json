@@ -11,7 +11,7 @@
     "start": "node index.js",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
-  "author": "Christopher Joseph",
+  "author": "S.M.C.D",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",
