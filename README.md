@@ -1,13 +1,26 @@
-# SE2Project
-Software Engineering 2 Project
+# Project Description
+## SE2Project - The Hair Thing
+A hair care web application for finding hair products and styles that would help in growth and overall hair care,
+as well as creation of a personal scheduler based on user-captured data
 
-Using a PERN Stack
+This project is part of a Computer Science course at the U.W.I and is currently in progress by:
+Seth Timothy (Me)
+Matthew Christian
+Christopher Joseph
+Dexter Singh
+
+The application is made based on a PERN Stack architecture
 P - PostgreSQL
 E - Express
 R - React
 N - Nodejs
 
-#  LOCAL MACHINE DEV
+And deployed on Heroku
+https://thehairthing.herokuapp.com/
+
+# Prerequisites
+# LOCAL MACHINE DEVELOPMENT
+Node
 Start by installing nodemon globally on your system so changes can be seen on the website without having to stop and restart the server. Similar to Debug=True with flask.
 
 npm install -g nodemon
