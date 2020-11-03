@@ -18,29 +18,43 @@ N - Nodejs
 And deployed on Heroku
 https://thehairthing.herokuapp.com/
 
-# Prerequisites
+
+# Pre-requisites
 ## Local Machine Development - Windows OS
-### Environment
-1. nodemon - install in working directory or on entire system
+### Environment Dependencies
+1. nodemon 
+2. express
+3. cors
+4. jsonwebtoken
+5. bccrypt
+6. sequelize
+7. dotenv
+8. pg
+9. pg-hstore
+
+
+# Installation / Setup
+1. nodemon
 npm install -g nodemon
 
-2. Dependencies if node_modules folder is absent or empty
+2. To install the other dependencies:
 npm -i express cors path jsonwebtoken bcrypt sequelize dotenv pg pg-hstore
 
 #### For dotenv
 Create a file .env and save JWT key e.g. jwtSecret = 123
 Access the key using: process.env.jwtSecret
 
-# Start Express 
-nodemon index.js
+## Run Local
+### To Start Express
+Navigate to root folder or where index.js is located (default)
+nodemon index.js or node index.js
 
-# Start React
-cd client //change directory to client folder
-If the node_modules folder in client folder is empty then enter command: npm install
-
+### To Start React
+Navigate to client (react) folder
+cd client
 npm start
 
-# TO DEPLOY YO HEROKU
+## Deploy to Heroku
 cd client //change directory to the client folter
 npm build //prepares the react for deployment
 

@@ -21,6 +21,11 @@ if (process.env.NODE_ENV === "production") {
 
 //routes
 
+//test route
+app.get('/', (req, res) => {
+  res.send('Test');
+});
+
 //register and login routes 
 app.use("/auth", require("./routes/jwtAuth"));
 
