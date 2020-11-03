@@ -1,11 +1,12 @@
-const Pool = require("pg").Pool;
-require("dotenv").config();
+const Sequelize = require("sequelize");
 
-const proConfig =
-  "postgres://woxzipji:E0G44eAjzW83QA1S7cTuP2toNxGezA11@lallah.db.elephantsql.com:5432/woxzipji";
+const db = new Sequelize(
+  "postgres://tcrcxuzu:NZYbl_mSwjr4d7WTZZyhHHewjosYj0AO@lallah.db.elephantsql.com:5432/tcrcxuzu"
+);
 
-const pool = new Pool({
-  connectionString: proConfig,
-});
+//Test DB
+db.authenticate()
+  .then(() => console.log("Database conntected...."))
+  .catch((err) => console.log("Error: " + err));
 
-module.exports = pool;
+module.exports = db;
