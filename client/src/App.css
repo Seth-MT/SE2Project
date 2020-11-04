@@ -36,3 +36,35 @@
     transform: rotate(360deg);
   }
 }
+
+.calendar {
+  position: relative;
+  top: 30px;
+  left: 100px;
+  padding-bottom: 20px;
+  padding-right: 100px;
+}
+
+.calendar-card {
+  position: relative;
+  top: 30px;
+}
+
+.google-calendar-buttons {
+  position: relative;
+  top: 30px;
+  left: 100px;
+}
+
+.react-calendar__tile {
+  padding: 1.75em 1.75em;
+}
+
+.react-calendar {
+  width: 500px;
+}
+
+.register-card {
+  position: relative;
+  top: 100px;
+}
