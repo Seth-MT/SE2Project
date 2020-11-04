@@ -3,7 +3,7 @@
 A hair care web application for finding hair products and styles that would help in growth and overall hair care,
 as well as creation of a personal scheduler based on user-captured data
 
-This project is part of a Computer Science course at the U.W.I and is currently in progress by:
+This project is part of a Computer Science course at the University of the West Indies and is currently in progress by:
 Seth Timothy (Me)
 Matthew Christian
 Christopher Joseph
@@ -37,11 +37,24 @@ https://thehairthing.herokuapp.com/
 1. nodemon
 npm install -g nodemon
 
+In package.json file, change
+"scripts": {
+    "start": "node index.js"
+}
+
+To
+
+"scripts": {
+    "start": "nodemon index.js"
+}
+
+For local host development, and vice-versa for deployment.
+
 2. To install the other dependencies:
 npm -i express cors path jsonwebtoken bcrypt sequelize dotenv pg pg-hstore
 
 #### For dotenv
-Create a file .env and save JWT key e.g. jwtSecret = 123
+Create a file .env and save the JWT key in it e.g. jwtSecret = 123
 Access the key using: process.env.jwtSecret
 
 ## Run Local

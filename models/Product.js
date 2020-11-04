@@ -1,7 +1,7 @@
+// import sequelize module for data types and initialize db
 const { Sequelize, DataTypes } = require("sequelize");
 const db = require("../db");
 
-// Product model
 const Product = db.define("product", {
     name: {
       type: DataTypes.STRING,
@@ -21,4 +21,5 @@ const Product = db.define("product", {
     }
   });
 
+  
   module.exports = Product;
