@@ -18,7 +18,6 @@ class NavBar extends Component {
           <Nav.Link href="./">Home</Nav.Link>
           <Nav.Link href="features">Features</Nav.Link>
           <Nav.Link href="calendar">Calendar</Nav.Link>
-          <Nav.Link href="login">Log In</Nav.Link>
           <NavDropdown title="HairStyles" id="basic-nav-dropdown">
             <NavDropdown.Item href="#action/3.1">Long</NavDropdown.Item>
             <NavDropdown.Item href="#action/3.2">Short</NavDropdown.Item>
@@ -27,10 +26,11 @@ class NavBar extends Component {
             <NavDropdown.Item href="#action/3.4">Extra</NavDropdown.Item>
           </NavDropdown>
         </Nav>
-        <Form inline>
+        <Form inline className="ml-auto">
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
           <Button variant="outline-light">Search</Button>
         </Form>
+        <Nav.Link href="login">Log In</Nav.Link>
       </Navbar>
     );
   }
