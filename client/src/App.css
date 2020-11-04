@@ -63,3 +63,8 @@
 .react-calendar {
   width: 500px;
 }
+
+.register-card {
+  position: relative;
+  top: 100px;
+}
