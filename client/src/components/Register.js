@@ -1,42 +1,155 @@
-import React, { Component } from "react";
+import React, { Fragment, useState } from "react";
+import { toast } from "react-toastify";
 
-class Register extends Component {
-  render() {
-    return  (
-    <div className="content">
-      <div className="container-fluid">
-        <div className="calendar-main-panel">
-           <div className="row justify-content-md-center">
+const Register = ({ setAuth }) => {
+  const [inputs, setInputs] = useState({
+    firstName: "",
+    lastName: "",
+    userName: "",
+    email: "",
+    password: "",
+    confirmPass: "",
+  });
+
+  const {
+    firstName,
+    lastName,
+    userName,
+    email,
+    password,
+    confirmPass,
+  } = inputs;
+
+  const onChange = (e) =>
+    setInputs({ ...inputs, [e.target.name]: e.target.value });
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const body = { firstName, lastName, userName, email, password };
+
+      //https://thehairthing.herokuapp.com/
+      const res = await fetch(
+        "https://thehairthing.herokuapp.com/auth/register",
+        {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
+
+      const parseRes = await res.json();
+
+      if (parseRes.token) {
+        localStorage.setItem("token", parseRes.token);
+        setAuth(true);
+        toast.sucess("Registered successfully");
+      } else {
+        setAuth(false);
+        toast.error(parseRes);
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  return (
+    <Fragment>
+      <div className="content">
+        <div className="container-fluid">
+          <div className="calendar-main-panel">
+            <div className="row justify-content-md-center">
               <div className="col-md-5 my-auto">
                 <div className="card register-card h-100">
-                  <div className="card-header">
-                    Register your account
-                  </div>
+                  <div className="card-header">Register your account</div>
                   <div className="card-body">
-                    <form>
-                        <div class="form-group">
-                          <label for="email-input">Email address</label>
-                          <input type="email" class="form-control" id="email-input" aria-describedby="emailHelp" placeholder="Email address"></input>
-                        </div>
-                        <div class="form-group">
-                          <label for="password-input">Password</label>
-                          <input type="password" class="form-control" id="password-input" placeholder="Password"></input>
-                        </div>
-                        <div class="form-group">
-                          <label for="password-confirm">Confirm Password</label>
-                          <input type="password" class="form-control" id="password-confirm" placeholder="Confirm Password"></input>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                      </form>
+                    <form onSubmit={onSubmit}>
+                      <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="firstName"
+                          placeholder="First Name"
+                          value={firstName}
+                          onChange={(e) => onChange(e)}
+                          required
+                        ></input>
+                      </div>
+                      <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="lastName"
+                          placeholder="Last Name"
+                          required
+                          value={lastName}
+                          onChange={(e) => onChange(e)}
+                        ></input>
+                      </div>
+                      <div class="form-group">
+                        <label for="userName">Username</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="userName"
+                          placeholder="Username"
+                          required
+                          value={userName}
+                          onChange={(e) => onChange(e)}
+                        ></input>
+                      </div>
+                      <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input
+                          type="email"
+                          class="form-control"
+                          name="email"
+                          aria-describedby="emailHelp"
+                          placeholder="Email address"
+                          required
+                          onChange={(e) => onChange(e)}
+                          value={email}
+                        ></input>
+                      </div>
+                      <div class="form-group">
+                        <label for="password">Password</label>
+                        <input
+                          type="password"
+                          class="form-control"
+                          name="password"
+                          placeholder="Password"
+                          required
+                          value={password}
+                          onChange={(e) => onChange(e)}
+                        ></input>
+                      </div>
+                      <div class="form-group">
+                        <label for="confirmPass">Confirm Password</label>
+                        <input
+                          type="password"
+                          class="form-control"
+                          name="confirmPass"
+                          placeholder="Confirm Password"
+                          required
+                          value={confirmPass}
+                          onChange={(e) => onChange(e)}
+                        ></input>
+                      </div>
+                      <button type="submit" class="btn btn-primary">
+                        Submit
+                      </button>
+                    </form>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
         </div>
       </div>
-    </div>
-    )
-  }
-}
+    </Fragment>
+  );
+};
 
 export default Register;

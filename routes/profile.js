@@ -3,15 +3,17 @@ const db = require("../db");
 const User = require("../models/User");
 const authorization = require("../middleware/authorization");
 
-router.get("/", authorization, async(req, res) => {
-    try {
-        const user = await User.findOne({attributes: ['userName'],  where: {id: `${req.user}`}});
+router.post("/", authorization, async (req, res) => {
+  try {
+    const user = await User.findOne({
+      attributes: ["userName"],
+      where: { id: `${req.user}` },
+    });
 
-        res.json(user);
-
-    } catch (err) {
-        console.error(err.message)
-        res.status(500).json("Server Error")
-    }
-})
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json("Server Error");
+  }
+});
 module.exports = router;
