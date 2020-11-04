@@ -51,7 +51,7 @@ function Main() {
             !isAuthenticated ? (
               <Register {...props} setAuth={setAuth} />
             ) : (
-              <Redirect to="/login" />
+              <Redirect from="/register" to="/login" />
             )
           }
         />
@@ -61,7 +61,7 @@ function Main() {
             !isAuthenticated ? (
               <Login {...props} setAuth={setAuth} />
             ) : (
-              <Redirect to="/profile" />
+              <Redirect from="/login" to="/profile" />
             )
           }
         />
@@ -71,7 +71,7 @@ function Main() {
             isAuthenticated ? (
               <Profile {...props} setAuth={setAuth} />
             ) : (
-              <Redirect to="/login" />
+              <Redirect from="/profile" to="/login" />
             )
           }
         />
