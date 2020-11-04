@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Nav } from "react-bootstrap";
 
 class Register extends Component {
   render() {
@@ -10,7 +11,7 @@ class Register extends Component {
               <div className="col-md-5 my-auto">
                 <div className="card register-card h-100">
                   <div className="card-header">
-                    Register your account
+                    Log In
                   </div>
                   <div className="card-body">
                     <form>
@@ -22,12 +23,11 @@ class Register extends Component {
                           <label for="password-input">Password</label>
                           <input type="password" class="form-control" id="password-input" placeholder="Password"></input>
                         </div>
-                        <div class="form-group">
-                          <label for="password-confirm">Confirm Password</label>
-                          <input type="password" class="form-control" id="password-confirm" placeholder="Confirm Password"></input>
-                        </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                       </form>
+                  </div>
+                  <div className="card-footer">
+                    <Nav.Link href="register">Need an account? Sign up here!</Nav.Link>
                   </div>
                 </div>
               </div>

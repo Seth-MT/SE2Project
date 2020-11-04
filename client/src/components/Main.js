@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
 import CalendarPage from './CalendarPage'
+import Home from './Home'
+import Register from './Register'
+import Login from './Login'
+
 
 
 class Main extends Component {
@@ -9,8 +13,11 @@ class Main extends Component {
     return (
       <div className="main-panel">
         <Switch>
-          <Route path="/calendar" component={CalendarPage} />
-          <Redirect from='*' to='/calendar' />
+          <Route path="./" component={Home} />
+          <Route path="/calendar" component={CalendarPage} />  
+          <Route path="/register" component={Register} />
+          <Route path="/login" component={Login} />
+          <Redirect from='*' to='/' />
         </Switch>
       </div>
     )
