@@ -58,7 +58,8 @@ const Profile = ({ setAuth }) => {
 
   const getProfile = async () => {
     try {
-      const res = await fetch("https://thehairthing.herokuapp.com/profile/", {
+      //https://thehairthing.herokuapp.com
+      const res = await fetch("/profile/", {
         method: "POST",
         headers: { token: localStorage.token },
       });
