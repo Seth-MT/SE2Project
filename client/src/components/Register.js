@@ -30,7 +30,7 @@ const Register = ({ setAuth }) => {
 
       //https://thehairthing.herokuapp.com/
       const res = await fetch(
-        "https://thehairthing.herokuapp.com/auth/register",
+        "/auth/register",
         {
           method: "POST",
           headers: { "Content-type": "application/json" },
