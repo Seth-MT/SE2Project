@@ -16,4 +16,13 @@ router.post("/", authorization, async (req, res) => {
     res.status(500).json("Server Error");
   }
 });
+
+router.get("/test", (req, res) => {
+  try {
+    res.send('Testing')
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json("Server Error");
+  }
+});
 module.exports = router;
