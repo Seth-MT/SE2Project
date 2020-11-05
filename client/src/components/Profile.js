@@ -6,7 +6,7 @@
 //   async function getName() {
 //     try {
 //       //https://thehairthing.herokuapp.com/
-//       const res = await fetch("http//localhost:5000/profile/", {
+//       const res = await fetch("/profile", {
 //         method: "POST",
 //         headers: { token: localStorage.token },
 //       });
@@ -58,8 +58,7 @@ const Profile = ({ setAuth }) => {
 
   const getProfile = async () => {
     try {
-      //https://thehairthing.herokuapp.com
-      const res = await fetch("/profile/", {
+      const res = await fetch("/profile", {
         method: "POST",
         headers: { token: localStorage.token },
       });
