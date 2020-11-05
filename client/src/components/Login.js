@@ -18,8 +18,6 @@ const Login = ({ setAuth }) => {
     try {
       const body = { userName, password };
 
-      //https://thehairthing.herokuapp.com/
-
       const res = await fetch("/auth/login", {
         method: "POST",
         headers: { "Content-type": "application/json" },
