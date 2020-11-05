@@ -46,7 +46,7 @@ function Main() {
         <Route path="./" component={Home} />
         <Route path="/calendar" component={CalendarPage} />
         <Route
-          path="/register"
+          exact path="/register"
           render={(props) =>
             !isAuthenticated ? (
               <Register {...props} setAuth={setAuth} />
@@ -56,7 +56,7 @@ function Main() {
           }
         />
         <Route
-          path="/login"
+          exact path="/login"
           render={(props) =>
             !isAuthenticated ? (
               <Login {...props} setAuth={setAuth} />
@@ -66,7 +66,7 @@ function Main() {
           }
         />
         <Route
-          path="/profile"
+          exact path="/profile"
           render={(props) =>
             isAuthenticated ? (
               <Profile {...props} setAuth={setAuth} />
