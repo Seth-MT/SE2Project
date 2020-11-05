@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-require("dotenv").config()
+//require("dotenv").config()
 
 
 module.exports = async(req, res, next) =>{
@@ -9,8 +9,8 @@ module.exports = async(req, res, next) =>{
         if(!jwtToken){
                 return res.status(403).json("Not Authorized");
             }
-        
-        const payload = jwt.verify(jwtToken, process.env.jwtSecret);
+        //process.env.jwtSecret
+        const payload = jwt.verify(jwtToken, "cat123");
 
         req.user = payload.user;
         
