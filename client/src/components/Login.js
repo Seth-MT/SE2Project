@@ -20,7 +20,7 @@ const Login = ({ setAuth }) => {
 
       //https://thehairthing.herokuapp.com/
 
-      const res = await fetch("https://thehairthing.herokuapp.com/auth/login", {
+      const res = await fetch("/auth/login", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(body),

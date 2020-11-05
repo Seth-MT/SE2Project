@@ -29,14 +29,11 @@ const Register = ({ setAuth }) => {
       const body = { firstName, lastName, userName, email, password };
 
       //https://thehairthing.herokuapp.com/
-      const res = await fetch(
-        "https://thehairthing.herokuapp.com/auth/register",
-        {
-          method: "POST",
-          headers: { "Content-type": "application/json" },
-          body: JSON.stringify(body),
-        }
-      );
+      const res = await fetch("/auth/register", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(body),
+      });
 
       const parseRes = await res.json();
 

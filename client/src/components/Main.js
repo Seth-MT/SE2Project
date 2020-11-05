@@ -20,7 +20,8 @@ function Main() {
   async function isAuth() {
     try {
       const res = await fetch(
-        "https://thehairthing.herokuapp.com/auth/is-verify",
+        //https://thehairthing.herokuapp.com/
+        "/auth/is-verify",
         {
           method: "GET",
           headers: { token: localStorage.token },
