@@ -20,7 +20,6 @@ function Main() {
   async function isAuth() {
     try {
       const res = await fetch(
-        //https://thehairthing.herokuapp.com
         "/auth/is-verify",
         {
           method: "GET",
@@ -51,7 +50,7 @@ function Main() {
             !isAuthenticated ? (
               <Register {...props} setAuth={setAuth} />
             ) : (
-              <Redirect from="/register" to="/login" />
+              <Redirect to="/login" />
             )
           }
         />
@@ -61,7 +60,7 @@ function Main() {
             !isAuthenticated ? (
               <Login {...props} setAuth={setAuth} />
             ) : (
-              <Redirect from="/login" to="/profile" />
+              <Redirect to="/profile" />
             )
           }
         />
@@ -71,7 +70,7 @@ function Main() {
             isAuthenticated ? (
               <Profile {...props} setAuth={setAuth} />
             ) : (
-              <Redirect from="/profile" to="/login" />
+              <Redirect to="/login" />
             )
           }
         />
