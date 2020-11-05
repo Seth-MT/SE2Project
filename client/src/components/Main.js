@@ -19,14 +19,10 @@ function Main() {
 
   async function isAuth() {
     try {
-      const res = await fetch(
-        //https://thehairthing.herokuapp.com/
-        "/auth/is-verify",
-        {
-          method: "GET",
-          headers: { token: localStorage.token },
-        }
-      );
+      const res = await fetch("/auth/is-verify", {
+        method: "GET",
+        headers: { token: localStorage.token },
+      });
 
       const parseRes = await res.json();
 
@@ -46,6 +42,7 @@ function Main() {
         <Route path="./" component={Home} />
         <Route path="/calendar" component={CalendarPage} />
         <Route
+          exact
           path="/register"
           render={(props) =>
             !isAuthenticated ? (
@@ -56,6 +53,7 @@ function Main() {
           }
         />
         <Route
+          exact
           path="/login"
           render={(props) =>
             !isAuthenticated ? (
@@ -66,6 +64,7 @@ function Main() {
           }
         />
         <Route
+          exact
           path="/profile"
           render={(props) =>
             isAuthenticated ? (
