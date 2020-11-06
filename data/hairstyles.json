@@ -1,0 +1,302 @@
+[
+    {
+        "name": "Short Twists",
+        "type": "Protective",
+        "hairLength": "Short",
+        "hairType": "Any"
+    },
+    {
+        "name": "Cornrows",
+        "type": "Protective",
+        "hairLength": "Short",
+        "hairType": "Any"
+    },
+    {
+        "name": "Short Braids",
+        "type": "Protective",
+        "hairLength": "Short",
+        "hairType": "Any"
+    },
+    {
+        "name": "Chignon",
+        "type": "Protective",
+        "hairLength": "Short",
+        "hairType": "Any"
+    },
+    {
+        "name": "Low Twisted Buns",
+        "type": "Protective",
+        "hairLength": "Short",
+        "hairType": "Any"
+    },
+    {
+        "name": "Beaded Braids",
+        "type": "Protective",
+        "hairLength": "Short",
+        "hairType": "Any"
+    },
+    {
+        "name": "Top Knot",
+        "type": "Protective",
+        "hairLength": "Short",
+        "hairType": "Any"
+    },
+    {
+        "name": "Sleek Bun",
+        "type": "Protective",
+        "hairLength": "Short",
+        "hairType": "Any"
+    },
+    {
+        "name": "Space Buns",
+        "type": "Protective",
+        "hairLength": "Short",
+        "hairType": "Any"
+    },
+    {
+        "name": "Colorful Twists",
+        "type": "Protective",
+        "hairLength": "Medium",
+        "hairType": "Any"
+    },
+    {
+        "name": "Bantu Knots",
+        "type": "Protective",
+        "hairLength": "Medium",
+        "hairType": "Any"
+    },
+    {
+        "name": "Braided Crown",
+        "type": "Protective",
+        "hairLength": "Medium",
+        "hairType": "Any"
+    },
+    {
+        "name": "Box Braids",
+        "type": "Protective",
+        "hairLength": "Medium",
+        "hairType": "Any"
+    },
+    {
+        "name": "Side Twist Updo",
+        "type": "Protective",
+        "hairLength": "Medium",
+        "hairType": "Any"
+    },
+    {
+        "name": "Senegalese Twists",
+        "type": "Protective",
+        "hairLength": "Medium",
+        "hairType": "Any"
+    },
+    {
+        "name": "Flat Twists",
+        "type": "Protective",
+        "hairLength": "Medium",
+        "hairType": "Any"
+    },
+    {
+        "name": "Twisted Low Bun",
+        "type": "Protective",
+        "hairLength": "Medium",
+        "hairType": "Any"
+    },
+    {
+        "name": "Braided Faux Hawk",
+        "type": "Protective",
+        "hairLength": "Medium",
+        "hairType": "Any"
+    },
+    {
+        "name": "Pineapple Updo",
+        "type": "Protective",
+        "hairLength": "Medium",
+        "hairType": "Any"
+    },
+    {
+        "name": "Halo Braid",
+        "type": "Protective",
+        "hairLength": "Medium",
+        "hairType": "Any"
+    },
+    {
+        "name": "Bun Mohawk",
+        "type": "Protective",
+        "hairLength": "Medium",
+        "hairType": "Any"
+    },
+    {
+        "name": "Side Twist",
+        "type": "Protective",
+        "hairLength": "Long",
+        "hairType": "Any"
+    },
+    {
+        "name": "Ghana Braids",
+        "type": "Protective",
+        "hairLength": "Long",
+        "hairType": "Any"
+    },
+    {
+        "name": "Chunky Box Braids",
+        "type": "Protective",
+        "hairLength": "Long",
+        "hairType": "Any"
+    },
+    {
+        "name": "Crochet Braids",
+        "type": "Protective",
+        "hairLength": "Long",
+        "hairType": "Any"
+    },
+    {
+        "name": "Dutch Roll",
+        "type": "Protective",
+        "hairLength": "Long",
+        "hairType": "Any"
+    },
+    {
+        "name": "Double Halo Crown Braid",
+        "type": "Protective",
+        "hairLength": "Long",
+        "hairType": "Any"
+    },
+    {
+        "name": "Havana Twists",
+        "type": "Protective",
+        "hairLength": "Long",
+        "hairType": "Any"
+    },
+    {
+        "name": "Twisted Updo",
+        "type": "Protective",
+        "hairLength": "Long",
+        "hairType": "Any"
+    },
+    {
+        "name": "Sade Braid",
+        "type": "Protective",
+        "hairLength": "Long",
+        "hairType": "Any"
+    },
+    {
+        "name": "Layered Bob",
+        "type": "Stylish",
+        "hairLength": "Short",
+        "hairType": "Curly"
+    },
+    {
+        "name": "Shaggy Bob",
+        "type": "Stylish",
+        "hairLength": "Short",
+        "hairType": "Curly"
+    },
+    {
+        "name": "Inverted Bob",
+        "type": "Stylish",
+        "hairLength": "Short",
+        "hairType": "Curly"
+    },
+    {
+        "name": "Classic Pixie",
+        "type": "Stylish",
+        "hairLength": "Short",
+        "hairType": "Curly"
+    },
+    {
+        "name": "Sculpted Pixie",
+        "type": "Stylish",
+        "hairLength": "Short",
+        "hairType": "Curly"
+    },
+    {
+        "name": "Afro",
+        "type": "Stylish",
+        "hairLength": "Short",
+        "hairType": "Curly"
+    },
+    {
+        "name": "Layered Afro",
+        "type": "Stylish",
+        "hairLength": "Short",
+        "hairType": "Curly"
+    },
+    {
+        "name": "Lob",
+        "type": "Stylish",
+        "hairLength": "Medium",
+        "hairType": "Curly"
+    },
+    {
+        "name": "Asymmetrical Lob",
+        "type": "Stylish",
+        "hairLength": "Medium",
+        "hairType": "Curly"
+    },
+    {
+        "name": "Feathered Lob",
+        "type": "Stylish",
+        "hairLength": "Medium",
+        "hairType": "Curly"
+    },
+    {
+        "name": "Face-Framing Layers",
+        "type": "Stylish",
+        "hairLength": "Medium",
+        "hairType": "Curly"
+    },
+    {
+        "name": "Stacked Layers",
+        "type": "Stylish",
+        "hairLength": "Medium",
+        "hairType": "Curly"
+    },
+    {
+        "name": "Grown-Out Bob",
+        "type": "Stylish",
+        "hairLength": "Medium",
+        "hairType": "Curly"
+    },
+    {
+        "name": "Shaggy All Over",
+        "type": "Stylish",
+        "hairLength": "Long",
+        "hairType": "Curly"
+    },
+    {
+        "name": "Swoopy Layers",
+        "type": "Stylish",
+        "hairLength": "Long",
+        "hairType": "Curly"
+    },
+    {
+        "name": "Long Layers",
+        "type": "Stylish",
+        "hairLength": "Long",
+        "hairType": "Curly"
+    },
+    {
+        "name": "Blunt Bangs",
+        "type": "Stylish",
+        "hairLength": "Long",
+        "hairType": "Curly"
+    },
+    {
+        "name": "Steep Layers",
+        "type": "Stylish",
+        "hairLength": "Long",
+        "hairType": "Curly"
+    },
+    {
+        "name": "Super-Close Buzz Cut",
+        "type": "Stylish",
+        "hairLength": "Short",
+        "hairType": "Any"
+    },
+    {
+        "name": "Classic Pompadour",
+        "type": "Stylish",
+        "hairLength": "Short",
+        "hairType": "Curly"
+    }
+]
