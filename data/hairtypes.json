@@ -1,0 +1,42 @@
+[
+    {
+        "type": "Any",
+        "category": "All"
+    },
+    {
+        "type": "2A",
+        "category": "Wavy"
+    },
+    {
+        "type": "2B",
+        "category": "Wavy"
+    },
+    {
+        "type": "2C",
+        "category": "Wavy"
+    },
+    {
+        "type": "3A",
+        "category": "Curly"
+    },
+    {
+        "type": "3B",
+        "category": "Curly"
+    },
+    {
+        "type": "3C",
+        "category": "Curly"
+    },
+    {
+        "type": "4A",
+        "category": "Coily"
+    },
+    {
+        "type": "4B",
+        "category": "Coily"
+    },
+    {
+        "type": "4C",
+        "category": "Coily"
+    }
+]
