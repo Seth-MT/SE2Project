@@ -14,7 +14,7 @@ class CalendarPage extends Component {
       sign: ApiCalendar.sign, //Boolean value that is set to true if user is signed in to Google Calendar and false if not
       value: new Date() //Date of the calendar tile that the user clicked
     };
-    this.signUpdate = this.signUpdate.bind(this); 
+    this.signUpdate = this.signUpdate.bind(this);
     ApiCalendar.onLoad(() => { //Function is called when the API is loaded
         ApiCalendar.listenSign(this.signUpdate); //Checks if user is signed in to Google Calendar
         if (ApiCalendar.sign) { //Set visibility of log in/log out buttons depending on if the user is signed in or not
@@ -85,8 +85,9 @@ class CalendarPage extends Component {
       console.log('Signed in');
       ApiCalendar.listUpcomingEvents(100) //Lists the next 100 upcoming events
         .then(({result}) => {
+          console.log(result.items);
           var scheduleCard = document.getElementById("schedule-list");
-          var i=0;
+          var i=0;  
           scheduleCard.innerHTML = ""; //Reset the card to be empty
           for (i=0; i<result.items.length; i++) { //Loops through the list of upcoming events
             var scheduleDate = (new Date(Date.parse(result.items[i].start.dateTime))); //Convert dateTime object to Date object
@@ -108,11 +109,30 @@ class CalendarPage extends Component {
       }
   };
 
+  createEvent(event) {
+    ApiCalendar.createEvent(event)
+    .then((result) => {
+      console.log(result);
+        })
+     .catch((error) => {
+       console.log(error);
+        });
+  }
 
   onChange = value => this.setState({ value }) //Sets value state to the date that the user clicked on the calendar
 
     render() { 
         const { value } = this.state.value;
+        const event = {
+          summary: "Created Event",
+          start: {
+            dateTime: "2020-11-09T19:30:00-04:00"
+          },
+          end: {
+            dateTime: "2020-11-09T20:30:00-04:00"
+          },
+          kind: "calendar#HairThing"
+        };
         return (
           <div className="content">
             <div className="container-fluid">
