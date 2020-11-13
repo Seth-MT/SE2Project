@@ -12,14 +12,17 @@ class CalendarPage extends Component {
     this.handleItemClick = this.handleItemClick.bind(this);
     this.state = {
       sign: ApiCalendar.sign, //Boolean value that is set to true if user is signed in to Google Calendar and false if not
-      value: new Date() //Date of the calendar tile that the user clicked
+      value: new Date(), //Date of the calendar tile that the user clicked
+      loading: true
     };
+    
     this.signUpdate = this.signUpdate.bind(this);
     ApiCalendar.onLoad(() => { //Function is called when the API is loaded
         ApiCalendar.listenSign(this.signUpdate); //Checks if user is signed in to Google Calendar
         if (ApiCalendar.sign) { //Set visibility of log in/log out buttons depending on if the user is signed in or not
           document.getElementById("calendar-login").style.display = "none";
           document.getElementById("calendar-logout").style.display = "block";
+          this.getEventDays();
         }
         else
         {
@@ -28,7 +31,7 @@ class CalendarPage extends Component {
         }
     });
   }
-  
+
   signUpdate(sign) {
     this.setState({ //Sets sign state to true if user is signed in and false if not
         sign
@@ -60,6 +63,7 @@ class CalendarPage extends Component {
       time[1] = "PM";
     }
     else {
+      time[0] = hour;
       time[1] = "AM";
     }
     return time;
@@ -77,10 +81,10 @@ class CalendarPage extends Component {
   }
 
   changeSelectedDate = date => { //Function that calls when the user clicks on a tile on the calendar
-   
     var month = date.getMonth();
     var year = date.getFullYear();
     var day = date.getDate();
+    this.getEventDays();
     if (ApiCalendar.sign) { //Only executes if the user is signed in to Google Calendar
       console.log('Signed in');
       ApiCalendar.listUpcomingEvents(100) //Lists the next 100 upcoming events
@@ -119,10 +123,52 @@ class CalendarPage extends Component {
         });
   }
 
+  async getEventDays () {
+    var days = {};
+    if (ApiCalendar.sign) {
+      const response = await ApiCalendar.listUpcomingEvents(100);
+      var result = response.result;
+      console.log("RES: ", result);
+      for (var i=0; i<result.items.length; i++) { //Loops through the list of upcoming events
+        var eventDate = (new Date(Date.parse(result.items[i].start.dateTime))); //Convert dateTime object to Date object
+        days[i] = eventDate.getDate();
+        this.events[i] = eventDate.getDate();
+      }
+      console.log("bloading: ", this.state.loading);
+      //this.state.loading = false;
+      this.setState ({
+        loading: false,
+      });
+      console.log("aloading: ", this.state.loading);
+    }
+    else {
+      console.log("Not signed in");
+    }
+    return days;
+  }
+
+  events = [];
+
+  allEvents(events, date) {
+    for (var i=0; i<this.events.length; i++) {
+      if(date.getDate() === this.events[i])
+        return true;
+    }
+    return false;
+  }
+
   onChange = value => this.setState({ value }) //Sets value state to the date that the user clicked on the calendar
 
     render() { 
+        console.log("ONCE", this.state.loading);
+        console.log("Evs", this.events[0]);
         const { value } = this.state.value;
+        var tileClassName=({ date, view }) => {
+          console.log("DAR ", this.events[0]);
+                if(this.allEvents(this.events, date)) {
+                  return  'highlight'
+                }
+        }
         const event = {
           summary: "Created Event",
           start: {
@@ -130,8 +176,7 @@ class CalendarPage extends Component {
           },
           end: {
             dateTime: "2020-11-09T20:30:00-04:00"
-          },
-          kind: "calendar#HairThing"
+          }
         };
         return (
           <div className="content">
@@ -140,7 +185,8 @@ class CalendarPage extends Component {
                 <div className="row">
                   <div className="col-md-5">
                     <div className="calendar">
-                      <Calendar 
+                      <Calendar
+                        tileClassName = {tileClassName}
                         value={value}
                         onChange={this.changeSelectedDate} >
                       </Calendar>

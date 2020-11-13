@@ -68,3 +68,7 @@
   position: relative;
   top: 100px;
 }
+
+.highlight {
+  background-color: red;
+}
