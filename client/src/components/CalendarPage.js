@@ -15,7 +15,6 @@ class CalendarPage extends Component {
       value: new Date(), //Date of the calendar tile that the user clicked
       loading: true
     };
-    
     this.signUpdate = this.signUpdate.bind(this);
     ApiCalendar.onLoad(() => { //Function is called when the API is loaded
         ApiCalendar.listenSign(this.signUpdate); //Checks if user is signed in to Google Calendar
@@ -34,7 +33,7 @@ class CalendarPage extends Component {
 
   signUpdate(sign) {
     this.setState({ //Sets sign state to true if user is signed in and false if not
-        sign
+      sign,
     })
     if (sign) { //Set visibility of log in/log out buttons when the user logs in or out
       document.getElementById("calendar-login").style.display = "none";
@@ -45,6 +44,7 @@ class CalendarPage extends Component {
       document.getElementById("calendar-login").style.display = "block";
       document.getElementById("calendar-logout").style.display = "none";
     }
+    window.location.reload();
   }
 
   handleItemClick(event, name) { //Function that calls when the user clicks to sign in/out of Google Calendar
@@ -128,18 +128,14 @@ class CalendarPage extends Component {
     if (ApiCalendar.sign) {
       const response = await ApiCalendar.listUpcomingEvents(100);
       var result = response.result;
-      console.log("RES: ", result);
       for (var i=0; i<result.items.length; i++) { //Loops through the list of upcoming events
         var eventDate = (new Date(Date.parse(result.items[i].start.dateTime))); //Convert dateTime object to Date object
         days[i] = eventDate.getDate();
         this.events[i] = eventDate.getDate();
       }
-      console.log("bloading: ", this.state.loading);
-      //this.state.loading = false;
       this.setState ({
         loading: false,
       });
-      console.log("aloading: ", this.state.loading);
     }
     else {
       console.log("Not signed in");
@@ -160,14 +156,11 @@ class CalendarPage extends Component {
   onChange = value => this.setState({ value }) //Sets value state to the date that the user clicked on the calendar
 
     render() { 
-        console.log("ONCE", this.state.loading);
-        console.log("Evs", this.events[0]);
         const { value } = this.state.value;
         var tileClassName=({ date, view }) => {
-          console.log("DAR ", this.events[0]);
-                if(this.allEvents(this.events, date)) {
-                  return  'highlight'
-                }
+          if(this.allEvents(this.events, date)) {
+            return 'highlight'
+          }
         }
         const event = {
           summary: "Created Event",
@@ -200,8 +193,8 @@ class CalendarPage extends Component {
                   </div>
                 </div>
                 <div className="google-calendar-buttons">
-                  <button type="button" id="calendar-login" className="btn btn-primary" onClick={(e) => this.handleItemClick(e, 'sign-in')}>Log in to Google Calendar</button>
-                  <button type="button" id="calendar-logout" className="btn btn-danger" onClick={(e) => this.handleItemClick(e, 'sign-out')}>Log Out of Google Calendar</button>
+                  <button type="button" id="calendar-login" className="btn btn-primary" style={{display: "none"}} onClick={(e) => this.handleItemClick(e, 'sign-in')}>Log in to Google Calendar</button>
+                  <button type="button" id="calendar-logout" className="btn btn-danger" style={{display: "none"}} onClick={(e) => this.handleItemClick(e, 'sign-out')}>Log Out of Google Calendar</button>
                 </div>
               </div>
             </div>
