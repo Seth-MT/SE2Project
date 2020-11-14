@@ -69,6 +69,28 @@
   top: 100px;
 }
 
+/* CSS for Calendar tiles with events */
 .highlight {
-  background-color: red;
+  background-color: #f0a8a1;
+}
+
+.highlight:enabled:hover {
+  background-color: #e89292;
+}
+
+.highlight:enabled:focus {
+  background-color: #de3c3c;
+}
+
+/* CSS for Event Calendar tiles that is the current day */
+.react-calendar__tile--now.highlight {
+  background: #e21d1d;
+}
+
+.react-calendar__tile--now.highlight:enabled:hover {
+  background: #f04747;
+}
+
+.react-calendar__tile--now.highlight:enabled:focus {
+  background: #a30202;
 }
