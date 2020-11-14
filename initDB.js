@@ -6,8 +6,9 @@ const db = require("./db");
 
 // imports models to create table records
 //const Product = require("./models/Product");
-const Style = require("./models/Style");
+//const Style = require("./models/Style");
 //const Type = require("./models/Type");
+const ProductType = require("./models/Product-Type");
 
 // reads the products.json file and creates records in the Product table
 // fs.readFile("./data/products.json", "utf-8", (err, data) => {
@@ -43,18 +44,33 @@ const Style = require("./models/Style");
 // });
 
 // reads the styles.json file and creates records in the Style table
-fs.readFile("./data/styles.json", "utf-8", (err, data) => {
+// fs.readFile("./data/styles.json", "utf-8", (err, data) => {
+//   if (err) {
+//     throw err;
+//   }
+//   const styles = JSON.parse(data.toString());
+
+//   for (var i = 0; i < styles.length; i++){
+//     Style.create({
+//       name: styles[i].name,
+//       type: styles[i].type,
+//       hairLength: styles[i].hairLength,
+//       hairType: styles[i].hairType
+//     });
+//   }
+// });
+
+// reads the product-types.json file and creates records in the ProductStyle table
+fs.readFile("./data/product-types.json", "utf-8", (err, data) => {
   if (err) {
     throw err;
   }
-  const styles = JSON.parse(data.toString());
+  const producttypes = JSON.parse(data.toString());
 
-  for (var i = 0; i < styles.length; i++){
-    Style.create({
-      name: styles[i].name,
-      type: styles[i].type,
-      hairLength: styles[i].hairLength,
-      hairType: styles[i].hairType
+  for (var i = 0; i < producttypes.length; i++){
+    ProductType.create({
+      productID: producttypes[i].productID,
+      typeID: producttypes[i].typeID,
     });
   }
 });
