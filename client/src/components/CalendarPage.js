@@ -31,6 +31,8 @@ class CalendarPage extends Component {
     });
   }
 
+  events = [[],[],[]];
+
   signUpdate(sign) {
     this.setState({ //Sets sign state to true if user is signed in and false if not
       sign,
@@ -131,7 +133,12 @@ class CalendarPage extends Component {
       for (var i=0; i<result.items.length; i++) { //Loops through the list of upcoming events
         var eventDate = (new Date(Date.parse(result.items[i].start.dateTime))); //Convert dateTime object to Date object
         days[i] = eventDate.getDate();
-        this.events[i] = eventDate.getDate();
+        if (!this.events[i]) {
+         this.events[i] = []
+        }
+        this.events[i][0] = eventDate.getDate();
+        this.events[i][1] = eventDate.getMonth();
+        this.events[i][2] = eventDate.getFullYear();
       }
       this.setState ({
         loading: false,
@@ -143,11 +150,9 @@ class CalendarPage extends Component {
     return days;
   }
 
-  events = [];
-
   allEvents(events, date) {
     for (var i=0; i<this.events.length; i++) {
-      if(date.getDate() === this.events[i])
+      if(date.getDate() === this.events[i][0] && date.getMonth() === this.events[i][1] && date.getFullYear() === this.events[i][2])
         return true;
     }
     return false;
