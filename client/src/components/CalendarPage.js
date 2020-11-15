@@ -97,13 +97,14 @@ class CalendarPage extends Component {
           scheduleCard.innerHTML = ""; //Reset the card to be empty
           for (i=0; i<result.items.length; i++) { //Loops through the list of upcoming events
             var scheduleDate = (new Date(Date.parse(result.items[i].start.dateTime))); //Convert dateTime object to Date object
-            if (day === scheduleDate.getDate() && month === scheduleDate.getMonth() && year === scheduleDate.getFullYear()) { //If the event is on the same day as the day the user clicked
+            console.log("sdas", result.items[i].summary.substring(1, 10));
+            if (day === scheduleDate.getDate() && month === scheduleDate.getMonth() && year === scheduleDate.getFullYear() && result.items[i].summary.substring(0, 10) === "Hair Thing") { //If the event is on the same day as the day the user clicked
               var node = document.createElement("LI"); //Create list element
               node.className += " list-group-item"; //Adds bootstrap CSS for list group
               var hour = this.convertHour(scheduleDate.getHours());
               var minute = this.convertMinute(scheduleDate.getMinutes());
-              var title = result.items[i].summary;
-              var textnode = document.createTextNode(title + "- " + hour[0] + ":" + minute + " " + hour[1]);
+              var title = result.items[i].summary.substring(13);
+              var textnode = document.createTextNode(title + " - " + hour[0] + ":" + minute + " " + hour[1]);
               node.appendChild(textnode);
               scheduleCard.appendChild(node);
             }
@@ -132,13 +133,15 @@ class CalendarPage extends Component {
       var result = response.result;
       for (var i=0; i<result.items.length; i++) { //Loops through the list of upcoming events
         var eventDate = (new Date(Date.parse(result.items[i].start.dateTime))); //Convert dateTime object to Date object
-        days[i] = eventDate.getDate();
-        if (!this.events[i]) {
-         this.events[i] = []
+        if (result.items[i].summary.substring(0, 10) === "Hair Thing") {
+          days[i] = eventDate.getDate();
+          if (!this.events[i]) {
+          this.events[i] = []
+          }
+          this.events[i][0] = eventDate.getDate();
+          this.events[i][1] = eventDate.getMonth();
+          this.events[i][2] = eventDate.getFullYear();
         }
-        this.events[i][0] = eventDate.getDate();
-        this.events[i][1] = eventDate.getMonth();
-        this.events[i][2] = eventDate.getFullYear();
       }
       this.setState ({
         loading: false,
