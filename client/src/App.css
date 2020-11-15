@@ -71,28 +71,30 @@
 
 /* CSS for Calendar tiles with events */
 .highlight {
-  background-color: #f0a8a1;
+  background-color: #929cd4;
 }
 
 .highlight:enabled:hover {
-  background-color: #e89292;
+  background-color: #7985ce;
 }
 
 .highlight:enabled:focus {
-  background-color: #de3c3c;
+  background-color: #5366d3;
 }
 
 /* CSS for Event Calendar tiles that is the current day */
 .react-calendar__tile--now.highlight {
-  background: #e21d1d;
+  background: #2a41c7;
+  color: black;
 }
 
 .react-calendar__tile--now.highlight:enabled:hover {
-  background: #f04747;
+  background: #4c60d4;
 }
 
 .react-calendar__tile--now.highlight:enabled:focus {
-  background: #a30202;
+  background: #142481;
+  color: white;
 }
 
 
@@ -101,30 +103,10 @@
   color: white;
 }
 
- /* .schedule-item:nth-child(5n+1) {
-  background: linear-gradient(135deg, #EF0F0F 0%, white 100%) !important;
-}
-
-.schedule-item:nth-child(5n+2) {
-  background: linear-gradient(135deg, #DD2222 0%, white 100%) !important;
-}
-
-.schedule-item:nth-child(3) {
-  background: linear-gradient(135deg, #C92F2F 0%, white  100%) !important;
-}
-
-.schedule-item:nth-child(4) {
-  background: linear-gradient(135deg, #B33B3B 0%, white  100%) !important;
-}
-
-.schedule-item:nth-child(5) {
-  background: linear-gradient(135deg, #A03E3E 0%, white  100%) !important;
-} */
-
 .schedule-item:nth-child(even) {
-  background: linear-gradient(135deg, #BA0020FF 0%, #400808 100%) !important;
+  background: linear-gradient(135deg, #002984 0%, #011a4e 100%) !important;
 }
 
 .schedule-item:nth-child(odd) {
-  background: linear-gradient(135deg, #EE2737FF 0%, #400808 100%) !important;
+  background: linear-gradient(135deg, #3f51b5 0%, #012269 100%) !important;
 }
