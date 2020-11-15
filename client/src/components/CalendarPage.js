@@ -101,6 +101,7 @@ class CalendarPage extends Component {
             if (day === scheduleDate.getDate() && month === scheduleDate.getMonth() && year === scheduleDate.getFullYear() && result.items[i].summary.substring(0, 10) === "Hair Thing") { //If the event is on the same day as the day the user clicked
               var node = document.createElement("LI"); //Create list element
               node.className += " list-group-item"; //Adds bootstrap CSS for list group
+              node.className += " schedule-item"; //Adds CSS for list items
               var hour = this.convertHour(scheduleDate.getHours());
               var minute = this.convertMinute(scheduleDate.getMinutes());
               var title = result.items[i].summary.substring(13);
@@ -127,20 +128,20 @@ class CalendarPage extends Component {
   }
 
   async getEventDays () {
-    var days = {};
+    var j=0;
     if (ApiCalendar.sign) {
       const response = await ApiCalendar.listUpcomingEvents(100);
       var result = response.result;
       for (var i=0; i<result.items.length; i++) { //Loops through the list of upcoming events
         var eventDate = (new Date(Date.parse(result.items[i].start.dateTime))); //Convert dateTime object to Date object
         if (result.items[i].summary.substring(0, 10) === "Hair Thing") {
-          days[i] = eventDate.getDate();
-          if (!this.events[i]) {
-          this.events[i] = []
+          if (!this.events[j]) {
+          this.events[j] = []
           }
-          this.events[i][0] = eventDate.getDate();
-          this.events[i][1] = eventDate.getMonth();
-          this.events[i][2] = eventDate.getFullYear();
+          this.events[j][0] = eventDate.getDate();
+          this.events[j][1] = eventDate.getMonth();
+          this.events[j][2] = eventDate.getFullYear();
+          j++; 
         }
       }
       this.setState ({
@@ -150,7 +151,6 @@ class CalendarPage extends Component {
     else {
       console.log("Not signed in");
     }
-    return days;
   }
 
   allEvents(events, date) {
