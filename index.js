@@ -39,8 +39,7 @@ app.use("/profile", require("./routes/profile"));
 
 
 /* Product */
-// C.R.U.D. controller for products
-app.use("/product", require("./routes/productRouter"));
+app.use("/products", require("./routes/productRouter"));
 
 
 // if a bad route is entered

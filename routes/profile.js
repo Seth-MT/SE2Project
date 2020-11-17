@@ -17,4 +17,34 @@ router.post("/", authorization, async (req, res) => {
   }
 });
 
+// get all users
+router.get("/all", async(req, res) => {
+  try {
+      const users = await User.findAll();
+      res.json(users);
+  } catch (error) {
+      console.error(error.message)
+      res.status(500).send("Server Error");
+  }
+})
+
+// update user info
+router.get("/edit/:id", async(req, res) => {
+  try {
+    const user = await User.findOne({
+      where: {
+        id: req.params.id
+      }
+    })
+    user.sex = "Male";
+    await user.save();
+    res.json(user);
+  }
+  catch (error){
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+
 module.exports = router;
