@@ -12,14 +12,16 @@ class CalendarPage extends Component {
     this.handleItemClick = this.handleItemClick.bind(this);
     this.state = {
       sign: ApiCalendar.sign, //Boolean value that is set to true if user is signed in to Google Calendar and false if not
-      value: new Date() //Date of the calendar tile that the user clicked
+      value: new Date(), //Date of the calendar tile that the user clicked
+      loading: true
     };
-    this.signUpdate = this.signUpdate.bind(this); 
+    this.signUpdate = this.signUpdate.bind(this);
     ApiCalendar.onLoad(() => { //Function is called when the API is loaded
         ApiCalendar.listenSign(this.signUpdate); //Checks if user is signed in to Google Calendar
         if (ApiCalendar.sign) { //Set visibility of log in/log out buttons depending on if the user is signed in or not
           document.getElementById("calendar-login").style.display = "none";
           document.getElementById("calendar-logout").style.display = "block";
+          this.getEventDays();
         }
         else
         {
@@ -28,10 +30,12 @@ class CalendarPage extends Component {
         }
     });
   }
-  
+
+  events = [[],[],[]];
+
   signUpdate(sign) {
     this.setState({ //Sets sign state to true if user is signed in and false if not
-        sign
+      sign,
     })
     if (sign) { //Set visibility of log in/log out buttons when the user logs in or out
       document.getElementById("calendar-login").style.display = "none";
@@ -42,6 +46,7 @@ class CalendarPage extends Component {
       document.getElementById("calendar-login").style.display = "block";
       document.getElementById("calendar-logout").style.display = "none";
     }
+    window.location.reload();
   }
 
   handleItemClick(event, name) { //Function that calls when the user clicks to sign in/out of Google Calendar
@@ -60,6 +65,7 @@ class CalendarPage extends Component {
       time[1] = "PM";
     }
     else {
+      time[0] = hour;
       time[1] = "AM";
     }
     return time;
@@ -77,26 +83,29 @@ class CalendarPage extends Component {
   }
 
   changeSelectedDate = date => { //Function that calls when the user clicks on a tile on the calendar
-   
     var month = date.getMonth();
     var year = date.getFullYear();
     var day = date.getDate();
+    this.getEventDays();
     if (ApiCalendar.sign) { //Only executes if the user is signed in to Google Calendar
       console.log('Signed in');
       ApiCalendar.listUpcomingEvents(100) //Lists the next 100 upcoming events
         .then(({result}) => {
+          console.log(result.items);
           var scheduleCard = document.getElementById("schedule-list");
-          var i=0;
+          var i=0;  
           scheduleCard.innerHTML = ""; //Reset the card to be empty
           for (i=0; i<result.items.length; i++) { //Loops through the list of upcoming events
             var scheduleDate = (new Date(Date.parse(result.items[i].start.dateTime))); //Convert dateTime object to Date object
-            if (day === scheduleDate.getDate() && month === scheduleDate.getMonth() && year === scheduleDate.getFullYear()) { //If the event is on the same day as the day the user clicked
+            console.log("sdas", result.items[i].summary.substring(1, 10));
+            if (day === scheduleDate.getDate() && month === scheduleDate.getMonth() && year === scheduleDate.getFullYear() && result.items[i].summary.substring(0, 10) === "Hair Thing") { //If the event is on the same day as the day the user clicked
               var node = document.createElement("LI"); //Create list element
               node.className += " list-group-item"; //Adds bootstrap CSS for list group
+              node.className += " schedule-item"; //Adds CSS for list items
               var hour = this.convertHour(scheduleDate.getHours());
               var minute = this.convertMinute(scheduleDate.getMinutes());
-              var title = result.items[i].summary;
-              var textnode = document.createTextNode(title + "- " + hour[0] + ":" + minute + " " + hour[1]);
+              var title = result.items[i].summary.substring(13);
+              var textnode = document.createTextNode(title + " - " + hour[0] + ":" + minute + " " + hour[1]);
               node.appendChild(textnode);
               scheduleCard.appendChild(node);
             }
@@ -108,11 +117,68 @@ class CalendarPage extends Component {
       }
   };
 
+  createEvent(event) {
+    ApiCalendar.createEvent(event)
+    .then((result) => {
+      console.log(result);
+        })
+     .catch((error) => {
+       console.log(error);
+        });
+  }
+
+  async getEventDays () {
+    var j=0;
+    if (ApiCalendar.sign) {
+      const response = await ApiCalendar.listUpcomingEvents(100);
+      var result = response.result;
+      for (var i=0; i<result.items.length; i++) { //Loops through the list of upcoming events
+        var eventDate = (new Date(Date.parse(result.items[i].start.dateTime))); //Convert dateTime object to Date object
+        if (result.items[i].summary.substring(0, 10) === "Hair Thing") {
+          if (!this.events[j]) {
+          this.events[j] = []
+          }
+          this.events[j][0] = eventDate.getDate();
+          this.events[j][1] = eventDate.getMonth();
+          this.events[j][2] = eventDate.getFullYear();
+          j++; 
+        }
+      }
+      this.setState ({
+        loading: false,
+      });
+    }
+    else {
+      console.log("Not signed in");
+    }
+  }
+
+  allEvents(events, date) {
+    for (var i=0; i<this.events.length; i++) {
+      if(date.getDate() === this.events[i][0] && date.getMonth() === this.events[i][1] && date.getFullYear() === this.events[i][2])
+        return true;
+    }
+    return false;
+  }
 
   onChange = value => this.setState({ value }) //Sets value state to the date that the user clicked on the calendar
 
     render() { 
         const { value } = this.state.value;
+        var tileClassName=({ date, view }) => {
+          if(this.allEvents(this.events, date)) {
+            return 'highlight'
+          }
+        }
+        const event = {
+          summary: "Created Event",
+          start: {
+            dateTime: "2020-11-09T19:30:00-04:00"
+          },
+          end: {
+            dateTime: "2020-11-09T20:30:00-04:00"
+          }
+        };
         return (
           <div className="content">
             <div className="container-fluid">
@@ -120,7 +186,8 @@ class CalendarPage extends Component {
                 <div className="row">
                   <div className="col-md-5">
                     <div className="calendar">
-                      <Calendar 
+                      <Calendar
+                        tileClassName = {tileClassName}
                         value={value}
                         onChange={this.changeSelectedDate} >
                       </Calendar>
@@ -134,8 +201,8 @@ class CalendarPage extends Component {
                   </div>
                 </div>
                 <div className="google-calendar-buttons">
-                  <button type="button" id="calendar-login" className="btn btn-primary" onClick={(e) => this.handleItemClick(e, 'sign-in')}>Log in to Google Calendar</button>
-                  <button type="button" id="calendar-logout" className="btn btn-danger" onClick={(e) => this.handleItemClick(e, 'sign-out')}>Log Out of Google Calendar</button>
+                  <button type="button" id="calendar-login" className="btn btn-primary" style={{display: "none"}} onClick={(e) => this.handleItemClick(e, 'sign-in')}>Log in to Google Calendar</button>
+                  <button type="button" id="calendar-logout" className="btn btn-danger" style={{display: "none"}} onClick={(e) => this.handleItemClick(e, 'sign-out')}>Log Out of Google Calendar</button>
                 </div>
               </div>
             </div>
