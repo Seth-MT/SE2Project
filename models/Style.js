@@ -2,12 +2,8 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const db = require("../db");
 
-const Product = db.define("product", {
+const Style = db.define("style", {
     name: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-    brand: {
       type: Sequelize.STRING,
       allowNull: false
     },
@@ -15,15 +11,15 @@ const Product = db.define("product", {
       type: Sequelize.STRING,
       allowNull: false
     },
-    description: {
+    hairLength: {
       type: Sequelize.STRING,
       allowNull: false
     },
-    imageUrl: {
-      type: Sequelize.STRING,
-      allowNull: true
+    hairType: {
+        type: Sequelize.INTEGER,
+        allowNull: false
     }
   });
 
   
-  module.exports = Product;
+  module.exports = Style;

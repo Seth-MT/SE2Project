@@ -1,0 +1,107 @@
+[
+    {
+        "name": "BioRenew Hydrate Coconut Milk Shampoo",
+        "brand": "Herbal Essence",
+        "type": "Shampoo",
+        "description": "Moisturize and protect hair from damage with Herbal Essences Coconut Milk Shampoo.",
+        "imageUrl": "https://i.imgur.com/miwvOSu.jpg"
+    },
+    {
+        "name": "BioRenew Hydrate Coconut Milk Conditioner",
+        "brand": "Herbal Essence",
+        "type": "Conditioner",
+        "description": "Deeply moisturize and protect hair from damage with Herbal Essences Coconut Milk Conditioner.",
+        "imageUrl": "https://i.imgur.com/dyPZEQZ.jpg"
+    },
+    {
+        "name": "Moisture Co-Wash Whipped Cleansing Conditioner",
+        "brand": "Joico",
+        "type": "Shampoo & Conditoner",
+        "description": "This daily shampoo and conditioner gently cleanses and corrects porosity, leaving hair internally and externally balanced.This light crème conditioner gently moisturizes, balances and detangles.",
+        "imageUrl": "https://i.imgur.com/29I7Yyz.jpg"
+    },
+    {
+        "name": "Fructis Style Smooth Blow Dry Anti-Frizz Cream",
+        "brand": "Garnier",
+        "type": "Cream",
+        "description": "Want to achieve beautiful smooth blowouts, at home? Smooth Blow Dry Anti-Frizz Cream helps you master your blowouts: easy, smooth and long-lasting.",
+        "imageUrl": "https://i.imgur.com/GluKsQK.png"
+    },
+    {
+        "name": "Inforcer Brush Proof Anti-Breakage Detangling Spray",
+        "brand": "L'Oreal Paris",
+        "type": "Hair Spray",
+        "description": "Reduce breakage while brushing with Inforcer Brush Proof spray. Compatible with all hair types, the spray detangles difficult knots and leaves coveted smoothness.",
+        "imageUrl": "https://i.imgur.com/dMnlflB.jpg"
+    },
+    {
+        "name": "Densifique Bodifying Shampoo",
+        "brand": "Kerastase",
+        "type": "Shampoo",
+        "description": "A gentle but thorough cleanser that leaves hair with more substance, resilience, and strength.",
+        "imageUrl": "https://i.imgur.com/tcHiCfA.jpg"
+    },
+    {
+        "name": "Densifique Bodifying Conditioner",
+        "brand": "Kerastase",
+        "type": "Conditioner",
+        "description": "A daily conditioner that helps restore hair’s volume, shine, and resilience.",
+        "imageUrl": "https://i.imgur.com/nx8ZpSw.png"
+    },
+    {
+        "name": "Royal Oils Deep Moisture Masque",
+        "brand": "Head & Shoulders",
+        "type": "Conditioning Mask",
+        "description": "This deeply moisturizing formula provides long-lasting scalp protection while restoring hair moisture, leaving hair feeling soft and looking beautiful.",
+        "imageUrl": "https://i.imgur.com/y7HfmiV.jpg"
+    },
+    {
+        "name": "Refresh Dry Shampoo Foam",
+        "brand": "Kenra",
+        "type": "Dry Shampoo",
+        "description": "Kenra Platinum Refresh Dry Shampoo Foam is a versatile cleansing foam that can erase excess product and absorb oils with a powderless feel for a clean slate.",
+        "imageUrl": "https://i.imgur.com/TAfeZ0S.png"
+    },
+    {
+        "name": "Whole Blends Oat Delicacy Gentle Detangling Hair Milk",
+        "brand": "Garnier",
+        "type": "Leave-in Conditioner",
+        "description": "Our gentle formula blooms with the powdery-soft fragrance of Oat Milk & Rice Cream, bringing to life our wholesome, nourishing care for weightless hair.",
+        "imageUrl": "https://i.imgur.com/9txXXda.jpg"
+    },
+    {
+        "name": "Well Behaved Anti-Frizz Cream Serum",
+        "brand": "Orlando Pita Play",
+        "type": "Cream",
+        "description": "Well Behaved™ Anti-Frizz Cream Serum smooths the cuticle and treats split ends for soft, silky, healthier-looking hair. Use as a treatment on wet hair to detangle, reduce breakage and counteract future damage.",
+        "imageUrl": "https://i.imgur.com/KSggu6W.png"
+    },
+    {
+        "name": "Kerasilk Control Rich Protective Oil",
+        "brand": "Goldwell",
+        "type": "Oil",
+        "description": "A rich, protective and controlling hair oil Developed with KeraShapeTechnology that actively interacts with hair's structure Contains precious Keratin and Silk Proteins to transform dry and damaged hair.",
+        "imageUrl": "https://i.imgur.com/tgi9Ogq.jpg"
+    },
+    {
+        "name": "SuperPlump Thickening Blow Dry Spray",
+        "brand": "Colorproof",
+        "type": "Volumizer & Hair Spray",
+        "description": "Amp up fine hair with this heat-activated, body builder that weightlessly plumps each strand to expand volume and density while smoothing for touchably soft, noticeably thicker hair with color and heat protection.",
+        "imageUrl": "https://i.imgur.com/TBugKCL.jpg"
+    },
+    {
+        "name": "Prêt-à-Powder",
+        "brand": "Bumble and Bumble",
+        "type": "Volumizer",
+        "description": "Soft, fine dry shampoo powder that instantly absorbs oil and refreshes styles while adding texture and volume.",
+        "imageUrl": "https://i.imgur.com/q4wM7Cu.jpg"
+    },
+    {
+        "name": "Aunt Jackie's Flaxseed Recipes Don't Shrink Elongating Hair Curling Gel",
+        "brand": "Aunt Jackie's",
+        "type": "Gel",
+        "description": "For Natural Curls, Coils and Waves, Helps Prevent Dryness and Flaking",
+        "imageUrl": "https://i.imgur.com/nhhMEi0.jpg"
+    }
+]
