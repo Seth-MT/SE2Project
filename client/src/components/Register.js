@@ -1,152 +1,208 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
+import { Formik } from "formik";
+import * as Yup from "yup";
+import { Nav } from "react-bootstrap";
 import { toast } from "react-toastify";
 
-const Register = ({ setAuth }) => {
-  const [inputs, setInputs] = useState({
-    firstName: "",
-    lastName: "",
-    userName: "",
-    email: "",
-    password: "",
-    confirmPass: "",
-  });
+const Register = ({ setAuth }) => (
+  <Formik
+    initialValues={{
+      firstName: "",
+      lastName: "",
+      userName: "",
+      email: "",
+      password: "",
+      confirmPass: "",
+    }}
+    onSubmit={async (values, { setSubmitting }) => {
+      try {
+        const res = await fetch("/auth/register", {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify(values),
+        });
 
-  const {
-    firstName,
-    lastName,
-    userName,
-    email,
-    password,
-    confirmPass,
-  } = inputs;
+        const parseRes = await res.json();
 
-  const onChange = (e) =>
-    setInputs({ ...inputs, [e.target.name]: e.target.value });
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const body = { firstName, lastName, userName, email, password };
-
-      //https://thehairthing.herokuapp.com/
-      const res = await fetch("/auth/register", {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify(body),
-      });
-
-      const parseRes = await res.json();
-
-      if (parseRes.token) {
-        localStorage.setItem("token", parseRes.token);
-        setAuth(true);
-        toast.sucess("Registered successfully");
-      } else {
-        setAuth(false);
-        toast.error(parseRes);
+        if (parseRes.token) {
+          localStorage.setItem("token", parseRes.token);
+          setAuth(true);
+          toast.sucess("Registered successfully");
+        } else {
+          setAuth(false);
+          toast.error(parseRes);
+        }
+      } catch (err) {
+        console.error(err.message);
       }
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
+    }}
+    validationSchema={Yup.object().shape({
+      email: Yup.string().email().required("Required"),
+      password: Yup.string()
+        .required("No password provided.")
+        .min(8, "Password is too short - 8 characters minimum.")
+        .matches(/(?=.*[0-9])/, "Password must contain a number."),
+      confirmPass: Yup.string()
+        .required("No password provided.")
+        .of([Yup.ref("password")], "Passwords must match"),
+    })}
+  >
+    {(props) => {
+      const {
+        values,
+        touched,
+        errors,
+        isSubmitting,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+      } = props;
 
-  return (
-    <Fragment>
-      <div className="content">
-        <div className="container-fluid">
-          <div className="calendar-main-panel">
-            <div className="row justify-content-md-center">
-              <div className="col-md-5 my-auto">
-                <div className="card register-card h-100">
-                  <div className="card-header">Register your account</div>
-                  <div className="card-body">
-                    <form onSubmit={onSubmit}>
-                      <div class="form-group">
-                        <label for="firstName">First Name</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="firstName"
-                          placeholder="First Name"
-                          value={firstName}
-                          onChange={(e) => onChange(e)}
-                          required
-                        ></input>
+      return (
+        <Fragment>
+          <div className="content">
+            <div className="container-fluid">
+              <div className="calendar-main-panel">
+                <div className="row justify-content-md-center">
+                  <div className="col-md-5 my-auto">
+                    <div className="card register-card h-100">
+                      <div className="card-header">Register your account</div>
+                      <div className="card-body">
+                        <form onSubmit={handleSubmit}>
+                          <div className="form-group">
+                            <label htmlFor="firstName">First Name</label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="firstName"
+                              placeholder="First Name"
+                              value={values.firstName}
+                              onChange={handleChange}
+                              required
+                            ></input>
+                          </div>
+                          <div className="form-group">
+                            <label htmlFor="lastName">Last Name</label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="lastName"
+                              placeholder="Last Name"
+                              required
+                              value={values.lastName}
+                              onChange={handleChange}
+                            ></input>
+                          </div>
+                          <div className="form-group">
+                            <label htmlFor="userName">Username</label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="userName"
+                              placeholder="Username"
+                              required
+                              onChange={handleChange}
+                              value={values.userName}
+                            ></input>
+                          </div>
+                          <div className="form-group">
+                            <label htmlFor="email">Email address</label>
+                            <input
+                              type="email"
+                              className={
+                                (errors.email, touched.email, "form-control")
+                              }
+                              name="email"
+                              aria-describedby="emailHelp"
+                              placeholder="Email address"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.email}
+                            ></input>
+                            {errors.email && touched.email && (
+                              <div
+                                className="input-feedback"
+                                style={{ color: "red" }}
+                              >
+                                {errors.email}
+                              </div>
+                            )}
+                          </div>
+                          <div className="form-group">
+                            <label htmlFor="password">Password</label>
+                            <input
+                              type="password"
+                              className={
+                                (errors.password,
+                                touched.password,
+                                "form-control")
+                              }
+                              name="password"
+                              placeholder="Password"
+                              autoComplete="on"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.password}
+                            ></input>
+                            {errors.password && touched.password && (
+                              <div
+                                className="input-feedback"
+                                style={{ color: "red" }}
+                              >
+                                {errors.password}
+                              </div>
+                            )}
+                          </div>
+                          <div className="form-group">
+                            <label htmlFor="confirmPass">
+                              Confirm Password
+                            </label>
+                            <input
+                              type="password"
+                              className={
+                                (errors.confirmPass,
+                                touched.confirmPass,
+                                "form-control")
+                              }
+                              name="confirmPass"
+                              placeholder="Confirm Password"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.confirmPass}
+                            ></input>
+                            {errors.confirmPass && touched.confirmPass && (
+                              <div
+                                className="input-feedback"
+                                style={{ color: "red" }}
+                              >
+                                {errors.confirmPass}
+                              </div>
+                            )}
+                          </div>
+                          <button
+                            type="submit"
+                            className="btn btn-primary"
+                            disabled={isSubmitting}
+                          >
+                            Submit
+                          </button>
+                        </form>
                       </div>
-                      <div class="form-group">
-                        <label for="lastName">Last Name</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="lastName"
-                          placeholder="Last Name"
-                          required
-                          value={lastName}
-                          onChange={(e) => onChange(e)}
-                        ></input>
+                      <div className="card-footer">
+                        <Nav.Link href="login">
+                          Already have an account? Login here!
+                        </Nav.Link>
                       </div>
-                      <div class="form-group">
-                        <label for="userName">Username</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="userName"
-                          placeholder="Username"
-                          required
-                          value={userName}
-                          onChange={(e) => onChange(e)}
-                        ></input>
-                      </div>
-                      <div class="form-group">
-                        <label for="email">Email address</label>
-                        <input
-                          type="email"
-                          class="form-control"
-                          name="email"
-                          aria-describedby="emailHelp"
-                          placeholder="Email address"
-                          required
-                          onChange={(e) => onChange(e)}
-                          value={email}
-                        ></input>
-                      </div>
-                      <div class="form-group">
-                        <label for="password">Password</label>
-                        <input
-                          type="password"
-                          class="form-control"
-                          name="password"
-                          placeholder="Password"
-                          required
-                          value={password}
-                          onChange={(e) => onChange(e)}
-                        ></input>
-                      </div>
-                      <div class="form-group">
-                        <label for="confirmPass">Confirm Password</label>
-                        <input
-                          type="password"
-                          class="form-control"
-                          name="confirmPass"
-                          placeholder="Confirm Password"
-                          required
-                          value={confirmPass}
-                          onChange={(e) => onChange(e)}
-                        ></input>
-                      </div>
-                      <button type="submit" class="btn btn-primary">
-                        Submit
-                      </button>
-                    </form>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </Fragment>
-  );
-};
+        </Fragment>
+      );
+    }}
+  </Formik>
+);
 
 export default Register;

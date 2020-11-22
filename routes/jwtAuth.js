@@ -32,6 +32,8 @@ router.post("/register", async (req, res) => {
       userName,
       email,
       password: bcryptPassword,
+      profileImage:
+        "https://www.searchpng.com/wp-content/uploads/2019/02/Profile-ICon.png",
     });
 
     //creating jwt token

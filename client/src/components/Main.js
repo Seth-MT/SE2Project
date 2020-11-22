@@ -10,7 +10,7 @@ import Profile from "./Profile";
 
 toast.configure();
 
-function Main() {
+function Main({ setUser }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const setAuth = (boolean) => {
@@ -27,6 +27,8 @@ function Main() {
       const parseRes = await res.json();
 
       parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
+
+      setUser(isAuthenticated);
     } catch (err) {
       console.error(err.message);
     }
