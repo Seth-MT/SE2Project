@@ -7,6 +7,7 @@ import Home from "./Home";
 import Register from "./Register";
 import Login from "./Login";
 import Profile from "./Profile";
+import FormPage from "./FormPage";
 
 toast.configure();
 
@@ -42,6 +43,7 @@ function Main() {
   return (
     <div className="main-panel">
       <Switch>
+        <Route path="/form" component={FormPage} />
         <Route path="./" component={Home} />
         <Route path="/calendar" component={CalendarPage} />
         <Route
