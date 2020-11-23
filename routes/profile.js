@@ -29,14 +29,23 @@ router.get("/all", async(req, res) => {
 })
 
 // update user info
-router.get("/edit/:id", async(req, res) => {
+router.put("/edit/:id", async(req, res) => {
   try {
+    const { dateOfBirth, sex, hairType, hairLength, bleach, coloring } = req.body;
+
     const user = await User.findOne({
       where: {
         id: req.params.id
       }
-    })
-    user.sex = "Male";
+    });
+
+    user.dateOfBirth = dateOfBirth;
+    user.sex = sex;
+    user.hairType = hairType;
+    user.hairLength = hairLength;
+    user.bleach = bleach;
+    user.coloring = coloring;
+
     await user.save();
     res.json(user);
   }
