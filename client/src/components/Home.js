@@ -1,42 +1,46 @@
-
 import React, {Component} from "react";
 import {Fragment} from "react"
+import { Fade } from 'react-slideshow-image';
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
+import '../App.css';
 
 
-const slideImages = ['https://www.lifewire.com/thmb/_Kwbk6Eien6Bn0Kr1FM1NKvA6pQ=/1002x564/smart/filters:no_upscale()/jpg-files-591e000b5f9b58f4c0912446.png',
+
+const sliderimages = [
 'https://cdn.shopify.com/s/files/1/0066/0052/files/How_to_take_care_of_long_hair_-_Luxy_Hair_Blog_grande.jpg?v=1484343521', 
 'https://post.healthline.com/wp-content/uploads/2019/09/girl-covering-her-face-with-her-hair-732x549-thumbnail.jpg'
 
 ];
- 
+
 
 class Home extends Component {
   render() {
     return( 
       <Fragment>
-      <h1>Welcome to the Hair Thing</h1>
-      <div className="slide-container">
-        <Slide>
-          <div className="each-slide">
-            <div style={{'backgroundImage': `url(${slideImages[0]})`}}>
-              <span>Slide 1</span>
-            </div>
+        
+        <h1 style={{backgroundColor: "lightblue"}}>Welcome to Hair Stylers(heading goes on first image)</h1>
+        <p>CSS needs to be put into the homepage</p>
+
+        <div className="slide-container">
+          
+          <Fade>
+           {sliderimages.map((each, index) => <img key={index} style={{height: "200px", width: "100%"}} src={each}/>)}
+          </Fade>
+
+        </div>
+        
+        <div>
+
+          <div>
+            <p style={{backgroundColor: "white"}}></p>
+            <h3 style={{backgroundColor: "lightblue"}}>Featured Products</h3>
           </div>
-          <div className="each-slide">
-            <div style={{'backgroundImage': `url(${slideImages[1]})`}}>
-              <span>Slide 2</span>
-            </div>
-          </div>
-          <div className="each-slide">
-            <div style={{'backgroundImage': `url(${slideImages[2]})`}}>
-              <span>Slide 3</span>
-            </div>
-          </div>
-        </Slide>
-      </div>
+
+          
+          
+        </div>
+      
       </Fragment>
     
     )
