@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -22,6 +23,7 @@
     "path": "^0.12.7",
     "pg": "^8.4.2",
     "pg-hstore": "^2.3.3",
+    "react-slideshow-image": "^3.3.2",
     "sequelize": "^6.3.5"
   }
 }

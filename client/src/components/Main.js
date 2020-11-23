@@ -7,6 +7,7 @@ import Home from "./Home";
 import Register from "./Register";
 import Login from "./Login";
 import Profile from "./Profile";
+import PageNotFound from "./PageNotFound.js";
 
 toast.configure();
 
@@ -42,7 +43,7 @@ function Main() {
   return (
     <div className="main-panel">
       <Switch>
-        <Route path="./" component={Home} />
+        <Route exact path="/" component={Home} />
         <Route path="/calendar" component={CalendarPage} />
         <Route
           exact path="/register"
@@ -74,6 +75,7 @@ function Main() {
             )
           }
         />
+        <Route component= {PageNotFound} />
         <Redirect from="*" to="/" />
       </Switch>
     </div>
