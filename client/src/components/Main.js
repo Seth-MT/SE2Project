@@ -10,7 +10,7 @@ import Profile from "./Profile";
 
 toast.configure();
 
-function Main() {
+function Main({ setUser }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const setAuth = (boolean) => {
@@ -19,17 +19,16 @@ function Main() {
 
   async function isAuth() {
     try {
-      const res = await fetch(
-        "/auth/is-verify",
-        {
-          method: "GET",
-          headers: { token: localStorage.token },
-        }
-      );
+      const res = await fetch("/auth/is-verify", {
+        method: "GET",
+        headers: { token: localStorage.token },
+      });
 
       const parseRes = await res.json();
 
       parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
+
+      setUser(isAuthenticated);
     } catch (err) {
       console.error(err.message);
     }
@@ -45,7 +44,8 @@ function Main() {
         <Route path="./" component={Home} />
         <Route path="/calendar" component={CalendarPage} />
         <Route
-          exact path="/register"
+          exact
+          path="/register"
           render={(props) =>
             !isAuthenticated ? (
               <Register {...props} setAuth={setAuth} />
@@ -55,7 +55,8 @@ function Main() {
           }
         />
         <Route
-          exact path="/login"
+          exact
+          path="/login"
           render={(props) =>
             !isAuthenticated ? (
               <Login {...props} setAuth={setAuth} />
@@ -65,7 +66,8 @@ function Main() {
           }
         />
         <Route
-          exact path="/profile"
+          exact
+          path="/profile"
           render={(props) =>
             isAuthenticated ? (
               <Profile {...props} setAuth={setAuth} />
