@@ -2,31 +2,8 @@ const router = require("express").Router();
 const db = require("../db");
 const User = require("../models/User");
 const authorization = require("../middleware/authorization");
-const multer = require("multer");
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./uploads/profile");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + file.originalname);
-  },
-});
-
-const fileFilter = (req, file, cb) => {
-  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
-    cb(null, true);
-  } else {
-    cb(null, false);
-  }
-};
-
-const upload = multer({
-  storage: storage,
-  limits: { fileSize: 1024 * 1024 * 5 },
-  fileFilter: fileFilter,
-});
-
+//Return username and profile image to profile
 router.post("/", authorization, async (req, res) => {
   try {
     const user = await User.findOne({
@@ -41,27 +18,50 @@ router.post("/", authorization, async (req, res) => {
   }
 });
 
-router.put(
-  `/icon`,
-  authorization,
-  upload.single("profileImage"),
-  async (req, res) => {
-    try {
-      const user = await User.findOne({ where: { id: `${req.user}` } });
-      const img =
-        // http://localhost:5000/
-        "https://thehairthing.herokuapp.com/" +
-        req.file.path.replace("uploads\\profile\\", "");
-      user.profileImage = img;
-      await user.save();
+//Update profile image and username
+router.put("/update", authorization, async (req, res) => {
+  try {
+    const { profileImage, newName } = req.body;
 
-      res.status(200).json("File uploaded successfully!");
-    } catch (err) {
-      console.error(err.message);
-      res.status(400).json("Please upload jpeg or png");
+    const user = await User.findOne({ where: { id: `${req.user}` } });
+
+    if (newName != user.userName) {
+      user.userName = newName;
+      await user.save();
     }
+
+    if (profileImage) {
+      user.profileImage = profileImage;
+      await user.save();
+    }
+    res.status(200).json("File uploaded successfully!");
+  } catch (err) {
+    console.error(err.message);
+    res.status(400).json("Server Error");
   }
-);
+});
+
+//Check if user exists
+router.post("/userExists", authorization, async (req, res) => {
+  try {
+    const { newName } = req.body;
+    //Find original user
+    const originalUser = await User.findOne({ where: { id: `${req.user}` } });
+
+    //check if user exists
+    const user = await User.findOne({ where: { userName: newName } });
+
+    if (user != null && originalUser.userName === newName) {
+      res.status(200).json("No change");
+    } else if (user != null) {
+      return res.status(200).json("User already exists");
+    } else if (user === null) {
+      return res.status(200).json("Name available!");
+    }
+  } catch (err) {
+    console.error(err.message);
+  }
+});
 
 // get all users
 router.get("/all", async (req, res) => {

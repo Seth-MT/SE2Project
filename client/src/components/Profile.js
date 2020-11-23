@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
 
 import { Container, Row, Col, Image, Button, Modal } from "react-bootstrap";
@@ -7,28 +6,32 @@ import { Container, Row, Col, Image, Button, Modal } from "react-bootstrap";
 const Profile = ({ setAuth }) => {
   const [name, setName] = useState("");
   const [profileImage, setImage] = useState("");
+  const [newName, setNewName] = useState("");
+  const [loading, setLoading] = useState(false);
   const [show, setModal] = useState(false);
-  const [selectedFile, setFile] = useState(null);
+  const [inputStatus, setStatus] = useState("");
 
-  const handleModal = () => {
-    setModal(!show);
-  };
+  //Get username and profile image
+  useEffect(() => {
+    async function getProfile() {
+      try {
+        const res = await fetch("/profile/", {
+          method: "POST",
+          headers: { token: localStorage.token },
+        });
 
-  const getProfile = async () => {
-    try {
-      const res = await fetch("/profile/", {
-        method: "POST",
-        headers: { token: localStorage.token },
-      });
-
-      const parseData = await res.json();
-      setName(parseData.userName);
-      setImage(parseData.profileImage);
-    } catch (err) {
-      console.error(err.message);
+        const parseData = await res.json();
+        setName(parseData.userName);
+        setImage(parseData.profileImage);
+      } catch (err) {
+        console.error(err.message);
+      }
     }
-  };
 
+    getProfile();
+  }, [name, profileImage]);
+
+  //Logout user
   const logout = async (e) => {
     e.preventDefault();
     try {
@@ -40,33 +43,103 @@ const Profile = ({ setAuth }) => {
     }
   };
 
-  useEffect(() => {
-    getProfile();
-  }, []);
+  //Send uploaded image to Cloudinary
+  const fileSelectedHandler = async (e) => {
+    const files = e.target.files;
+    const fd = new FormData();
 
-  const fileSelectedHandler = (event) => {
-    setFile(event.target.files[0]);
+    fd.append("file", files[0]);
+
+    //Cloudinary upload preset
+    fd.append("upload_preset", "se2project");
+
+    setLoading(true);
+
+    const res = await fetch(
+      "https://api.cloudinary.com/v1_1/dtqlgbedo/image/upload",
+      {
+        method: "POST",
+        body: fd,
+      }
+    );
+
+    const file = await res.json();
+    console.log(file.secure_url);
+
+    //Change profile image to file uploaded
+    setImage(file.secure_url);
+    setLoading(false);
   };
 
-  const headers = { token: localStorage.token };
+  //Send updated profile name and profile picture to backend server
+  const fileUploadHandler = async () => {
+    try {
+      const body = { profileImage, newName };
 
-  const fileUploadHandler = () => {
-    const fd = new FormData();
-    fd.append("profileImage", selectedFile, selectedFile.name);
-
-    axios
-      .put("/profile/icon", fd, {
-        headers: headers,
-      })
-      .then((res) => {
-        const imageUploaded = res.data;
-        console.log(res);
-        toast.success(imageUploaded);
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.log(error);
+      const res = await fetch("/profile/update", {
+        method: "PUT",
+        headers: {
+          token: localStorage.token,
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(body),
       });
+
+      const uploadStatus = await res.json();
+      toast.success(uploadStatus, {
+        position: "top-right",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        onClose: () => window.location.reload(),
+      });
+    } catch (err) {
+      console.error(err);
+      toast.error("Error updating profile");
+    }
+  };
+
+  //When newName state is updated then post to backend server to check if name is available
+  useEffect(() => {
+    const inputSubmitter = async () => {
+      try {
+        if (newName) {
+          const body = { newName };
+          const status = await fetch("/profile/userExists", {
+            method: "POST",
+            headers: {
+              token: localStorage.token,
+              "Content-type": "application/json",
+            },
+            body: JSON.stringify(body),
+          });
+
+          const parseMessage = await status.json();
+          console.log(parseMessage);
+          setStatus(parseMessage);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    inputSubmitter();
+  }, [newName]);
+
+  //Set newName state to the value entered by user
+  const inputHandler = async (e) => {
+    try {
+      setNewName(e.target.value);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  //Toggle modal
+  const handleModal = () => {
+    setModal(!show);
   };
 
   return (
@@ -75,12 +148,12 @@ const Profile = ({ setAuth }) => {
       <Container>
         <Row className="align-items-center">
           <div className="col-md2 text-center">
-            <Image
+            <img
+              id="image"
               src={profileImage}
-              roundedCircle
-              width={171}
-              height={180}
-              alt="Profile Image"
+              width="171"
+              height="180"
+              alt="loading img"
             />
           </div>
           <Col>
@@ -109,13 +182,17 @@ const Profile = ({ setAuth }) => {
               <Container>
                 <div className="row">
                   <div className="col-md3 text-center">
-                    <Image
-                      src={profileImage}
-                      roundedCircle
-                      width={101}
-                      height={110}
-                      alt="Profile Image"
-                    />
+                    {loading ? (
+                      <h5>Loading...</h5>
+                    ) : (
+                      <Image
+                        src={profileImage}
+                        roundedCircle
+                        width={101}
+                        height={110}
+                        alt="Profile Image"
+                      />
+                    )}
                   </div>
 
                   <div className="col-md-auto">
@@ -123,12 +200,27 @@ const Profile = ({ setAuth }) => {
                       type="text"
                       className="form-control"
                       defaultValue={name}
-                      disabled
+                      onChange={(e) => inputHandler(e)}
                     />
-                    <input
-                      type="file"
-                      onChange={(e) => fileSelectedHandler(e)}
-                    />
+                    {
+                      //Check if username available
+                      inputStatus === "User already exists" ? (
+                        <div style={{ color: "red" }}> {inputStatus} </div>
+                      ) : inputStatus === "No change" ? (
+                        <div></div>
+                      ) : inputStatus === "Name available!" ? (
+                        <div style={{ color: "green" }}> {inputStatus} </div>
+                      ) : (
+                        <div></div>
+                      )
+                    }
+                    <div>
+                      <input
+                        name="file"
+                        type="file"
+                        onChange={fileSelectedHandler}
+                      />
+                    </div>
                   </div>
                 </div>
               </Container>
@@ -139,7 +231,11 @@ const Profile = ({ setAuth }) => {
               <Button variant="secondary" onClick={() => handleModal()}>
                 Close
               </Button>
-              <Button variant="primary" onClick={(e) => fileUploadHandler(e)}>
+              <Button
+                variant="primary"
+                onClick={(e) => fileUploadHandler(e)}
+                disabled={loading}
+              >
                 Save Changes
               </Button>
             </Modal.Footer>

@@ -16,8 +16,6 @@ const Product = require("./models/Product");
 // app connection and resources sharing setup
 app.use(cors());
 app.use(express.json()); //req.body
-// app.use("/uploads/profile", express.static("uploads/profile"));
-app.use(express.static("uploads/profile"));
 
 // if in production (deployment), changes main client path to build
 if (process.env.NODE_ENV === "production") {

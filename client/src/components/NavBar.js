@@ -37,8 +37,8 @@ const NavBar = ({ user }) => {
       <Image
         src={profileImage}
         roundedCircle
-        width={15}
-        height={24}
+        width={20}
+        height={29}
         alt="Profile Image"
       />{" "}
       {name}{" "}

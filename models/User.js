@@ -25,7 +25,7 @@ const User = db.define("user", {
   },
   profileImage: {
     allowNull: true,
-    type: Sequelize.STRING,
+    type: Sequelize.BLOB("long"),
   },
   dateOfBirth: {
     allowNull: true,

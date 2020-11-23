@@ -44,7 +44,7 @@ const Register = ({ setAuth }) => (
         .matches(/(?=.*[0-9])/, "Password must contain a number."),
       confirmPass: Yup.string()
         .required("No password provided.")
-        .of([Yup.ref("password")], "Passwords must match"),
+        .oneOf([Yup.ref("password")], "Passwords must match"),
     })}
   >
     {(props) => {
