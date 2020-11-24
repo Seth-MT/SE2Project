@@ -1,110 +1,226 @@
-import React, {Component} from "react";
-import {Fragment} from "react"
-import { Fade } from 'react-slideshow-image';
+//React 
+import React, {Component, Fragment, useState} from "react";
 
+//React-bootstrap & bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
-import 'react-slideshow-image/dist/styles.css';
-import '../App.css';
-
-/*NEEDS TO SEGREGRATE EACH PART INTO THEIR LITTLE BORDER BOXES
-USING HTML, CSS, ETC. */
-
-
-var sliderimages = [
-'https://cdn.shopify.com/s/files/1/0066/0052/files/How_to_take_care_of_long_hair_-_Luxy_Hair_Blog_grande.jpg?v=1484343521', 
-'https://post.healthline.com/wp-content/uploads/2019/09/girl-covering-her-face-with-her-hair-732x549-thumbnail.jpg'
-];
-
-var hairstyles = [
-  'https://www.biography.com/.image/t_share/MTUzMDQ5MDQ5NDIxODQ5NjA3/cardi-b-arrives-at-the-2017-mtv-video-music-awards-at-the-forum-on-august-27-2017-in-inglewood-california-photo-by-gregg-deguire_getty-images-500.jpg'
-];
-
-
-var shampoo = [
-  "https://www.amazon.com/Nizoral-Anti-Dandruff-Shampoo-Ketoconazole-Dandruff/dp/B00AINMFAC/ref=zg_bs_11057651_1/134-2332473-2902366?_encoding=UTF8&psc=1&refRID=Q6AZ1NJZBXMNE68ZVGVQ",
-  "https://images-na.ssl-images-amazon.com/images/I/81kbcbJ4i9L._AC_UL200_SR200,200_.jpg"
- ];
-
-var conditioner = [
-  "https://www.amazon.com/Olaplex-No-5-Bond-Maintenance-Conditioner/dp/B07D37SBHF/ref=zg_bs_11057251_3?_encoding=UTF8&psc=1&refRID=6FAQDVBV2NRS3AVGPQPP",
-  "https://images-na.ssl-images-amazon.com/images/I/713hHlHMA%2BL._AC_UL200_SR200,200_.jpg"
-];
-
-class Home extends Component {
-  render() {
-    return( 
-      <Fragment>
-        
-        <h1 style={{backgroundColor: "lightblue"}}>Welcome to Hair Stylers</h1>
-        <p style={{backgroundColor: "white"}}>Check Matthew's Layout. HTML,CSS needs to be put into the homepage.
-          New/relevant images need be populated on the page. Borderboxes to separate each component with CSS (Featured Products, Hairstyles, etc). Calender needs to be added.</p>
-        
-          <div className="slide-container">
-            
-            <Fade>
-            {sliderimages.map((each, index) => <img key={index} style={{height: "200px", width: "100%"}} 
-            alt={"Curl girl"} src={each}/>)}
-            </Fade>
-
-          </div>
-        
-        
-          <div>
-            <p style={{backgroundColor: "white"}}></p>
-            <h3 style={{backgroundColor: "lightblue"}}>Featured Hairstyles</h3>
-            <p style={{backgroundColor: "white"}}></p>
-          </div>
-
-          <div>
-           <p>Gucci Gucci Hairstyles Bling bling 🤣</p>        
-           <a href= {'https://www.youtube.com/watch?v=XmXnO3tpNEo'}>
-             <img style={{width:"200px" , height:"200px"}} alt="Cardi b Hairstyle" src={hairstyles[0]} />
-             Cardi B does what to her hair? 😲😮😯
-           </a>
+import Card from 'react-bootstrap/Card';
+import CardDeck from 'react-bootstrap/CardDeck'
+import Carousel from 'react-bootstrap/Carousel';
+import Button from 'react-bootstrap/Button';
 
 
 
-          <div>
-            <p style={{backgroundColor: "white"}}></p>
-            <h3 style={{backgroundColor: "lightblue"}}>Featured Products</h3>
-            <p style={{backgroundColor: "white"}}></p>
-          </div>
 
-          <div>
-           <p>Shampoo</p>        
-           <a href= {shampoo[0]}>
-             <img style={{width:"100px" , height:"100px"}} alt="Nizoral Shampoo" src={shampoo[1]} />
-             Nizoral Shampoo
-           </a>
+//Function for Carousel at the top of page
+//Currently only contains placeholder text and images
+function WelcomeCarousel() {
+  const [index, setIndex] = useState(0);
 
-           <p> Conditioner</p>
-           <a href= {conditioner[0]}>
-             <img style={{width:"100px" , height:"100px"}} alt="Olaplex Conditioner" src={conditioner[1]} />
-             Olaplex No.5 Bond Maintenance Conditioner
-           </a>
-          </div> 
+  const handleSelect = (selectedIndex, e) => {
+    setIndex(selectedIndex);
+  };
 
-          <div>
-            <p style={{backgroundColor: "white"}}></p>
-            <h3 style={{backgroundColor: "lightblue"}}>Other Hair Stuff</h3>
-            <p style={{backgroundColor: "white"}}></p>
-          </div>
+  return (
+    <Carousel activeIndex={index} onSelect={handleSelect}>
+      <Carousel.Item>
+        <img
+          width={400} height={350} 
+          className="a-block w-100"
+          src="https://peacemakersnetwork.org/wp-content/uploads/2019/09/placeholder.jpg"
+          alt="First slide"
+        />
+        <Carousel.Caption>
+          <h1><a href=''>Welcome to Hair Stylers</a></h1>
+          <p>Description here.</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item>
+        <img
+          width={400} height={350} 
+          className="d-block w-100"
+          src="https://peacemakersnetwork.org/wp-content/uploads/2019/09/placeholder.jpg"
+          alt="Second slide"
+        />
 
-          <div>
-            <p style={{backgroundColor: "white"}}></p>
-            <h3 style={{backgroundColor: "pink"}}>Calendar</h3>
-            <p style={{backgroundColor: "white"}}></p>
-          </div>
+        <Carousel.Caption>
+          <h3><a href=''>Second slide label</a></h3>
+          <p>Description here.</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item>
+        <img
+          width={400} height={350} 
+          className="d-block w-100"
+          src="https://peacemakersnetwork.org/wp-content/uploads/2019/09/placeholder.jpg"
+          alt="Third slide"
+        />
 
-        </div>
-      
-      </Fragment>
-    
-    )
-  }
+        <Carousel.Caption>
+          <h3><a href=''>Third slide label</a></h3>
+          <p>Description here.</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item>
+        <img
+          width={400} height={350} 
+          className="d-block w-100"
+          src="https://peacemakersnetwork.org/wp-content/uploads/2019/09/placeholder.jpg"
+          alt="Third slide"
+        />
+
+        <Carousel.Caption>
+          <h3><a href=''>Fourth slide label</a></h3>
+          <p>Description here.</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+    </Carousel>
+  );
+}
+
+//function for Featured Hairstyles at top of page
+function FeaturedHairStyle(){
+  return (
+    <Card 
+      border='light' 
+      style={{ width: '18rem' }}
+      text='light'
+      bg='dark'>
+      <Card.Header>Featured Hairstyle</Card.Header>
+      <Card.Img variant="top" src="https://breakthrough.org/wp-content/uploads/2018/10/default-placeholder-image.png"
+       height={200} width={100} />
+      <Card.Body>
+        <Card.Title><a href=''>Featured Hairstyle Name</a></Card.Title>
+        <Card.Text>
+          
+        </Card.Text>
+        <Button variant="dark" variant="outline-light">Check it out</Button>
+      </Card.Body>
+    </Card>
+  );
+}
+
+//function for Featured Products
+function FeaturedProducts(){
+  return (
+    <CardDeck>
+      <Card 
+        border='light' 
+        style={{ width: '18rem' }}
+        text='light'
+        bg='dark'>
+        <Card.Header>Shampoo</Card.Header>
+        <Card.Img variant="top" src="https://breakthrough.org/wp-content/uploads/2018/10/default-placeholder-image.png"
+        height={200} width={200} />
+        <Card.Body>
+          <Card.Title><a href=''>Shampoo Name</a></Card.Title>
+          <Card.Text>
+            Description here.
+          </Card.Text>
+          <Button variant="dark" variant="outline-light">Check it out</Button>
+        </Card.Body>
+      </Card>
+      <Card 
+        border='light' 
+        style={{ width: '18rem' }}
+        text='light'
+        bg='dark'>
+        <Card.Header>Conditioner</Card.Header>
+        <Card.Img variant="top" src="https://breakthrough.org/wp-content/uploads/2018/10/default-placeholder-image.png"
+        height={200} width={200} />
+        <Card.Body>
+          <Card.Title><a href=''>Conditioner Name</a></Card.Title>
+          <Card.Text>
+            Description here.
+          </Card.Text>
+          <Button variant="dark" variant="outline-light">Check it out</Button>
+        </Card.Body>
+      </Card>
+      <Card 
+        border='light' 
+        style={{ width: '18rem' }}
+        text='light'
+        bg='dark'>
+        <Card.Header>Hair Dyes</Card.Header>
+        <Card.Img variant="top" src="https://breakthrough.org/wp-content/uploads/2018/10/default-placeholder-image.png"
+        height={200} width={200} />
+        <Card.Body>
+          <Card.Title><a href=''>Dye Name/Brand</a></Card.Title>
+          <Card.Text>
+            Description here.
+          </Card.Text>
+          <Button variant="dark" variant="outline-light">Check it out</Button>
+        </Card.Body>
+      </Card>
+    </CardDeck>
+  );
+}
+
+//placeholder for Matthew's Calendar
+function CalendarPlaceholder(){
+
+  return(
+    <Card 
+        border='light' 
+        style={{ width: '18rem' }}
+        text='light'
+        bg='dark'>
+        <Card.Header>Calendar</Card.Header>
+        <Card.Body>
+          <Card.Title>
+           Calendar Contents go here
+          </Card.Title>
+        </Card.Body>
+      </Card>
+
+  )
 }
 
 
+class Home extends Component {
+  render() {
 
+    return( 
+      <Fragment>
+      <div class="container-fluid home-page-background">
 
-export default Home;
+        <div class="container">
+          <div class="row">
+           <div class="col-md-8">
+             <p></p>
+             <WelcomeCarousel/>
+           </div>
+           <div class="col-md-4">
+             <p></p>
+             <FeaturedHairStyle/>
+           </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8 products-row-size products-row-background-colour">
+              <h5>Featured Products</h5>
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="row">
+            <div class="col-md-7">
+              <FeaturedProducts/>
+            </div>
+            <div class="col-md-4 offset-1">
+              <CalendarPlaceholder/>
+            </div>
+          </div>
+        </div>
+        
+      
+        
+      </div>
+      </Fragment>
+    )
+  }
+}
+  
+  export default Home;
