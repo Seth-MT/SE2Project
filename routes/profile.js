@@ -75,34 +75,16 @@ router.get("/all", async (req, res) => {
 });
 
 // update user info
-<<<<<<< HEAD
-router.put("/edit/:id", async(req, res) => {
-=======
 router.get("/edit/:id", async (req, res) => {
->>>>>>> master
   try {
     const { dateOfBirth, sex, hairType, hairLength, bleach, coloring } = req.body;
 
     const user = await User.findOne({
       where: {
-<<<<<<< HEAD
-        id: req.params.id
-      }
-    });
-
-    user.dateOfBirth = dateOfBirth;
-    user.sex = sex;
-    user.hairType = hairType;
-    user.hairLength = hairLength;
-    user.bleach = bleach;
-    user.coloring = coloring;
-
-=======
         id: req.params.id,
       },
     });
     user.sex = "Male";
->>>>>>> master
     await user.save();
     res.json(user);
   } catch (error) {

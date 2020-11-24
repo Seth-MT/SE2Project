@@ -7,11 +7,7 @@ import Home from "./Home";
 import Register from "./Register";
 import Login from "./Login";
 import Profile from "./Profile";
-<<<<<<< HEAD
-import FormPage from "./FormPage";
-=======
 import PageNotFound from "./PageNotFound.js";
->>>>>>> master
 
 toast.configure();
 
@@ -46,12 +42,7 @@ function Main({ setUser }) {
   return (
     <div className="main-panel">
       <Switch>
-<<<<<<< HEAD
-        <Route path="/edit" component={FormPage} />
-        <Route path="./" component={Home} />
-=======
         <Route exact path="/" component={Home} />
->>>>>>> master
         <Route path="/calendar" component={CalendarPage} />
         <Route
           exact
