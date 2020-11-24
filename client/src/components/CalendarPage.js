@@ -250,4 +250,4 @@ class CalendarPage extends Component {
     }
 }
 
-export default CalendarPage
+export default CalendarPage;
