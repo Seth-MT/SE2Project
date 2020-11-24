@@ -32,8 +32,6 @@ router.post("/register", async (req, res) => {
       userName,
       email,
       password: bcryptPassword,
-      profileImage:
-        "https://www.searchpng.com/wp-content/uploads/2019/02/Profile-ICon.png",
     });
 
     //creating jwt token
@@ -79,7 +77,7 @@ router.post("/login", async (req, res) => {
 router.get("/is-verify", authorization, async (req, res) => {
   try {
     res.json(true);
-  } catch (err) {
+  } catch (error) {
     console.error(err.message);
     res.status(500).send("Server Error");
   }

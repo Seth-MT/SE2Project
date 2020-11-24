@@ -22,11 +22,12 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "client/build")));
 }
 
+
 /* ROUTES */
 
 // test route - this route is just a way for me to check that the backend route is connected and functioning
-app.get("/", (req, res) => {
-  res.send("Test");
+app.get('/', (req, res) => {
+  res.send('Test');
 });
 
 /* User */
@@ -36,8 +37,11 @@ app.use("/auth", require("./routes/jwtAuth"));
 // profile route --- couldnt think of anything else with execlusive content on the fly
 app.use("/profile", require("./routes/profile"));
 
+
 /* Product */
-app.use("/products", require("./routes/productRouter"));
+// C.R.U.D. controller for products
+app.use("/product", require("./routes/productRouter"));
+
 
 // if a bad route is entered
 if (process.env.NODE_ENV === "production") {
@@ -49,6 +53,7 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.join(__dirname, "client/public/index.html"));
   });
 }
+
 
 app.listen(PORT, () => {
   console.log(`Server is starting on port ${PORT}`);

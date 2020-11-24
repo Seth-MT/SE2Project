@@ -51,27 +51,24 @@ const Login = ({ setAuth }) => {
                   <div className="card-header">Log In</div>
                   <div className="card-body">
                     <form onSubmit={onSubmit}>
-                      <div className="form-group">
-                        <label htmlFor="userName">Username</label>
+                      <div class="form-group">
+                        <label for="userName">Username</label>
                         <input
                           type="text"
-                          className="form-control"
+                          class="form-control"
                           name="userName"
                           placeholder="UserName"
-                          required
                           value={userName}
                           onChange={(e) => onChange(e)}
                         ></input>
                       </div>
-                      <div className="form-group">
-                        <label htmlFor="password">Password</label>
+                      <div class="form-group">
+                        <label for="password">Password</label>
                         <input
                           type="password"
-                          className="form-control"
+                          class="form-control"
                           name="password"
                           placeholder="Password"
-                          autoComplete="on"
-                          required
                           value={password}
                           onChange={(e) => onChange(e)}
                         ></input>

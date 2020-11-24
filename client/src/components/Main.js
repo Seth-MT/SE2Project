@@ -11,7 +11,7 @@ import PageNotFound from "./PageNotFound.js";
 
 toast.configure();
 
-function Main({ setUser }) {
+function Main() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const setAuth = (boolean) => {
@@ -20,16 +20,17 @@ function Main({ setUser }) {
 
   async function isAuth() {
     try {
-      const res = await fetch("/auth/is-verify", {
-        method: "GET",
-        headers: { token: localStorage.token },
-      });
+      const res = await fetch(
+        "/auth/is-verify",
+        {
+          method: "GET",
+          headers: { token: localStorage.token },
+        }
+      );
 
       const parseRes = await res.json();
 
       parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
-
-      setUser(isAuthenticated);
     } catch (err) {
       console.error(err.message);
     }
@@ -45,8 +46,7 @@ function Main({ setUser }) {
         <Route exact path="/" component={Home} />
         <Route path="/calendar" component={CalendarPage} />
         <Route
-          exact
-          path="/register"
+          exact path="/register"
           render={(props) =>
             !isAuthenticated ? (
               <Register {...props} setAuth={setAuth} />
@@ -56,8 +56,7 @@ function Main({ setUser }) {
           }
         />
         <Route
-          exact
-          path="/login"
+          exact path="/login"
           render={(props) =>
             !isAuthenticated ? (
               <Login {...props} setAuth={setAuth} />
@@ -67,8 +66,7 @@ function Main({ setUser }) {
           }
         />
         <Route
-          exact
-          path="/profile"
+          exact path="/profile"
           render={(props) =>
             isAuthenticated ? (
               <Profile {...props} setAuth={setAuth} />

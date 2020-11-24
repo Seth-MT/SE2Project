@@ -26,7 +26,7 @@ https://thehairthing.herokuapp.com/
 2. express
 3. cors
 4. jsonwebtoken
-5. bcrypt
+5. bccrypt
 6. sequelize
 7. dotenv
 8. pg
