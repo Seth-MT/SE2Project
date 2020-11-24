@@ -43,7 +43,7 @@ function Main() {
   return (
     <div className="main-panel">
       <Switch>
-        <Route path="/form" component={FormPage} />
+        <Route path="/edit" component={FormPage} />
         <Route path="./" component={Home} />
         <Route path="/calendar" component={CalendarPage} />
         <Route
