@@ -3,12 +3,11 @@ import React, {Component, Fragment, useState} from "react";
 
 //React-bootstrap & bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
+import Carousel from 'react-bootstrap/Carousel';
 import Card from 'react-bootstrap/Card';
 import CardDeck from 'react-bootstrap/CardDeck'
-import Carousel from 'react-bootstrap/Carousel';
 import Button from 'react-bootstrap/Button';
-
-
+import Alert from 'react-bootstrap/Alert'
 
 
 //Function for Carousel at the top of page
@@ -85,16 +84,17 @@ function FeaturedHairStyle(){
       style={{ width: '18rem' }}
       text='light'
       bg='dark'>
+
       <Card.Header>Featured Hairstyle</Card.Header>
+
       <Card.Img variant="top" src="https://breakthrough.org/wp-content/uploads/2018/10/default-placeholder-image.png"
        height={200} width={100} />
+
       <Card.Body>
-        <Card.Title><a href=''>Featured Hairstyle Name</a></Card.Title>
-        <Card.Text>
-          
-        </Card.Text>
+        <Card.Title><a href=''>Featured Hairstyle Name</a></Card.Title>       
         <Button variant="dark" variant="outline-light">Check it out</Button>
       </Card.Body>
+
     </Card>
   );
 }
@@ -155,6 +155,7 @@ function FeaturedProducts(){
   );
 }
 
+
 //placeholder for Matthew's Calendar
 function CalendarPlaceholder(){
 
@@ -172,6 +173,13 @@ function CalendarPlaceholder(){
         </Card.Body>
       </Card>
 
+  )
+}
+
+//place holder for newsfeed posts
+function Feed(){
+  return(
+    <Alert variant="danger">Nothing has been posted!</Alert>
   )
 }
 
@@ -212,6 +220,18 @@ class Home extends Component {
             <div class="col-md-4 offset-1">
               <CalendarPlaceholder/>
             </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8 products-row-size products-row-background-colour">
+              <h5>News Feed</h5>
+            </div>
+          </div>
+
+          <div class="row"> 
+            <Feed/>         
           </div>
         </div>
         
