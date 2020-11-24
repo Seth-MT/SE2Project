@@ -7,11 +7,15 @@ import Home from "./Home";
 import Register from "./Register";
 import Login from "./Login";
 import Profile from "./Profile";
+<<<<<<< HEAD
 import FormPage from "./FormPage";
+=======
+import PageNotFound from "./PageNotFound.js";
+>>>>>>> master
 
 toast.configure();
 
-function Main() {
+function Main({ setUser }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const setAuth = (boolean) => {
@@ -20,17 +24,16 @@ function Main() {
 
   async function isAuth() {
     try {
-      const res = await fetch(
-        "/auth/is-verify",
-        {
-          method: "GET",
-          headers: { token: localStorage.token },
-        }
-      );
+      const res = await fetch("/auth/is-verify", {
+        method: "GET",
+        headers: { token: localStorage.token },
+      });
 
       const parseRes = await res.json();
 
       parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
+
+      setUser(isAuthenticated);
     } catch (err) {
       console.error(err.message);
     }
@@ -43,11 +46,16 @@ function Main() {
   return (
     <div className="main-panel">
       <Switch>
+<<<<<<< HEAD
         <Route path="/edit" component={FormPage} />
         <Route path="./" component={Home} />
+=======
+        <Route exact path="/" component={Home} />
+>>>>>>> master
         <Route path="/calendar" component={CalendarPage} />
         <Route
-          exact path="/register"
+          exact
+          path="/register"
           render={(props) =>
             !isAuthenticated ? (
               <Register {...props} setAuth={setAuth} />
@@ -57,7 +65,8 @@ function Main() {
           }
         />
         <Route
-          exact path="/login"
+          exact
+          path="/login"
           render={(props) =>
             !isAuthenticated ? (
               <Login {...props} setAuth={setAuth} />
@@ -67,7 +76,8 @@ function Main() {
           }
         />
         <Route
-          exact path="/profile"
+          exact
+          path="/profile"
           render={(props) =>
             isAuthenticated ? (
               <Profile {...props} setAuth={setAuth} />
@@ -76,6 +86,7 @@ function Main() {
             )
           }
         />
+        <Route component= {PageNotFound} />
         <Redirect from="*" to="/" />
       </Switch>
     </div>

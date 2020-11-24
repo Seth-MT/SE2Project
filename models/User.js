@@ -3,12 +3,6 @@ const db = require("../db");
 
 // User
 const User = db.define("user", {
-  // id: {
-  //   allowNull: false,
-  //   autoIncremenet: true,
-  //   primaryKey: true,
-  //   type: Sequelize.Integer,
-  // },
   firstName: {
     allowNull: false,
     type: Sequelize.STRING,
@@ -35,29 +29,28 @@ const User = db.define("user", {
   },
   dateOfBirth: {
     allowNull: true,
-    type: Sequelize.DATEONLY
+    type: Sequelize.DATEONLY,
   },
   sex: {
     allowNull: true,
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   hairType: {
     allowNull: true,
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   hairLength: {
     allowNull: true,
-    type: Sequelize.FLOAT
+    type: Sequelize.FLOAT,
   },
   bleach: {
     allowNull: true,
-    type: Sequelize.BOOLEAN
+    type: Sequelize.BOOLEAN,
   },
   coloring: {
     allowNull: true,
-    type: Sequelize.BOOLEAN 
-  }
+    type: Sequelize.BOOLEAN,
+  },
 });
-
 
 module.exports = User;

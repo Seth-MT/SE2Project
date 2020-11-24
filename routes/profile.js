@@ -3,10 +3,11 @@ const db = require("../db");
 const User = require("../models/User");
 const authorization = require("../middleware/authorization");
 
+//Return username and profile image to profile
 router.post("/", authorization, async (req, res) => {
   try {
     const user = await User.findOne({
-      attributes: ["userName"],
+      attributes: ["userName", "profileImage"],
       where: { id: `${req.user}` },
     });
 
@@ -17,24 +18,74 @@ router.post("/", authorization, async (req, res) => {
   }
 });
 
-// get all users
-router.get("/all", async(req, res) => {
+//Update profile image and username
+router.put("/update", authorization, async (req, res) => {
   try {
-      const users = await User.findAll();
-      res.json(users);
-  } catch (error) {
-      console.error(error.message)
-      res.status(500).send("Server Error");
+    const { profileImage, newName } = req.body;
+
+    const user = await User.findOne({ where: { id: `${req.user}` } });
+
+    if (newName != user.userName) {
+      user.userName = newName;
+      await user.save();
+    }
+
+    if (profileImage) {
+      user.profileImage = profileImage;
+      await user.save();
+    }
+    res.status(200).json("File uploaded successfully!");
+  } catch (err) {
+    console.error(err.message);
+    res.status(400).json("Server Error");
   }
-})
+});
+
+//Check if user exists
+router.post("/userExists", authorization, async (req, res) => {
+  try {
+    const { newName } = req.body;
+    //Find original user
+    const originalUser = await User.findOne({ where: { id: `${req.user}` } });
+
+    //check if user exists
+    const user = await User.findOne({ where: { userName: newName } });
+
+    if (user != null && originalUser.userName === newName) {
+      res.status(200).json("No change");
+    } else if (user != null) {
+      return res.status(200).json("User already exists");
+    } else if (user === null) {
+      return res.status(200).json("Name available!");
+    }
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+// get all users
+router.get("/all", async (req, res) => {
+  try {
+    const users = await User.findAll();
+    res.json(users);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 // update user info
+<<<<<<< HEAD
 router.put("/edit/:id", async(req, res) => {
+=======
+router.get("/edit/:id", async (req, res) => {
+>>>>>>> master
   try {
     const { dateOfBirth, sex, hairType, hairLength, bleach, coloring } = req.body;
 
     const user = await User.findOne({
       where: {
+<<<<<<< HEAD
         id: req.params.id
       }
     });
@@ -46,14 +97,18 @@ router.put("/edit/:id", async(req, res) => {
     user.bleach = bleach;
     user.coloring = coloring;
 
+=======
+        id: req.params.id,
+      },
+    });
+    user.sex = "Male";
+>>>>>>> master
     await user.save();
     res.json(user);
-  }
-  catch (error){
+  } catch (error) {
     console.error(error.message);
     res.status(500).send("Server Error");
   }
 });
-
 
 module.exports = router;
