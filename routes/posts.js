@@ -3,10 +3,9 @@ const Post = require("../models/Post");
 const authorization = require("../middleware/authorization");
 
 //Return all posts created
-router.post("/", authorization, async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const posts = await Post.findAll();
-    console.log(posts);
     res.json(posts);
   } catch (err) {
     console.error(err.message);
@@ -18,7 +17,7 @@ router.post("/", authorization, async (req, res) => {
 router.post("/create", authorization, async (req, res) => {
   try {
     const { postTitle, postDescription, hairStyleImg } = req.body;
-    const post = await User.create({
+    const post = await Post.create({
       title: postTitle,
       description: postDescription,
       styleImgUrl: hairStyleImg,
