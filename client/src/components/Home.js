@@ -92,7 +92,9 @@ function FeaturedHairStyle(){
 
       <Card.Body>
         <Card.Title><a href=''>Featured Hairstyle Name</a></Card.Title>       
-        <Button variant="dark" variant="outline-light">Check it out</Button>
+        <Card.Text>
+          Description here.
+        </Card.Text>
       </Card.Body>
 
     </Card>
@@ -116,7 +118,7 @@ function FeaturedProducts(){
           <Card.Text>
             Description here.
           </Card.Text>
-          <Button variant="dark" variant="outline-light">Check it out</Button>
+        
         </Card.Body>
       </Card>
       <Card 
@@ -132,7 +134,7 @@ function FeaturedProducts(){
           <Card.Text>
             Description here.
           </Card.Text>
-          <Button variant="dark" variant="outline-light">Check it out</Button>
+      
         </Card.Body>
       </Card>
       <Card 
@@ -148,7 +150,6 @@ function FeaturedProducts(){
           <Card.Text>
             Description here.
           </Card.Text>
-          <Button variant="dark" variant="outline-light">Check it out</Button>
         </Card.Body>
       </Card>
     </CardDeck>
@@ -214,10 +215,10 @@ class Home extends Component {
 
         <div class="container">
           <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-8">
               <FeaturedProducts/>
             </div>
-            <div class="col-md-4 offset-1">
+            <div class="col-md-4">
               <CalendarPlaceholder/>
             </div>
           </div>
