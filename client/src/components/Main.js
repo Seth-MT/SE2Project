@@ -7,6 +7,8 @@ import Home from "./Home";
 import Register from "./Register";
 import Login from "./Login";
 import Profile from "./Profile";
+import Posts from "./Posts";
+import CreatePosts from "./CreatePosts";
 
 toast.configure();
 
@@ -76,6 +78,12 @@ function Main({ setUser }) {
             )
           }
         />
+        <Route
+          exact
+          path="/createposts"
+          render={(props) => <CreatePosts {...props} />}
+        />
+        <Route exact path="/posts" render={() => <Posts />} />
         <Redirect from="*" to="/" />
       </Switch>
     </div>
