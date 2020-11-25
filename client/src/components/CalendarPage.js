@@ -188,6 +188,7 @@ class CalendarPage extends Component {
     var scheduleDay;
     var scheduleWeek;
     var scheduleMonth;
+    var scheduleYear;
     var counter=0;
     for (var k=0; k<2; k++) {
       for (var j=0; j<(testData.length*3); j++) {
@@ -204,11 +205,10 @@ class CalendarPage extends Component {
         }
         if (testData[i]) {
           date = today;
-          console.log("k", k);
           today = new Date();
-          console.log("dde", today.getMonth()+k);
           date.setMonth(today.getMonth()+k);
-          var scheduleMonth = date.getMonth() + 1;
+          scheduleMonth = date.getMonth() + 1;
+          scheduleYear = date.getFullYear();
           var week = this.daysOfTheWeek(date);
           if (testData[i].week === "1") {
             scheduleWeek=0
@@ -224,26 +224,23 @@ class CalendarPage extends Component {
           } 
           if (week[testData[i].day][scheduleWeek]) {
             scheduleDay = week[testData[i].day][scheduleWeek];
-            console.log("SD:", scheduleDay);
             var event = {
               summary: "Hair Thing - " + testData[i].event,
               start: {
-                dateTime: "2020-" + scheduleMonth + "-" + scheduleDay + "T" + testData[i].start + "-04:00"
+                dateTime: scheduleYear + "-" + scheduleMonth + "-" + scheduleDay + "T" + testData[i].start + "-04:00"
               },
               end: {
-                dateTime: "2020-" + scheduleMonth + "-"  + scheduleDay + "T" + testData[i].end + "-04:00"
+                dateTime: scheduleYear + "-" + scheduleMonth + "-"  + scheduleDay + "T" + testData[i].end + "-04:00"
               }
             };
             this.createEvent(event);
           }
         }
       }
-    } 
+    }
   }
 
-
   async deleteEvent() {
-    const delay = ms => new Promise(res => setTimeout(res, ms));
     if (ApiCalendar.sign) { //Only executes if the user is signed in to Google Calendar
       console.log('Signed in');
       const response = await ApiCalendar.listUpcomingEvents(100);
@@ -275,15 +272,6 @@ class CalendarPage extends Component {
             return 'highlight'
           }
         }
-        const event = {
-          summary: "Created Event",
-          start: {
-            dateTime: "2020-11-09T19:30:00-04:00"
-          },
-          end: {
-            dateTime: "2020-11-09T20:30:00-04:00"
-          }
-        };
         return (
           <div className="content">
             <div className="container-fluid">
