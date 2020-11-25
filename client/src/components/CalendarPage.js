@@ -14,6 +14,7 @@ class CalendarPage extends Component {
     this.loadJson = this.loadJson.bind(this);
     this.deleteEvent = this.deleteEvent.bind(this);
     this.handleItemClick = this.handleItemClick.bind(this);
+    this.daysOfTheWeek = this.daysOfTheWeek.bind(this);
     this.state = {
       sign: ApiCalendar.sign, //Boolean value that is set to true if user is signed in to Google Calendar and false if not
       value: new Date(), //Date of the calendar tile that the user clicked
@@ -166,27 +167,99 @@ class CalendarPage extends Component {
     return false;
   }
 
-  loadJson() {
-    this.createEvent(testData[0]);
+  daysOfTheWeek(date) {
+      var daysInMonth = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
+      var week = [[],[],[],[],[],[],[]];
+      for(var j=1;j<=daysInMonth;j++) {    //looping through days in month
+        var newDate = new Date(date.getFullYear(),date.getMonth(),j)
+        if (!week[newDate.getDay()]) {
+          week[newDate.getDay()] = []
+          }
+        week[newDate.getDay()].push(j);
+      }
+      return week;
   }
 
-  deleteEvent() {
-    if (ApiCalendar.sign) { //Only executes if the user is signed in to Google Calendar
-      console.log('Signed in');
-      ApiCalendar.listUpcomingEvents(100) //Lists the next 100 upcoming events
-      .then(({result}) => {
-        for (var i=0; i<result.items.length; i++) { //Loops through the list of upcoming events
-          if (result.items[i].summary.substring(0, 10) === "Hair Thing") {
-            ApiCalendar.deleteEvent(result.items[i].id).then((result) => {
-              console.log(result);
-                })
-             .catch((error) => {
-               console.log(error);
-                });
+
+  loadJson() {
+    console.log("Hello");
+    var today = new Date();
+    var date;
+    var scheduleDay;
+    var scheduleWeek;
+    var scheduleMonth;
+    var counter=0;
+    for (var k=0; k<2; k++) {
+      for (var j=0; j<(testData.length*3); j++) {
+        if (j >= testData.length) {
+          var i = j%testData.length;
+          counter = 1;
+        }
+        else {
+          i = j;
+          counter = 0;
+        }
+        if (j >= testData.length*2) {
+          counter = 2;
+        }
+        if (testData[i]) {
+          date = today;
+          console.log("k", k);
+          today = new Date();
+          console.log("dde", today.getMonth()+k);
+          date.setMonth(today.getMonth()+k);
+          var scheduleMonth = date.getMonth() + 1;
+          var week = this.daysOfTheWeek(date);
+          if (testData[i].week === "1") {
+            scheduleWeek=0
+          }
+          else {
+            scheduleWeek=1
+          }
+          if (counter === 1) {
+            scheduleWeek = scheduleWeek + 2;
+          }
+          if (counter === 2) {
+            scheduleWeek = scheduleWeek + 4;
+          } 
+          if (week[testData[i].day][scheduleWeek]) {
+            scheduleDay = week[testData[i].day][scheduleWeek];
+            console.log("SD:", scheduleDay);
+            var event = {
+              summary: "Hair Thing - " + testData[i].event,
+              start: {
+                dateTime: "2020-" + scheduleMonth + "-" + scheduleDay + "T" + testData[i].start + "-04:00"
+              },
+              end: {
+                dateTime: "2020-" + scheduleMonth + "-"  + scheduleDay + "T" + testData[i].end + "-04:00"
+              }
+            };
+            this.createEvent(event);
           }
         }
-      });
-    }
+      }
+    } 
+  }
+
+
+  async deleteEvent() {
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+    if (ApiCalendar.sign) { //Only executes if the user is signed in to Google Calendar
+      console.log('Signed in');
+      const response = await ApiCalendar.listUpcomingEvents(100);
+      var result = response.result;
+        for (var i=0; i<result.items.length; i++) { //Loops through the list of upcoming events
+          if (result.items[i].summary.substring(0, 10) === "Hair Thing") {
+            try {
+              const tryDelete = await ApiCalendar.deleteEvent(result.items[i].id);
+              console.log(tryDelete.result);
+            }
+            catch(error) {
+              console.log(error);
+            }
+          }
+        }
+      }
     else {
       console.log("Not signed in");
     }
