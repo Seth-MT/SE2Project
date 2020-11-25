@@ -7,7 +7,9 @@ import Home from "./Home";
 import Register from "./Register";
 import Login from "./Login";
 import Profile from "./Profile";
+// import FormPage from "./FormPage";
 import PageNotFound from "./PageNotFound.js";
+import { Form } from "react-bootstrap";
 
 toast.configure();
 

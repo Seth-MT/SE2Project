@@ -33,7 +33,7 @@ app.get("/", (req, res) => {
 // user register and login
 app.use("/auth", require("./routes/jwtAuth"));
 
-// profile route --- couldnt think of anything else with execlusive content on the fly
+// route for user functions
 app.use("/profile", require("./routes/profile"));
 
 /* Product */

@@ -16,6 +16,7 @@
     "react-google-calendar-api": "https://github.com/MatthewChristian/react-google-calendar-api/tarball/master",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.0",
+    "react-slideshow-image": "^3.4.1",
     "react-toastify": "^6.0.9",
     "yup": "^0.30.0"
   },
