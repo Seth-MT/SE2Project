@@ -12,6 +12,8 @@ const CreatePosts = () => {
   const [loading, setLoading] = useState(false);
   const [postLoading, setPostLoading] = useState(false);
   const { postTitle, postDescription } = inputs;
+  const [activeCard, setActiveCard] = useState(null);
+  const [selectedCard, setSelectedCard] = useState(null);
 
   //Send uploaded image to Cloudinary
   const fileSelectedHandler = async (e) => {
@@ -93,10 +95,27 @@ const CreatePosts = () => {
 
       const parseData = await res.json();
       setStyles(parseData);
-      console.log(styles);
     } catch (err) {
       console.error(err.message);
     }
+  };
+
+  const hoverCard = (cardId) => {
+    setActiveCard(cardId);
+  };
+
+  const selectCard = (cardId) => {
+    setSelectedCard(cardId);
+  };
+
+  const updateImage = () => {
+    setLoading(true);
+    const selectedStyle = styles.filter((item) => {
+      return item.id === selectedCard;
+    });
+    console.log(selectedStyle);
+    setImage(selectedStyle[0].imageUrl);
+    setLoading(false);
   };
 
   return (
@@ -216,7 +235,19 @@ const CreatePosts = () => {
               <div class="card-columns">
                 {styles.map(function (style) {
                   return (
-                    <div key={style.id} class="card">
+                    <div
+                      key={style.id}
+                      class={
+                        style.id === activeCard
+                          ? "card text-info border-info mb-3"
+                          : "card" && style.id === selectedCard
+                          ? "card text-white bg-info mb-3"
+                          : "card"
+                      }
+                      onMouseOver={() => hoverCard(style.id)}
+                      onMouseLeave={() => hoverCard(null)}
+                      onClick={() => selectCard(style.id)}
+                    >
                       <img
                         class="card-img-top"
                         src={style.imageUrl}
@@ -242,7 +273,12 @@ const CreatePosts = () => {
               >
                 Close
               </button>
-              <button type="button" class="btn btn-primary">
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-dismiss="modal"
+                onClick={() => updateImage()}
+              >
                 Add Hairstyle
               </button>
             </div>
