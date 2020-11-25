@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
-const CreatePosts = ({ setAuth }) => {
+const CreatePosts = () => {
   const [inputs, setInputs] = useState({
     postTitle: "",
     postDescription: "",
@@ -10,8 +10,10 @@ const CreatePosts = ({ setAuth }) => {
     "https://icons-for-free.com/iconfiles/png/512/box+document+outline+share+top+upload+icon-1320195323221671611.png"
   );
   const [loading, setLoading] = useState(false);
-
+  const [postLoading, setPostLoading] = useState(false);
   const { postTitle, postDescription } = inputs;
+  const [activeCard, setActiveCard] = useState(null);
+  const [selectedCard, setSelectedCard] = useState(null);
 
   //Send uploaded image to Cloudinary
   const fileSelectedHandler = async (e) => {
@@ -58,6 +60,7 @@ const CreatePosts = ({ setAuth }) => {
         body: JSON.stringify(body),
       });
 
+      setPostLoading(true);
       const uploadStatus = await res.json();
       if (uploadStatus === "Post created successfully!") {
         toast.success(uploadStatus, {
@@ -92,10 +95,27 @@ const CreatePosts = ({ setAuth }) => {
 
       const parseData = await res.json();
       setStyles(parseData);
-      console.log(styles);
     } catch (err) {
       console.error(err.message);
     }
+  };
+
+  const hoverCard = (cardId) => {
+    setActiveCard(cardId);
+  };
+
+  const selectCard = (cardId) => {
+    setSelectedCard(cardId);
+  };
+
+  const updateImage = () => {
+    setLoading(true);
+    const selectedStyle = styles.filter((item) => {
+      return item.id === selectedCard;
+    });
+    console.log(selectedStyle);
+    setImage(selectedStyle[0].imageUrl);
+    setLoading(false);
   };
 
   return (
@@ -179,7 +199,7 @@ const CreatePosts = ({ setAuth }) => {
               <button
                 type="submit"
                 className="btn btn-primary btn-lg"
-                disabled={loading}
+                disabled={loading || postLoading}
               >
                 Post
               </button>
@@ -215,7 +235,19 @@ const CreatePosts = ({ setAuth }) => {
               <div class="card-columns">
                 {styles.map(function (style) {
                   return (
-                    <div key={style.id} class="card">
+                    <div
+                      key={style.id}
+                      class={
+                        style.id === activeCard
+                          ? "card text-info border-info mb-3"
+                          : "card" && style.id === selectedCard
+                          ? "card text-white bg-info mb-3"
+                          : "card"
+                      }
+                      onMouseOver={() => hoverCard(style.id)}
+                      onMouseLeave={() => hoverCard(null)}
+                      onClick={() => selectCard(style.id)}
+                    >
                       <img
                         class="card-img-top"
                         src={style.imageUrl}
@@ -241,7 +273,12 @@ const CreatePosts = ({ setAuth }) => {
               >
                 Close
               </button>
-              <button type="button" class="btn btn-primary">
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-dismiss="modal"
+                onClick={() => updateImage()}
+              >
                 Add Hairstyle
               </button>
             </div>

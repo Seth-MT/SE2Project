@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
-  const [colour, setColour] = useState(
-    "card text-white bg-secondary mb-4 h-90"
-  );
+  const [activeCard, setActiveCard] = useState(null);
 
   async function getPosts() {
     try {
@@ -25,6 +23,10 @@ const Posts = () => {
     getPosts();
   }, []);
 
+  const hoverCard = (cardId) => {
+    setActiveCard(cardId);
+  };
+
   return (
     <div className="container-fluid">
       <h1 className="mt-5 text-center">Posts</h1>
@@ -33,14 +35,18 @@ const Posts = () => {
           Create Post
         </a>
       </div>
-      <div className="container col-8 mt-5">
+      <div className="container mt-5">
         {posts.map(function (post) {
           return (
             <div
               key={post.id}
-              class={colour}
-              // onMouseOver={setColour("card bg-light mb-3")}
-              // onMouseLeave={setColour("card text-white bg-secondary mb-4 h-90")}
+              class={
+                post.id === activeCard
+                  ? "card text-white bg-secondary mb-4 h-90"
+                  : "card bg-light mb-3"
+              }
+              onMouseOver={() => hoverCard(post.id)}
+              onMouseLeave={() => hoverCard(null)}
             >
               <div class="row no-gutters">
                 <div class="col-sm-2">
