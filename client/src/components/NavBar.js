@@ -46,11 +46,11 @@ const NavBar = ({ user }) => {
   );
   return (
     <Navbar bg="dark" variant="dark">
-      <Navbar.Brand href="./">Hair Stylers</Navbar.Brand>
+      <Navbar.Brand href="/">Hair Stylers</Navbar.Brand>
       <Nav className="mr-auto">
-        <Nav.Link href="./">Home</Nav.Link>
-        <Nav.Link href="features">Features</Nav.Link>
-        <Nav.Link href="calendar">Calendar</Nav.Link>
+        <Nav.Link href="/">Home</Nav.Link>
+        <Nav.Link href="/posts">Posts</Nav.Link>
+        <Nav.Link href="/calendar">Calendar</Nav.Link>
         <NavDropdown title="HairStyles" id="basic-nav-dropdown">
           <NavDropdown.Item href="#action/3.1">Long</NavDropdown.Item>
           <NavDropdown.Item href="#action/3.2">Short</NavDropdown.Item>

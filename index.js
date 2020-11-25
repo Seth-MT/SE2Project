@@ -12,6 +12,8 @@ const PORT = process.env.PORT || 5000;
 // models
 const User = require("./models/User");
 const Product = require("./models/Product");
+const Post = require("./models/Post");
+const Style = require("./models/Style");
 
 // app connection and resources sharing setup
 app.use(cors());
@@ -38,6 +40,12 @@ app.use("/profile", require("./routes/profile"));
 
 /* Product */
 app.use("/products", require("./routes/productRouter"));
+
+//posts route
+app.use("/posts", require("./routes/posts"));
+
+//styles route
+app.use("/styles", require("./routes/styleRouter"));
 
 // if a bad route is entered
 if (process.env.NODE_ENV === "production") {
