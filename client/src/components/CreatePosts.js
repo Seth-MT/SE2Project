@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
-const CreatePosts = ({ setAuth }) => {
+const CreatePosts = () => {
   const [inputs, setInputs] = useState({
     postTitle: "",
     postDescription: "",
@@ -10,7 +10,7 @@ const CreatePosts = ({ setAuth }) => {
     "https://icons-for-free.com/iconfiles/png/512/box+document+outline+share+top+upload+icon-1320195323221671611.png"
   );
   const [loading, setLoading] = useState(false);
-
+  const [postLoading, setPostLoading] = useState(false);
   const { postTitle, postDescription } = inputs;
 
   //Send uploaded image to Cloudinary
@@ -58,6 +58,7 @@ const CreatePosts = ({ setAuth }) => {
         body: JSON.stringify(body),
       });
 
+      setPostLoading(true);
       const uploadStatus = await res.json();
       if (uploadStatus === "Post created successfully!") {
         toast.success(uploadStatus, {
@@ -179,7 +180,7 @@ const CreatePosts = ({ setAuth }) => {
               <button
                 type="submit"
                 className="btn btn-primary btn-lg"
-                disabled={loading}
+                disabled={loading || postLoading}
               >
                 Post
               </button>
