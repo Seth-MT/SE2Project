@@ -12,6 +12,8 @@ import CreatePosts from "./CreatePosts";
 // import FormPage from "./FormPage";
 import PageNotFound from "./PageNotFound.js";
 import { Form } from "react-bootstrap";
+import ProductsPage from "./ProductsPage";
+import AR_Camera from "./AR";
 
 toast.configure();
 
@@ -87,6 +89,8 @@ function Main({ setUser }) {
           render={(props) => <CreatePosts {...props} />}
         />
         <Route exact path="/posts" render={() => <Posts />} />
+        <Route path = "/products" render={() => <ProductsPage />}/>
+        <Route path = "/ARCamera" component = {AR_Camera}/>
         <Route component= {PageNotFound} />
         <Redirect from="*" to="/" />
       </Switch>
