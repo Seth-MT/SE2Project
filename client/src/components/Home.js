@@ -189,7 +189,7 @@ class Home extends Component {
   render() {
 
     return( 
-      <Fragment>
+     <Fragment>
       <div class="container-fluid home-page-background">
 
         <div class="container">
@@ -208,7 +208,7 @@ class Home extends Component {
         <div class="container">
           <div class="row">
             <div class="col-md-8 products-row-size products-row-background-colour">
-              <h5>Featured Products</h5>
+              <h5><u>Featured Products</u></h5>
             </div>
           </div>
         </div>
@@ -227,7 +227,7 @@ class Home extends Component {
         <div class="container">
           <div class="row">
             <div class="col-md-8 products-row-size products-row-background-colour">
-              <h5>News Feed</h5>
+              <h5><u>News Feed</u></h5>
             </div>
           </div>
 
@@ -239,7 +239,7 @@ class Home extends Component {
       
         
       </div>
-      </Fragment>
+     </Fragment>
     )
   }
 }
