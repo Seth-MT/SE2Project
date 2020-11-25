@@ -74,21 +74,23 @@
   background-color: #f0a8a1;
 }
 
-/*CSS for HomePage Slider
-.homepageslider{
-   position:absolute;
-   top:0;
-   bottom:auto;
-   left:0;
-   right:0;
-   margin:auto;
-   width:100%;
-   height:auto;
-   background-color: #231f4e;
+/*CSS For Homepage starts here*/
+
+.products-row-size {
+  margin-top:20px;
+  margin-bottom:20px;
+  }
+  
+.products-row-background-colour{
+  background-color: #282c34;
+  color: white
 }
-*/
+.home-page-background{
+  background-color: #454546;
+  color: white;
+}
 
-
+/*CSS For Homepage ends here*/
 
 .highlight:enabled:hover {
   background-color: #e89292;
