@@ -18,6 +18,10 @@ const Style = db.define("style", {
     hairType: {
         type: Sequelize.INTEGER,
         allowNull: false
+    },
+    imageUrl: {
+      type: Sequelize.STRING,
+      allowNull: true
     }
   });
 
