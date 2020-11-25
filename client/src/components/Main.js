@@ -9,6 +9,9 @@ import Login from "./Login";
 import Profile from "./Profile";
 import Posts from "./Posts";
 import CreatePosts from "./CreatePosts";
+// import FormPage from "./FormPage";
+import PageNotFound from "./PageNotFound.js";
+import { Form } from "react-bootstrap";
 
 toast.configure();
 
@@ -43,7 +46,7 @@ function Main({ setUser }) {
   return (
     <div className="main-panel">
       <Switch>
-        <Route path="./" component={Home} />
+        <Route exact path="/" component={Home} />
         <Route path="/calendar" component={CalendarPage} />
         <Route
           exact
@@ -84,6 +87,7 @@ function Main({ setUser }) {
           render={(props) => <CreatePosts {...props} />}
         />
         <Route exact path="/posts" render={() => <Posts />} />
+        <Route component= {PageNotFound} />
         <Redirect from="*" to="/" />
       </Switch>
     </div>

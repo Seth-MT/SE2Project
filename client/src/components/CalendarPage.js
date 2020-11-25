@@ -4,16 +4,22 @@ import 'react-calendar/dist/Calendar.css';
 import '../App.css';
 import ApiCalendar from 'react-google-calendar-api';
 
+import testData from '../test';
+
 
 class CalendarPage extends Component {
 
   constructor(props) {
     super();
+    this.loadJson = this.loadJson.bind(this);
+    this.deleteEvent = this.deleteEvent.bind(this);
     this.handleItemClick = this.handleItemClick.bind(this);
+    this.daysOfTheWeek = this.daysOfTheWeek.bind(this);
     this.state = {
       sign: ApiCalendar.sign, //Boolean value that is set to true if user is signed in to Google Calendar and false if not
       value: new Date(), //Date of the calendar tile that the user clicked
-      loading: true
+      loading: true,
+      newEvent: 0
     };
     this.signUpdate = this.signUpdate.bind(this);
     ApiCalendar.onLoad(() => { //Function is called when the API is loaded
@@ -97,7 +103,6 @@ class CalendarPage extends Component {
           scheduleCard.innerHTML = ""; //Reset the card to be empty
           for (i=0; i<result.items.length; i++) { //Loops through the list of upcoming events
             var scheduleDate = (new Date(Date.parse(result.items[i].start.dateTime))); //Convert dateTime object to Date object
-            console.log("sdas", result.items[i].summary.substring(1, 10));
             if (day === scheduleDate.getDate() && month === scheduleDate.getMonth() && year === scheduleDate.getFullYear() && result.items[i].summary.substring(0, 10) === "Hair Thing") { //If the event is on the same day as the day the user clicked
               var node = document.createElement("LI"); //Create list element
               node.className += " list-group-item"; //Adds bootstrap CSS for list group
@@ -125,6 +130,7 @@ class CalendarPage extends Component {
      .catch((error) => {
        console.log(error);
         });
+      
   }
 
   async getEventDays () {
@@ -161,6 +167,102 @@ class CalendarPage extends Component {
     return false;
   }
 
+  daysOfTheWeek(date) {
+      var daysInMonth = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
+      var week = [[],[],[],[],[],[],[]];
+      for(var j=1;j<=daysInMonth;j++) {    //looping through days in month
+        var newDate = new Date(date.getFullYear(),date.getMonth(),j)
+        if (!week[newDate.getDay()]) {
+          week[newDate.getDay()] = []
+          }
+        week[newDate.getDay()].push(j);
+      }
+      return week;
+  }
+
+
+  loadJson() {
+    console.log("Hello");
+    var today = new Date();
+    var date;
+    var scheduleDay;
+    var scheduleWeek;
+    var scheduleMonth;
+    var scheduleYear;
+    var counter=0;
+    for (var k=0; k<2; k++) {
+      for (var j=0; j<(testData.length*3); j++) {
+        if (j >= testData.length) {
+          var i = j%testData.length;
+          counter = 1;
+        }
+        else {
+          i = j;
+          counter = 0;
+        }
+        if (j >= testData.length*2) {
+          counter = 2;
+        }
+        if (testData[i]) {
+          date = today;
+          today = new Date();
+          date.setMonth(today.getMonth()+k);
+          scheduleMonth = date.getMonth() + 1;
+          scheduleYear = date.getFullYear();
+          var week = this.daysOfTheWeek(date);
+          if (testData[i].week === "1") {
+            scheduleWeek=0
+          }
+          else {
+            scheduleWeek=1
+          }
+          if (counter === 1) {
+            scheduleWeek = scheduleWeek + 2;
+          }
+          if (counter === 2) {
+            scheduleWeek = scheduleWeek + 4;
+          } 
+          if (week[testData[i].day][scheduleWeek]) {
+            scheduleDay = week[testData[i].day][scheduleWeek];
+            var event = {
+              summary: "Hair Thing - " + testData[i].event,
+              start: {
+                dateTime: scheduleYear + "-" + scheduleMonth + "-" + scheduleDay + "T" + testData[i].start + "-04:00"
+              },
+              end: {
+                dateTime: scheduleYear + "-" + scheduleMonth + "-"  + scheduleDay + "T" + testData[i].end + "-04:00"
+              }
+            };
+            this.createEvent(event);
+          }
+        }
+      }
+    }
+  }
+
+  async deleteEvent() {
+    if (ApiCalendar.sign) { //Only executes if the user is signed in to Google Calendar
+      console.log('Signed in');
+      const response = await ApiCalendar.listUpcomingEvents(100);
+      var result = response.result;
+        for (var i=0; i<result.items.length; i++) { //Loops through the list of upcoming events
+          if (result.items[i].summary.substring(0, 10) === "Hair Thing") {
+            try {
+              const tryDelete = await ApiCalendar.deleteEvent(result.items[i].id);
+              console.log(tryDelete.result);
+            }
+            catch(error) {
+              console.log(error);
+            }
+          }
+        }
+      }
+    else {
+      console.log("Not signed in");
+    }
+  } 
+
+
   onChange = value => this.setState({ value }) //Sets value state to the date that the user clicked on the calendar
 
     render() { 
@@ -170,15 +272,6 @@ class CalendarPage extends Component {
             return 'highlight'
           }
         }
-        const event = {
-          summary: "Created Event",
-          start: {
-            dateTime: "2020-11-09T19:30:00-04:00"
-          },
-          end: {
-            dateTime: "2020-11-09T20:30:00-04:00"
-          }
-        };
         return (
           <div className="content">
             <div className="container-fluid">
@@ -204,6 +297,13 @@ class CalendarPage extends Component {
                   <button type="button" id="calendar-login" className="btn btn-primary" style={{display: "none"}} onClick={(e) => this.handleItemClick(e, 'sign-in')}>Log in to Google Calendar</button>
                   <button type="button" id="calendar-logout" className="btn btn-danger" style={{display: "none"}} onClick={(e) => this.handleItemClick(e, 'sign-out')}>Log Out of Google Calendar</button>
                 </div>
+                <br></br>
+                <div className="google-calendar-buttons">
+                  <button type="button" id="calendar-login" className="btn btn-primary" onClick={this.loadJson}>Add Schedule</button>
+                </div>
+                <div className="google-calendar-buttons">
+                  <button type="button" id="calendar-login" className="btn btn-primary" onClick={this.deleteEvent}>Delete Events</button>
+                </div>
               </div>
             </div>
           </div>
@@ -211,4 +311,4 @@ class CalendarPage extends Component {
     }
 }
 
-export default CalendarPage
+export default CalendarPage;

@@ -3,300 +3,105 @@
         "name": "Short Twists",
         "type": "Protective",
         "hairLength": "Short",
-        "hairType": "1"
+        "hairType": "3",
+        "imageUrl": "https://i.imgur.com/2F8lMsu.jpg"
     },
     {
         "name": "Cornrows",
         "type": "Protective",
         "hairLength": "Short",
-        "hairType": "1"
+        "hairType": "4",
+        "imageUrl": "https://i.imgur.com/jz1gVNf.jpg"
     },
     {
         "name": "Short Braids",
         "type": "Protective",
         "hairLength": "Short",
-        "hairType": "1"
+        "hairType": "3",
+        "imageUrl": "https://i.imgur.com/qNK9sS6.jpg"
     },
     {
         "name": "Chignon",
         "type": "Protective",
         "hairLength": "Short",
-        "hairType": "1"
+        "hairType": "4",
+        "imageUrl": "https://i.imgur.com/4WtTOBQ.jpg"
     },
     {
         "name": "Low Twisted Buns",
         "type": "Protective",
         "hairLength": "Short",
-        "hairType": "1"
-    },
-    {
-        "name": "Beaded Braids",
-        "type": "Protective",
-        "hairLength": "Short",
-        "hairType": "1"
-    },
-    {
-        "name": "Top Knot",
-        "type": "Protective",
-        "hairLength": "Short",
-        "hairType": "1"
-    },
-    {
-        "name": "Sleek Bun",
-        "type": "Protective",
-        "hairLength": "Short",
-        "hairType": "1"
-    },
-    {
-        "name": "Space Buns",
-        "type": "Protective",
-        "hairLength": "Short",
-        "hairType": "1"
-    },
-    {
-        "name": "Colorful Twists",
-        "type": "Protective",
-        "hairLength": "Medium",
-        "hairType": "1"
+        "hairType": "4",
+        "imageUrl": "https://i.imgur.com/EWR7Xjo.jpg"
     },
     {
         "name": "Bantu Knots",
         "type": "Protective",
         "hairLength": "Medium",
-        "hairType": "1"
+        "hairType": "3",
+        "imageUrl": "https://i.imgur.com/ji56Qof.jpg"
     },
     {
         "name": "Braided Crown",
         "type": "Protective",
         "hairLength": "Medium",
-        "hairType": "1"
+        "hairType": "2",
+        "imageUrl": "https://i.imgur.com/v7ARTuc.jpg"
     },
     {
         "name": "Box Braids",
         "type": "Protective",
         "hairLength": "Medium",
-        "hairType": "1"
-    },
-    {
-        "name": "Side Twist Updo",
-        "type": "Protective",
-        "hairLength": "Medium",
-        "hairType": "1"
-    },
-    {
-        "name": "Senegalese Twists",
-        "type": "Protective",
-        "hairLength": "Medium",
-        "hairType": "1"
-    },
-    {
-        "name": "Flat Twists",
-        "type": "Protective",
-        "hairLength": "Medium",
-        "hairType": "1"
-    },
-    {
-        "name": "Twisted Low Bun",
-        "type": "Protective",
-        "hairLength": "Medium",
-        "hairType": "1"
-    },
-    {
-        "name": "Braided Faux Hawk",
-        "type": "Protective",
-        "hairLength": "Medium",
-        "hairType": "1"
-    },
-    {
-        "name": "Pineapple Updo",
-        "type": "Protective",
-        "hairLength": "Medium",
-        "hairType": "1"
-    },
-    {
-        "name": "Halo Braid",
-        "type": "Protective",
-        "hairLength": "Medium",
-        "hairType": "1"
-    },
-    {
-        "name": "Bun Mohawk",
-        "type": "Protective",
-        "hairLength": "Medium",
-        "hairType": "1"
-    },
-    {
-        "name": "Side Twist",
-        "type": "Protective",
-        "hairLength": "Long",
-        "hairType": "1"
-    },
-    {
-        "name": "Ghana Braids",
-        "type": "Protective",
-        "hairLength": "Long",
-        "hairType": "1"
-    },
-    {
-        "name": "Chunky Box Braids",
-        "type": "Protective",
-        "hairLength": "Long",
-        "hairType": "1"
-    },
-    {
-        "name": "Crochet Braids",
-        "type": "Protective",
-        "hairLength": "Long",
-        "hairType": "1"
-    },
-    {
-        "name": "Dutch Roll",
-        "type": "Protective",
-        "hairLength": "Long",
-        "hairType": "1"
-    },
-    {
-        "name": "Double Halo Crown Braid",
-        "type": "Protective",
-        "hairLength": "Long",
-        "hairType": "1"
-    },
-    {
-        "name": "Havana Twists",
-        "type": "Protective",
-        "hairLength": "Long",
-        "hairType": "1"
-    },
-    {
-        "name": "Twisted Updo",
-        "type": "Protective",
-        "hairLength": "Long",
-        "hairType": "1"
-    },
-    {
-        "name": "Sade Braid",
-        "type": "Protective",
-        "hairLength": "Long",
-        "hairType": "1"
-    },
-    {
-        "name": "Layered Bob",
-        "type": "Stylish",
-        "hairLength": "Short",
-        "hairType": "4"
-    },
-    {
-        "name": "Shaggy Bob",
-        "type": "Stylish",
-        "hairLength": "Short",
-        "hairType": "4"
-    },
-    {
-        "name": "Inverted Bob",
-        "type": "Stylish",
-        "hairLength": "Short",
-        "hairType": "4"
+        "hairType": "4",
+        "imageUrl": "https://i.imgur.com/suvPrJa.jpg"
     },
     {
         "name": "Classic Pixie",
         "type": "Stylish",
         "hairLength": "Short",
-        "hairType": "4"
+        "hairType": "1",
+        "imageUrl": "https://i.imgur.com/sYEXwAu.jpg"
     },
     {
         "name": "Sculpted Pixie",
         "type": "Stylish",
         "hairLength": "Short",
-        "hairType": "4"
+        "hairType": "1",
+        "imageUrl": "https://i.imgur.com/9vDYb4h.jpg"
     },
     {
         "name": "Afro",
         "type": "Stylish",
         "hairLength": "Short",
-        "hairType": "4"
-    },
-    {
-        "name": "Layered Afro",
-        "type": "Stylish",
-        "hairLength": "Short",
-        "hairType": "4"
-    },
-    {
-        "name": "Lob",
-        "type": "Stylish",
-        "hairLength": "Medium",
-        "hairType": "4"
-    },
-    {
-        "name": "Asymmetrical Lob",
-        "type": "Stylish",
-        "hairLength": "Medium",
-        "hairType": "4"
+        "hairType": "5",
+        "imageUrl": "https://i.imgur.com/kwT7WP3.jpg"
     },
     {
         "name": "Feathered Lob",
         "type": "Stylish",
         "hairLength": "Medium",
-        "hairType": "4"
-    },
-    {
-        "name": "Face-Framing Layers",
-        "type": "Stylish",
-        "hairLength": "Medium",
-        "hairType": "4"
-    },
-    {
-        "name": "Stacked Layers",
-        "type": "Stylish",
-        "hairLength": "Medium",
-        "hairType": "4"
-    },
-    {
-        "name": "Grown-Out Bob",
-        "type": "Stylish",
-        "hairLength": "Medium",
-        "hairType": "4"
-    },
-    {
-        "name": "Shaggy All Over",
-        "type": "Stylish",
-        "hairLength": "Long",
-        "hairType": "4"
-    },
-    {
-        "name": "Swoopy Layers",
-        "type": "Stylish",
-        "hairLength": "Long",
-        "hairType": "4"
-    },
-    {
-        "name": "Long Layers",
-        "type": "Stylish",
-        "hairLength": "Long",
-        "hairType": "4"
-    },
-    {
-        "name": "Blunt Bangs",
-        "type": "Stylish",
-        "hairLength": "Long",
-        "hairType": "4"
+        "hairType": "1",
+        "imageUrl": "https://i.imgur.com/UXGL2rK.jpg"
     },
     {
         "name": "Steep Layers",
         "type": "Stylish",
         "hairLength": "Long",
-        "hairType": "4"
+        "hairType": "2",
+        "imageUrl": "https://i.imgur.com/uoIfsIU.jpg"
     },
     {
         "name": "Super-Close Buzz Cut",
         "type": "Stylish",
         "hairLength": "Short",
-        "hairType": "1"
+        "hairType": "4",
+        "imageUrl": "https://i.imgur.com/t88dHn6.jpg"
     },
     {
         "name": "Classic Pompadour",
         "type": "Stylish",
         "hairLength": "Short",
-        "hairType": "4"
+        "hairType": "4",
+        "imageUrl": "https://i.imgur.com/YA5VwLO.jpg"
     }
 ]

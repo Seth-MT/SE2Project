@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
 // user register and login
 app.use("/auth", require("./routes/jwtAuth"));
 
-// profile route
+// route for user functions
 app.use("/profile", require("./routes/profile"));
 
 /* Product */

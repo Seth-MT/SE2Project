@@ -55,7 +55,8 @@ fs.readFile("./data/styles.json", "utf-8", (err, data) => {
       name: styles[i].name,
       type: styles[i].type,
       hairLength: styles[i].hairLength,
-      hairType: styles[i].hairType
+      hairType: styles[i].hairType,
+      imageUrl: styles[i].imageUrl
     });
   }
 });
