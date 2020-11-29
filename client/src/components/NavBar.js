@@ -53,6 +53,7 @@ const NavBar = ({ user }) => {
           <Nav.Link href="/">Home</Nav.Link>
           <Nav.Link href="/posts">Posts</Nav.Link>
           <Nav.Link href="/calendar">Calendar</Nav.Link>
+          <Nav.Link href="/products">Products</Nav.Link>
           <NavDropdown title="HairStyles" id="basic-nav-dropdown">
             <NavDropdown.Item href="#action/3.1">Long</NavDropdown.Item>
             <NavDropdown.Item href="#action/3.2">Short</NavDropdown.Item>
@@ -60,6 +61,7 @@ const NavBar = ({ user }) => {
             <NavDropdown.Divider />
             <NavDropdown.Item href="#action/3.4">Extra</NavDropdown.Item>
           </NavDropdown>
+          <Nav.Link href="/ARCamera">Camera & AR Photo</Nav.Link>
         </Nav>
         <Form inline className="ml-auto">
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
