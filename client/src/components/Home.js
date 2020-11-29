@@ -305,11 +305,18 @@ class Home extends Component {
               <FeaturedProducts/>
             </div>
             <div class="col-md-4">
+            <div class="card" border='light' style={{ width: '18rem'}} text='light' >
+            <div class="card-header bg-dark">
+              Calendar
+            </div>
+            <div class="card-body">
               <div className="homeCalendar">
                 <Calendar
                   tileClassName = {tileClassName} >
                 </Calendar>
               </div>
+            </div>
+            </div>
             </div>
           </div>
         </div>
