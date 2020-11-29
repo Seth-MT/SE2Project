@@ -6,6 +6,12 @@ import { Container, Row, Col, Image, Button, Modal } from "react-bootstrap";
 const Profile = ({ setAuth }) => {
   const [name, setName] = useState("");
   const [profileImage, setImage] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [sex, setSex] = useState("");
+  const [hairType, setHairType] = useState("");
+  const [hairLength, setHairLength] = useState("");
+  const [bleach, setBleach] = useState(false);
+  const [coloring, setColoring] = useState(false);
   const [newName, setNewName] = useState("");
   const [loading, setLoading] = useState(false);
   const [show, setModal] = useState(false);
@@ -74,7 +80,7 @@ const Profile = ({ setAuth }) => {
   //Send updated profile name and profile picture to backend server
   const fileUploadHandler = async () => {
     try {
-      const body = { profileImage, newName };
+      const body = { profileImage, newName, dateOfBirth, sex, hairType, hairLength, bleach, coloring };
 
       const res = await fetch("/profile/update", {
         method: "PUT",
@@ -129,7 +135,7 @@ const Profile = ({ setAuth }) => {
   }, [newName]);
 
   //Set newName state to the value entered by user
-  const inputHandler = async (e) => {
+  const inputNameHandler = async (e) => {
     try {
       setNewName(e.target.value);
     } catch (err) {
@@ -137,9 +143,59 @@ const Profile = ({ setAuth }) => {
     }
   };
 
-  //Toggle modal
-  const handleModal = () => {
-    setModal(!show);
+  //Set dateOfBirth state to the value entered by user
+  const inputDOBHandler = async (e) => {
+    try {
+      setDateOfBirth(e.target.value);
+      
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  //Set sex state to the value entered by user
+  const inputSexHandler = async (e) => {
+    try {
+      setSex(e.target.value);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  //Set hair type state to the value entered by user
+  const inputHairTypeHandler = async (e) => {
+    try {
+      setHairType(e.target.value);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  //Set hair length state to the value entered by user
+  const inputHairLengthHandler = async (e) => {
+    try {
+      setHairLength(e.target.value);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  //Set bleach state to the value entered by user
+  const inputBleachHandler = async (e) => {
+    try {
+      setBleach(e.target.value);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  //Set color state to the value entered by user
+  const inputColorHandler = async (e) => {
+    try {
+      setColoring(e.target.value);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -160,87 +216,121 @@ const Profile = ({ setAuth }) => {
             <h2 className="text-left">Welcome, {name}</h2>
           </Col>
         </Row>
-        <Row>
-          <Button
-            onClick={() => handleModal()}
-            style={{ backgroundColor: "purple" }}
-          >
-            Edit Profile
-          </Button>
-          <Modal
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-            show={show}
-            onHide={() => handleModal()}
-          >
-            <Modal.Header closeButton>
-              <Modal.Title id="contained-modal-title-vcenter">
-                Profile details
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Container>
-                <div className="row">
-                  <div className="col-md3 text-center">
-                    {loading ? (
-                      <h5>Loading...</h5>
-                    ) : (
-                      <Image
-                        src={profileImage}
-                        roundedCircle
-                        width={101}
-                        height={110}
-                        alt="Profile Image"
-                      />
-                    )}
-                  </div>
+        <form onSubmit = {(e) => fileUploadHandler(e)}>
+          <div className = "form-group">
+            <input
+              name="file"
+              type="file"
+              onChange={fileSelectedHandler}
+          />
+         </div>
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control"
+              placeholder = {name}
+              defaultValue={name}
+              onChange={(e) => inputNameHandler(e)}
+            />
+            {
+              //Check if username available
+              inputStatus === "User already exists" ? (
+                <div style={{ color: "red" }}> {inputStatus} </div>
+              ) : inputStatus === "No change" ? (
+                <div></div>
+              ) : inputStatus === "Name available!" ? (
+                <div style={{ color: "green" }}> {inputStatus} </div>
+              ) : (
+                <div></div>
+              )
+            }
+          </div>
+          <div class="form-group">
+            <label for="dateOfBirth">Date of Birth</label>
+            <input
+            type="date"
+            class="form-control"
+            name="dateOfBirth"
+            onChange={(e) => inputDOBHandler(e)}
+            ></input>
+          </div>
+          <div class="form-group">
+            <label for="sex">Sex</label>
+            <select class="form-control" id="sex" onChange={(e) => inputSexHandler(e)}>
+              <option>Male</option>
+              <option>Female</option>
+            </select>
+          </div>
+          <div class="form-group">
+          <label for="hairType">Hair Type</label>
+            <select class="form-control" id="hairType" onChange={(e) => inputHairTypeHandler(e)}>
+              <option>Straight</option>
+              <option>Wavy</option>
+              <option>Curly</option>
+              <option>Coily</option>
+            </select>
+          </div>
+          <div className="row form-group">
+            <div className="col-md-4">
+              <label for="hairLength">Estimated Hair Length</label>
+            </div>
+            <div className="col-lg-1 col-md-2">
+              <input
+              type="number"
+              class="form-control-inline hairLength"
+              name="hairLength"
+              onChange={(e) => inputHairLengthHandler(e)}
+              style={{width: 45 + 'px'}}
+              ></input>
+            </div>
+            <div className="col-lg-7 col-md-6">
+              <span> inches</span>
+            </div>
+          </div>
+          <div className="row form-group">
+            <div className="col-md-4">
+              <label>History of bleaching</label>
+            </div>
+            <div className="col-md-2">
+              <div>
+                <input className="form-check-input" type="radio" name="bleached" id="bleachYes" onChange={(e) => inputBleachHandler(e)}></input>
+                <label className="form-check-label" for="bleachYes">Yes</label>
+              </div>
+            </div>
+            <div className="col-md-2">
+              <div>
+                <input className="form-check-input" type="radio" name="bleached" id="bleachNo" onChange={(e) => inputBleachHandler(e)}></input>
+                <label className="form-check-label" for="bleachNo">No</label>
+              </div>
+            </div>
+          </div>
 
-                  <div className="col-md-auto">
-                    <input
-                      type="text"
-                      className="form-control"
-                      defaultValue={name}
-                      onChange={(e) => inputHandler(e)}
-                    />
-                    {
-                      //Check if username available
-                      inputStatus === "User already exists" ? (
-                        <div style={{ color: "red" }}> {inputStatus} </div>
-                      ) : inputStatus === "No change" ? (
-                        <div></div>
-                      ) : inputStatus === "Name available!" ? (
-                        <div style={{ color: "green" }}> {inputStatus} </div>
-                      ) : (
-                        <div></div>
-                      )
-                    }
-                    <div>
-                      <input
-                        name="file"
-                        type="file"
-                        onChange={fileSelectedHandler}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </Container>
-            </Modal.Body>
-            <Modal.Footer>
-              By proceeding, you agree to give The Hair Thing access to the
-              image you choose to upload.
-              <Button variant="secondary" onClick={() => handleModal()}>
-                Close
-              </Button>
-              <Button
-                variant="primary"
-                onClick={(e) => fileUploadHandler(e)}
-                disabled={loading}
-              >
-                Save Changes
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </Row>
+          <div className="row form-group">
+            <div className="col-md-4">
+              <label>History of coloring</label>
+            </div>
+            <div className="col-md-2">
+              <div>
+                <input className="form-check-input" type="radio" name="colored" id="colorYes" onChange={(e) => inputColorHandler(e)}></input>
+                <label className="form-check-label" for="colorYes">Yes</label>
+              </div>
+            </div>
+            <div className="col-md-2">
+              <div>
+                <input className="form-check-input" type="radio" name="colored" id="colorNo" onChange={(e) => inputColorHandler(e)}></input>
+                <label className="form-check-label" for="colorNo">No</label>
+              </div>
+            </div>
+          </div>
+          <button 
+            type="submit" 
+            className="btn btn-primary"
+            disabled = {loading}
+          >
+            Save Changes
+          </button>
+        </form>
+        
       </Container>
 
       <div className="row">

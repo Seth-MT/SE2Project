@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes } = require("sequelize");
+const { Sequelize } = require("sequelize");
 const db = require("../db");
 
 // User
@@ -25,7 +25,7 @@ const User = db.define("user", {
   },
   profileImage: {
     allowNull: true,
-    type: Sequelize.BLOB("long"),
+    type: Sequelize.STRING,
   },
   dateOfBirth: {
     allowNull: true,
