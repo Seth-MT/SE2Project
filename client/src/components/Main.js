@@ -11,7 +11,6 @@ import Posts from "./Posts";
 import CreatePosts from "./CreatePosts";
 // import FormPage from "./FormPage";
 import PageNotFound from "./PageNotFound.js";
-import { Form } from "react-bootstrap";
 import ProductsPage from "./ProductsPage";
 import AR_Camera from "./AR";
 
@@ -23,7 +22,6 @@ function Main({ setUser }) {
   const setAuth = (boolean) => {
     setIsAuthenticated(boolean);
   };
-
   async function isAuth() {
     try {
       const res = await fetch("/auth/is-verify", {
@@ -83,15 +81,31 @@ function Main({ setUser }) {
             )
           }
         />
+        <Route exact path="/posts" render={() => <Posts />} />
         <Route
           exact
           path="/createposts"
-          render={(props) => <CreatePosts {...props} />}
+          render={() =>
+            isAuthenticated ? (
+              <CreatePosts />
+            ) : (
+              // toast.error("Please log in", {
+              //   position: "top-right",
+              //   autoClose: 2000,
+              //   hideProgressBar: false,
+              //   closeOnClick: true,
+              //   pauseOnHover: true,
+              //   draggable: true,
+              //   progress: undefined,
+              //   onClose: () => (window.location.href = "/login"),
+              // })
+              <h3 className="text-center">Login Required!</h3>
+            )
+          }
         />
-        <Route exact path="/posts" render={() => <Posts />} />
-        <Route path = "/products" render={() => <ProductsPage />}/>
-        <Route path = "/ARCamera" component = {AR_Camera}/>
-        <Route component= {PageNotFound} />
+        <Route path="/products" render={() => <ProductsPage />} />
+        <Route path="/ARCamera" component={AR_Camera} />
+        <Route component={PageNotFound} />
         <Redirect from="*" to="/" />
       </Switch>
     </div>

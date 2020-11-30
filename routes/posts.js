@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const db = require("../db");
 const Post = require("../models/Post");
 const authorization = require("../middleware/authorization");
 

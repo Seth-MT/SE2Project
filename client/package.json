@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "bootstrap": "^4.5.3",
     "formik": "^2.2.5",
+    "hookrouter": "^1.2.3",
     "materialize-css": "^1.0.0-rc.2",
     "react": "^16.14.0",
     "react-bootstrap": "^1.4.0",
