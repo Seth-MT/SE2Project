@@ -15,6 +15,10 @@ router.post("/", async (req, res) => {
         },
       ],
     });
+    // if (req.header("token")) {
+    //   let ID = await authorization();
+    //   console.log(req.user);
+    // }
     res.json(posts);
   } catch (err) {
     console.error(err.message);
@@ -53,6 +57,26 @@ router.delete("/delete", authorization, async (req, res) => {
     res.status(200).json("Post deleted!");
   } catch (err) {
     console.error(err.message);
+    res.status(500).json("Server Error");
+  }
+});
+
+router.put("/like", authorization, async (req, res) => {
+  try {
+    const { postID, like } = req.body;
+    const post = await Post.findOne({
+      where: { id: `${postID}` },
+    });
+
+    if (like) {
+      post.likes += 1;
+    } else if (like === false) {
+      post.likes -= 1;
+    }
+    await post.save();
+    res.status(200).json(post);
+  } catch (err) {
+    console.log(err.message);
     res.status(500).json("Server Error");
   }
 });

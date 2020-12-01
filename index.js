@@ -14,6 +14,7 @@ const User = require("./models/User");
 const Product = require("./models/Product");
 const Post = require("./models/Post");
 const Style = require("./models/Style");
+const UserReact = require("./models/UserReact");
 
 User.hasMany(Post, { foreignKey: "userID" });
 Post.belongsTo(User, { foreignKey: "userID" });

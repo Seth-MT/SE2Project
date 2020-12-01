@@ -6,6 +6,7 @@ const Posts = () => {
   const [activeCard, setActiveCard] = useState(null);
   const [verified, setVerified] = useState([]);
   const [activeSort, setActiveSort] = useState("");
+  let [liked, setLiked] = useState(false);
 
   async function getPosts() {
     try {
@@ -114,68 +115,99 @@ const Posts = () => {
     }
   };
 
+  const handleLike = async (postID, like) => {
+    try {
+      setLiked(like);
+      let body = { postID, like };
+      const res = await fetch("/posts/like", {
+        method: "PUT",
+        headers: {
+          token: localStorage.token,
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+
+      const parseData = await res.json();
+      const selectedPost = posts.findIndex((item) => item.id === postID);
+      const newPosts = [...posts];
+      newPosts[selectedPost].likes = parseData.likes;
+      setPosts(newPosts);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   return (
     <div className="container-fluid">
       <h1 className="mt-5 text-center">Posts</h1>
-      <div className="dropdown">
-        <button
-          className="btn btn-secondary dropdown-toggle"
-          type="button"
-          id="dropdownMenuButton"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          Sort
-        </button>
-        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <div className="row">
+        <div className="col-md-2 offset-md-1">
+          <div className="dropdown">
+            <button
+              className="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Sort
+            </button>
+            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <button
+                className={
+                  activeSort === "new"
+                    ? "dropdown-item active"
+                    : "dropdown-item"
+                }
+                onClick={() => toggleNewest()}
+              >
+                Newest
+              </button>
+              <button
+                className={
+                  activeSort === "old"
+                    ? "dropdown-item active"
+                    : "dropdown-item"
+                }
+                onClick={() => toggleOldest()}
+              >
+                Oldest
+              </button>
+              <button
+                className={
+                  activeSort === "popular"
+                    ? "dropdown-item active"
+                    : "dropdown-item"
+                }
+                onClick={() => togglePopular()}
+              >
+                Most Popular
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="col-md-2 offset-md-7">
           <button
-            className={
-              activeSort === "new" ? "dropdown-item active" : "dropdown-item"
-            }
-            onClick={() => toggleNewest()}
+            className="btn btn-primary"
+            onClick={() => {
+              verified.auth
+                ? (window.location.href = "/createposts")
+                : toast.error("You need to be logged in", {
+                    position: "top-right",
+                    autoClose: 1750,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
+            }}
           >
-            Newest
-          </button>
-          <button
-            className={
-              activeSort === "old" ? "dropdown-item active" : "dropdown-item"
-            }
-            onClick={() => toggleOldest()}
-          >
-            Oldest
-          </button>
-          <button
-            className={
-              activeSort === "popular"
-                ? "dropdown-item active"
-                : "dropdown-item"
-            }
-            onClick={() => togglePopular()}
-          >
-            Most Popular
+            Create Post
           </button>
         </div>
-      </div>
-      <div className="mr-5 text-right">
-        <button
-          className="btn btn-primary"
-          onClick={() => {
-            verified.auth
-              ? (window.location.href = "/createposts")
-              : toast.error("You need to be logged in", {
-                  position: "top-right",
-                  autoClose: 1750,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                });
-          }}
-        >
-          Create Post
-        </button>
       </div>
       <div className="container mt-5">
         {posts.map(function (post) {
@@ -207,6 +239,10 @@ const Posts = () => {
                   {post.user.id === verified.userID ? (
                     <span>
                       <svg
+                        onClick={() => {
+                          handleLike(post.id, !liked);
+                        }}
+                        style={liked ? { color: "blue" } : { color: "black" }}
                         data-tip
                         data-for="Like"
                         width="1.3em"
