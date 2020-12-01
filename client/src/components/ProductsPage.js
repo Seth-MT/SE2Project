@@ -1,68 +1,53 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import PullProducts from "./PullProducts";
+import Card from 'react-bootstrap/Card';
+import CardColumns from 'react-bootstrap/CardColumns'
+
 
 const ProductsPage = () => {
-    const [products, setProducts] = useState([]);
-    const [colour, setColour] = useState(
-      "card text-white bg-secondary mb-4 h-90"
-    );
-  
-    async function getProducts() {
-      try {
-        const res = await fetch("/products/all", {
-          method: "GET",
-          headers: { token: localStorage.token },
-        });
-  
-        const parseData = await res.json();
-        console.log(products)
-        setProducts(parseData);
-      } catch (err) {
-        console.error(err.message);
-      }
-    }
-  
-    //Get posts data
-    useEffect(() => {
-      getProducts();
-    }, []);
+    
+  var products = PullProducts()
 
     return (
-        <div className="container-fluid">
-          <h1 className="mt-5 text-center">Products</h1>
-          <div className="container col-8 mt-5">
+        <div className="container-fluid home-page-background">
+          <a href='/products'>
+          <h1 style = {{color:'white'}} className="
+            text-center products-row-background-colour">
+              Products
+          </h1>
+          </a>
+          <div className="container md-8 border border-light background-white">
+            <CardColumns align='center' className='background-color-white'> 
             {products.map(function (product) {
               return (
-                <div
-                  key={product.id}
-                  class="Card"
-                  // onMouseOver={setColour("card bg-light mb-3")}
-                  // onMouseLeave={setColour("card text-white bg-secondary mb-4 h-90")}
+                
+                <Card
+                border='light' 
+                style={{ width: '18rem' }}
+                text='light'
+                bg='dark'
+                key={product.id}                 
                 >
-                  <div class="row no-gutters">
-                    <div class="col-sm-2">
-                      <img
-                        class="card-img-top"
-                        src={product.imageUrl}
-                        style={{ width: "100%" }}
-                        alt="..."
-                      />
-                    </div>
-                    <div class="col-sm-8 border-border-dark">
-                      <div class="card-body">
-                        <h4 class="card-title">{product.name}</h4>
-                        <h6 class="card-text">{product.description}</h6>
-                      </div>
-                      <div class="text-right">
-                        <p class="card-text">
-                          <small>Last updated at: {product.updatedAt}</small>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                  <Card.Img variant="top" src={product.imageUrl}
+                     style={{width: '100%'}} />
+                    
+                     <Card.Body>
+                       <Card.Title ><a href='' class='align-left' style={{color:'white'}}>{product.name}</a></Card.Title>
+                       <Card.Text class='text-left'>
+                         {product.description}
+                       </Card.Text>
+                        <div class="text-right">
+                          <p class="card-text">
+                            <small>Last updated at: {product.updatedAt}</small>
+                          </p>
+                        </div>
+                      </Card.Body>
+                 
+                </Card>
               );
-            })}
-          </div>
+            })}</CardColumns>
+            
+          </div>  
         </div>
       );
     };

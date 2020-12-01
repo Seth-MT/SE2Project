@@ -1,14 +1,14 @@
 //React 
-import React, {Component, Fragment, useState} from "react";
+import React, {Component, Fragment, useState, useEffect} from "react";
+import GetPosts from './GetPosts'
 
 //React-bootstrap & bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
 import Carousel from 'react-bootstrap/Carousel';
 import Card from 'react-bootstrap/Card';
 import CardDeck from 'react-bootstrap/CardDeck'
-import Button from 'react-bootstrap/Button';
-import Alert from 'react-bootstrap/Alert'
-
+import Alert from 'react-bootstrap/Alert';
+import PullProducts from './PullProducts'
 
 //Function for Carousel at the top of page
 //Currently only contains placeholder text and images
@@ -18,58 +18,82 @@ function WelcomeCarousel() {
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
+  
+  const hStyle1 = { color: 'white' };
+  const hStyle2 = { color: 'red' };
+  const hStyle3 = { color: 'green' };
+  const hStyle4 = { color: 'black' };
 
   return (
     <Carousel activeIndex={index} onSelect={handleSelect}>
       <Carousel.Item>
+        <a href='/'>
         <img
+          brightness ={500}
+          opacity = {0}
           width={400} height={350} 
           className="a-block w-100"
-          src="https://peacemakersnetwork.org/wp-content/uploads/2019/09/placeholder.jpg"
+          src="https://ak.picdn.net/shutterstock/videos/1031742335/thumb/1.jpg"
           alt="First slide"
         />
+        </a>
+        
         <Carousel.Caption>
-          <h1><a href=''>Welcome to Hair Stylers</a></h1>
-          <p>Description here.</p>
+          
+          <div class="row">
+            <div class="col md-4">
+              <h1><u><a href='/' style={hStyle1}>Welcome to Hair Stylers</a></u></h1>
+              <p style={hStyle1}><b>Striving for better hair health in every individual</b></p>
+            </div>
+          </div>
+        
+        </Carousel.Caption>
+        
+
+      </Carousel.Item>
+      <Carousel.Item>
+        <a href= '/products'>
+          <img
+            width={400} height={350} 
+            className="d-block w-100"
+            src="https://images.askmen.com/1080x540/2020/09/29-040142-25_best_natural_hair_products_for_black_men.jpg"
+            alt="Second slide"
+          />
+        </a>
+
+        <Carousel.Caption>
+          <h3><a href='/products' style={hStyle1}><u>Hair Care Products</u></a></h3>
+          <p><b>Recommended hair care products by Hair Stylers</b></p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <img
-          width={400} height={350} 
-          className="d-block w-100"
-          src="https://peacemakersnetwork.org/wp-content/uploads/2019/09/placeholder.jpg"
-          alt="Second slide"
-        />
+        <a href='/posts'>
+          <img
+            width={400} height={350} 
+            className="d-block w-100"
+            src="https://image.freepik.com/free-vector/happy-businesswoman-with-many-thumbs-up-hands_52569-640.jpg"
+            alt="Third slide"
+          />
+        </a>
 
         <Carousel.Caption>
-          <h3><a href=''>Second slide label</a></h3>
-          <p>Description here.</p>
+          <h3><a href='/posts' style={hStyle1}><u>Popular Hair Styles</u></a></h3>
+          <p><b>What our members have been up to</b></p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <img
-          width={400} height={350} 
-          className="d-block w-100"
-          src="https://peacemakersnetwork.org/wp-content/uploads/2019/09/placeholder.jpg"
-          alt="Third slide"
-        />
+        <a href='/ARCamera'>
+          <img
+            width={400} height={350} 
+            className="d-block w-100"
+            src="https://d3329inlf62scx.cloudfront.net/app/uploads/2018/09/guy-holding-camera-1460x840.jpg"
+            alt="Fourth slide"
+          />
+        </a>
 
         <Carousel.Caption>
-          <h3><a href=''>Third slide label</a></h3>
-          <p>Description here.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          width={400} height={350} 
-          className="d-block w-100"
-          src="https://peacemakersnetwork.org/wp-content/uploads/2019/09/placeholder.jpg"
-          alt="Third slide"
-        />
-
-        <Carousel.Caption>
-          <h3><a href=''>Fourth slide label</a></h3>
-          <p>Description here.</p>
+          <h3><a href='/ARCamera' style={hStyle1}><u>AR Camera</u></a></h3>
+          <p><b>Use your device camera to edit AR Hairstyles on yourself</b></p>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
@@ -78,6 +102,7 @@ function WelcomeCarousel() {
 
 //function for Featured Hairstyles at top of page
 function FeaturedHairStyle(){
+
   return (
     <Card 
       border='light' 
@@ -103,6 +128,10 @@ function FeaturedHairStyle(){
 
 //function for Featured Products
 function FeaturedProducts(){
+
+  var {productInventory} = []
+  productInventory = PullProducts()
+
   return (
     <CardDeck>
       <Card 
@@ -111,7 +140,7 @@ function FeaturedProducts(){
         text='light'
         bg='dark'>
         <Card.Header>Shampoo</Card.Header>
-        <Card.Img variant="top" src="https://breakthrough.org/wp-content/uploads/2018/10/default-placeholder-image.png"
+        <Card.Img variant="top" src='https://breakthrough.org/wp-content/uploads/2018/10/default-placeholder-image.png'
         height={200} width={200} />
         <Card.Body>
           <Card.Title><a href=''>Shampoo Name</a></Card.Title>
@@ -177,15 +206,8 @@ function CalendarPlaceholder(){
   )
 }
 
-//place holder for newsfeed posts
-function Feed(){
-  return(
-    <Alert variant="danger">Nothing has been posted!</Alert>
-  )
-}
-
-
 class Home extends Component {
+
   render() {
 
     return( 
@@ -232,7 +254,9 @@ class Home extends Component {
           </div>
 
           <div class="row"> 
-            <Feed/>         
+          <div class="col-md-8 products-row-size">
+            <GetPosts/>    
+          </div>     
           </div>
         </div>
         
