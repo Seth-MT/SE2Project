@@ -19,16 +19,8 @@ router.post("/", authorization, async (req, res) => {
   }
 });
 
-/** 
- * Searches for hair styles using query parameters that are entered by the user
- * Uses a get request method to receive data from the server
- * @author Seth Timothy
- * @param {Path} "/search/:query" - The target path of the request
- * @param {Request} req - The user request
- * @param {Response} res - The server's response
- * @return {Response} - The response including the data that matches the query
-*/
 
+//Searches for hair styles using query parameters that are entered by the user
 router.get("/search/:query", async(req, res) => {
   var type;
   if (req.params.query.toLowerCase() == "straight") {
