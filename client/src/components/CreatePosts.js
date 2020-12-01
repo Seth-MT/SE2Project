@@ -9,6 +9,7 @@ const CreatePosts = () => {
   const [hairStyleImg, setImage] = useState(
     "https://icons-for-free.com/iconfiles/png/512/box+document+outline+share+top+upload+icon-1320195323221671611.png"
   );
+
   const [loading, setLoading] = useState(false);
   const [postLoading, setPostLoading] = useState(false);
   const { postTitle, postDescription } = inputs;
@@ -162,7 +163,7 @@ const CreatePosts = () => {
                       name="file"
                       className="custom-file-input"
                       id="customFile"
-                      onChange={fileSelectedHandler}
+                      onChange={(e) => fileSelectedHandler(e)}
                     />
                     <label className="custom-file-label" htmlFor="customFile">
                       Choose file
@@ -209,38 +210,40 @@ const CreatePosts = () => {
       </div>
 
       <div
-        class="modal fade"
+        className="modal fade"
         id="hairStyleModal"
-        tabindex="-1"
+        tabIndex="-1"
         role="dialog"
         aria-labelledby="hairstyleModalTitle"
         aria-hidden="true"
       >
-        <div class="modal-dialog modal-lg" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="hairStyleModalTitle">
+        <div className="modal-dialog modal-lg" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="hairStyleModalTitle">
                 Hair Styles
               </h5>
               <button
                 type="button"
-                class="close"
+                className="close"
                 data-dismiss="modal"
                 aria-label="Close"
               >
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
-              <div class="card-columns">
+            <div className="modal-body">
+              <div className="card-columns">
                 {styles.map(function (style) {
                   return (
                     <div
                       key={style.id}
-                      class={
-                        style.id === activeCard
+                      className={
+                        style.id === activeCard && style.id === selectedCard
+                          ? "card text-white bg-info mb-3"
+                          : style.id === activeCard
                           ? "card text-info border-info mb-3"
-                          : "card" && style.id === selectedCard
+                          : style.id === selectedCard
                           ? "card text-white bg-info mb-3"
                           : "card"
                       }
@@ -249,13 +252,13 @@ const CreatePosts = () => {
                       onClick={() => selectCard(style.id)}
                     >
                       <img
-                        class="card-img-top"
+                        className="card-img-top"
                         src={style.imageUrl}
                         alt="Hairstyle"
                       />
-                      <div class="card-body">
-                        <h5 class="card-title">{style.name}</h5>
-                        <p class="card-text">
+                      <div className="card-body">
+                        <h5 className="card-title">{style.name}</h5>
+                        <p className="card-text">
                           <i>Recommended use:</i> {style.type} <br />
                           <i>Hair length:</i> {style.hairLength}
                         </p>
@@ -265,17 +268,17 @@ const CreatePosts = () => {
                 })}
               </div>
             </div>
-            <div class="modal-footer">
+            <div className="modal-footer">
               <button
                 type="button"
-                class="btn btn-secondary"
+                className="btn btn-secondary"
                 data-dismiss="modal"
               >
                 Close
               </button>
               <button
                 type="button"
-                class="btn btn-primary"
+                className="btn btn-primary"
                 data-dismiss="modal"
                 onClick={() => updateImage()}
               >

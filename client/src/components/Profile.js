@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-import { Container, Row, Col, Image, Button, Modal } from "react-bootstrap";
-
 const Profile = ({ setAuth }) => {
   const [name, setName] = useState("");
   const [profileImage, setImage] = useState("");
@@ -14,7 +12,6 @@ const Profile = ({ setAuth }) => {
   const [coloring, setColoring] = useState(false);
   const [newName, setNewName] = useState("");
   const [loading, setLoading] = useState(false);
-  const [show, setModal] = useState(false);
   const [inputStatus, setStatus] = useState("");
 
   //Get username and profile image
@@ -35,7 +32,7 @@ const Profile = ({ setAuth }) => {
     }
 
     getProfile();
-  }, [name, profileImage]);
+  }, []);
 
   //Logout user
   const logout = async (e) => {
@@ -70,7 +67,6 @@ const Profile = ({ setAuth }) => {
     );
 
     const file = await res.json();
-    console.log(file.secure_url);
 
     //Change profile image to file uploaded
     setImage(file.secure_url);
@@ -80,7 +76,16 @@ const Profile = ({ setAuth }) => {
   //Send updated profile name and profile picture to backend server
   const fileUploadHandler = async () => {
     try {
-      const body = { profileImage, newName, dateOfBirth, sex, hairType, hairLength, bleach, coloring };
+      const body = {
+        profileImage,
+        newName,
+        dateOfBirth,
+        sex,
+        hairType,
+        hairLength,
+        bleach,
+        coloring,
+      };
 
       const res = await fetch("/profile/update", {
         method: "PUT",
@@ -147,7 +152,6 @@ const Profile = ({ setAuth }) => {
   const inputDOBHandler = async (e) => {
     try {
       setDateOfBirth(e.target.value);
-      
     } catch (err) {
       console.error(err);
     }
@@ -201,34 +205,38 @@ const Profile = ({ setAuth }) => {
   return (
     <div className="container-fluid">
       <h1 className="mt-5 text-center">Profile</h1>
-      <Container>
-        <Row className="align-items-center">
+      <div className="container">
+        <div className="row align-items-center">
           <div className="col-md2 text-center">
-            <img
-              id="image"
-              src={profileImage}
-              width="171"
-              height="180"
-              alt="loading img"
-            />
+            {loading ? (
+              <h5>Loading...</h5>
+            ) : (
+              <img
+                id="image"
+                src={profileImage}
+                width="171"
+                height="180"
+                alt="loading img"
+              />
+            )}
           </div>
-          <Col>
+          <div className="col">
             <h2 className="text-left">Welcome, {name}</h2>
-          </Col>
-        </Row>
-        <form onSubmit = {(e) => fileUploadHandler(e)}>
-          <div className = "form-group">
+          </div>
+        </div>
+        <form onSubmit={(e) => fileUploadHandler(e)}>
+          <div className="form-group">
             <input
               name="file"
               type="file"
-              onChange={fileSelectedHandler}
-          />
-         </div>
+              onChange={(e) => fileSelectedHandler(e)}
+            />
+          </div>
           <div className="form-group">
             <input
               type="text"
               className="form-control"
-              placeholder = {name}
+              placeholder={name}
               defaultValue={name}
               onChange={(e) => inputNameHandler(e)}
             />
@@ -245,25 +253,33 @@ const Profile = ({ setAuth }) => {
               )
             }
           </div>
-          <div class="form-group">
-            <label for="dateOfBirth">Date of Birth</label>
+          <div className="form-group">
+            <label htmlFor="dateOfBirth">Date of Birth</label>
             <input
-            type="date"
-            class="form-control"
-            name="dateOfBirth"
-            onChange={(e) => inputDOBHandler(e)}
+              type="date"
+              className="form-control"
+              name="dateOfBirth"
+              onChange={(e) => inputDOBHandler(e)}
             ></input>
           </div>
-          <div class="form-group">
-            <label for="sex">Sex</label>
-            <select class="form-control" id="sex" onChange={(e) => inputSexHandler(e)}>
+          <div className="form-group">
+            <label htmlFor="sex">Sex</label>
+            <select
+              className="form-control"
+              id="sex"
+              onChange={(e) => inputSexHandler(e)}
+            >
               <option>Male</option>
               <option>Female</option>
             </select>
           </div>
-          <div class="form-group">
-          <label for="hairType">Hair Type</label>
-            <select class="form-control" id="hairType" onChange={(e) => inputHairTypeHandler(e)}>
+          <div className="form-group">
+            <label htmlFor="hairType">Hair Type</label>
+            <select
+              className="form-control"
+              id="hairType"
+              onChange={(e) => inputHairTypeHandler(e)}
+            >
               <option>Straight</option>
               <option>Wavy</option>
               <option>Curly</option>
@@ -272,15 +288,15 @@ const Profile = ({ setAuth }) => {
           </div>
           <div className="row form-group">
             <div className="col-md-4">
-              <label for="hairLength">Estimated Hair Length</label>
+              <label htmlFor="hairLength">Estimated Hair Length</label>
             </div>
             <div className="col-lg-1 col-md-2">
               <input
-              type="number"
-              class="form-control-inline hairLength"
-              name="hairLength"
-              onChange={(e) => inputHairLengthHandler(e)}
-              style={{width: 45 + 'px'}}
+                type="number"
+                className="form-control-inline hairLength"
+                name="hairLength"
+                onChange={(e) => inputHairLengthHandler(e)}
+                style={{ width: 45 + "px" }}
               ></input>
             </div>
             <div className="col-lg-7 col-md-6">
@@ -293,14 +309,30 @@ const Profile = ({ setAuth }) => {
             </div>
             <div className="col-md-2">
               <div>
-                <input className="form-check-input" type="radio" name="bleached" id="bleachYes" onChange={(e) => inputBleachHandler(e)}></input>
-                <label className="form-check-label" for="bleachYes">Yes</label>
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="bleached"
+                  id="bleachYes"
+                  onChange={(e) => inputBleachHandler(e)}
+                ></input>
+                <label className="form-check-label" htmlFor="bleachYes">
+                  Yes
+                </label>
               </div>
             </div>
             <div className="col-md-2">
               <div>
-                <input className="form-check-input" type="radio" name="bleached" id="bleachNo" onChange={(e) => inputBleachHandler(e)}></input>
-                <label className="form-check-label" for="bleachNo">No</label>
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="bleached"
+                  id="bleachNo"
+                  onChange={(e) => inputBleachHandler(e)}
+                ></input>
+                <label className="form-check-label" htmlFor="bleachNo">
+                  No
+                </label>
               </div>
             </div>
           </div>
@@ -311,31 +343,42 @@ const Profile = ({ setAuth }) => {
             </div>
             <div className="col-md-2">
               <div>
-                <input className="form-check-input" type="radio" name="colored" id="colorYes" onChange={(e) => inputColorHandler(e)}></input>
-                <label className="form-check-label" for="colorYes">Yes</label>
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="colored"
+                  id="colorYes"
+                  onChange={(e) => inputColorHandler(e)}
+                ></input>
+                <label className="form-check-label" htmlFor="colorYes">
+                  Yes
+                </label>
               </div>
             </div>
             <div className="col-md-2">
               <div>
-                <input className="form-check-input" type="radio" name="colored" id="colorNo" onChange={(e) => inputColorHandler(e)}></input>
-                <label className="form-check-label" for="colorNo">No</label>
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="colored"
+                  id="colorNo"
+                  onChange={(e) => inputColorHandler(e)}
+                ></input>
+                <label className="form-check-label" htmlFor="colorNo">
+                  No
+                </label>
               </div>
             </div>
           </div>
-          <button 
-            type="submit" 
-            className="btn btn-primary"
-            disabled = {loading}
-          >
+          <button type="submit" className="btn btn-primary" disabled={loading}>
             Save Changes
           </button>
         </form>
-        
-      </Container>
+      </div>
 
       <div className="row">
-        <div className="col text-center">
-          <button onClick={(e) => logout(e)} className="btn btn-primary">
+        <div className="col mt-5 text-center">
+          <button onClick={(e) => logout(e)} className="btn btn-secondary">
             Logout
           </button>
         </div>
