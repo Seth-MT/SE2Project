@@ -89,7 +89,7 @@ function Main({ setUser }) {
           render={(props) => <CreatePosts {...props} />}
         />
         <Route exact path="/posts" render={() => <Posts />} />
-        <Route path = "/products" render={() => <ProductsPage />}/>
+        <Route path = "/products" render={() => <ProductsPage/>}/>
         <Route path = "/ARCamera" component = {AR_Camera}/>
         <Route component= {PageNotFound} />
         <Redirect from="*" to="/" />
