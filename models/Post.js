@@ -19,6 +19,16 @@ const Post = db.define("post", {
     allowNull: true,
     type: Sequelize.INTEGER,
   },
+  likes: {
+    allowNull: true,
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+  },
+  dislikes: {
+    allowNull: true,
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+  },
 });
 
 module.exports = Post;

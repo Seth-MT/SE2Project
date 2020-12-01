@@ -19,6 +19,7 @@
     "react-scripts": "^4.0.0",
     "react-slideshow-image": "^3.4.1",
     "react-toastify": "^6.0.9",
+    "react-tooltip": "^4.2.11",
     "yup": "^0.30.0"
   },
   "scripts": {

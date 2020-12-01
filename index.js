@@ -15,6 +15,9 @@ const Product = require("./models/Product");
 const Post = require("./models/Post");
 const Style = require("./models/Style");
 
+User.hasMany(Post, { foreignKey: "userID" });
+Post.belongsTo(User, { foreignKey: "userID" });
+
 // app connection and resources sharing setup
 app.use(cors());
 app.use(express.json()); //req.body

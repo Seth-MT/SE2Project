@@ -18,10 +18,12 @@ toast.configure();
 
 function Main({ setUser }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
   const setAuth = (boolean) => {
     setIsAuthenticated(boolean);
   };
+
   async function isAuth() {
     try {
       const res = await fetch("/auth/is-verify", {
@@ -30,10 +32,12 @@ function Main({ setUser }) {
       });
 
       const parseRes = await res.json();
-
-      parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
+      parseRes.auth === true
+        ? setIsAuthenticated(true)
+        : setIsAuthenticated(false);
 
       setUser(isAuthenticated);
+      setLoading(false);
     } catch (err) {
       console.error(err.message);
     }
@@ -86,20 +90,32 @@ function Main({ setUser }) {
           exact
           path="/createposts"
           render={() =>
-            isAuthenticated ? (
+            isLoading ? (
+              <div
+                className="container d-flex h-100"
+                style={{ marginTop: "50%" }}
+              >
+                <div
+                  className="justify-content-center align-self-center spinner-grow text-info"
+                  role="status"
+                  style={{ width: "3rem", height: "3rem" }}
+                >
+                  <span className="sr-only">Loading...</span>
+                </div>
+              </div>
+            ) : isAuthenticated ? (
               <CreatePosts />
             ) : (
-              // toast.error("Please log in", {
-              //   position: "top-right",
-              //   autoClose: 2000,
-              //   hideProgressBar: false,
-              //   closeOnClick: true,
-              //   pauseOnHover: true,
-              //   draggable: true,
-              //   progress: undefined,
-              //   onClose: () => (window.location.href = "/login"),
-              // })
-              <h3 className="text-center">Login Required!</h3>
+              toast.error("Please log in", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                onClose: () => (window.location.href = "/login"),
+              })
             )
           }
         />
