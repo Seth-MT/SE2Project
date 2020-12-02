@@ -11,6 +11,7 @@ class CalendarPage extends Component {
 
   constructor(props) {
     super();
+    //Bind methods make it so that the functions are made public and other functions can use and access them
     this.loadJson = this.loadJson.bind(this);
     this.deleteEvent = this.deleteEvent.bind(this);
     this.handleItemClick = this.handleItemClick.bind(this);
@@ -37,7 +38,7 @@ class CalendarPage extends Component {
     });
   }
 
-  events = [[],[],[]];
+  events = [[],[],[]]; //Array used to store all events that are retrieved from the user's Google Calendar
 
   signUpdate(sign) {
     this.setState({ //Sets sign state to true if user is signed in and false if not
@@ -52,7 +53,7 @@ class CalendarPage extends Component {
       document.getElementById("calendar-login").style.display = "block";
       document.getElementById("calendar-logout").style.display = "none";
     }
-    window.location.reload();
+    window.location.reload(); //Refresh the page
   }
 
   handleItemClick(event, name) { //Function that calls when the user clicks to sign in/out of Google Calendar
@@ -103,16 +104,16 @@ class CalendarPage extends Component {
           scheduleCard.innerHTML = ""; //Reset the card to be empty
           for (i=0; i<result.items.length; i++) { //Loops through the list of upcoming events
             var scheduleDate = (new Date(Date.parse(result.items[i].start.dateTime))); //Convert dateTime object to Date object
-            if (day === scheduleDate.getDate() && month === scheduleDate.getMonth() && year === scheduleDate.getFullYear() && result.items[i].summary.substring(0, 10) === "Hair Thing") { //If the event is on the same day as the day the user clicked
+            if (day === scheduleDate.getDate() && month === scheduleDate.getMonth() && year === scheduleDate.getFullYear() && result.items[i].summary.substring(0, 10) === "Hair Thing") { //If the event is on the same day as the day the user clicked and begins with "Hair Thing"
               var node = document.createElement("LI"); //Create list element
               node.className += " list-group-item"; //Adds bootstrap CSS for list group
               node.className += " schedule-item"; //Adds CSS for list items
-              var hour = this.convertHour(scheduleDate.getHours());
-              var minute = this.convertMinute(scheduleDate.getMinutes());
-              var title = result.items[i].summary.substring(13);
-              var textnode = document.createTextNode(title + " - " + hour[0] + ":" + minute + " " + hour[1]);
-              node.appendChild(textnode);
-              scheduleCard.appendChild(node);
+              var hour = this.convertHour(scheduleDate.getHours()); //Format hour from 24hr time to 12hr time
+              var minute = this.convertMinute(scheduleDate.getMinutes()); //See convertMinute code comments
+              var title = result.items[i].summary.substring(13); //Ignore the first 13 characters of the event name (this would be the part of the event that says "Hair Thing - ")
+              var textnode = document.createTextNode(title + " - " + hour[0] + ":" + minute + " " + hour[1]); //Create text that would show the event title and start time
+              node.appendChild(textnode); //Add text to node
+              scheduleCard.appendChild(node); //Add node to the schedule card
             }
           }
         });
@@ -122,7 +123,7 @@ class CalendarPage extends Component {
       }
   };
 
-  createEvent(event) {
+  createEvent(event) { //Function used to create a new event in the user's Google Calendar
     ApiCalendar.createEvent(event)
     .then((result) => {
       console.log(result);
@@ -133,24 +134,24 @@ class CalendarPage extends Component {
       
   }
 
-  async getEventDays () {
+  async getEventDays () { //Function used to retrieve the events on the user's Google Calendar
     var j=0;
-    if (ApiCalendar.sign) {
-      const response = await ApiCalendar.listUpcomingEvents(100);
-      var result = response.result;
+    if (ApiCalendar.sign) { //If the user is signed into Google Calendar
+      const response = await ApiCalendar.listUpcomingEvents(100); //Retrieve the next 100 events
+      var result = response.result; //Result of the API call
       for (var i=0; i<result.items.length; i++) { //Loops through the list of upcoming events
         var eventDate = (new Date(Date.parse(result.items[i].start.dateTime))); //Convert dateTime object to Date object
-        if (result.items[i].summary.substring(0, 10) === "Hair Thing") {
-          if (!this.events[j]) {
-          this.events[j] = []
+        if (result.items[i].summary.substring(0, 10) === "Hair Thing") { //If the event begins with "Hair Thing"
+          if (!this.events[j]) { //Initialise array, this is necessary for multidimensional arrays in JavaScript
+            this.events[j] = []
           }
-          this.events[j][0] = eventDate.getDate();
-          this.events[j][1] = eventDate.getMonth();
-          this.events[j][2] = eventDate.getFullYear();
+          this.events[j][0] = eventDate.getDate(); //Store day value
+          this.events[j][1] = eventDate.getMonth(); //Store month value
+          this.events[j][2] = eventDate.getFullYear(); //Store year value
           j++; 
         }
       }
-      this.setState ({
+      this.setState ({ //Let the app know that the API is finished loading and is now allowed to render the component
         loading: false,
       });
     }
@@ -159,40 +160,39 @@ class CalendarPage extends Component {
     }
   }
 
-  allEvents(events, date) {
+  allEvents(events, date) { //Function to mark days where an event is on
     for (var i=0; i<this.events.length; i++) {
-      if(date.getDate() === this.events[i][0] && date.getMonth() === this.events[i][1] && date.getFullYear() === this.events[i][2])
+      if(date.getDate() === this.events[i][0] && date.getMonth() === this.events[i][1] && date.getFullYear() === this.events[i][2]) //If the calendar tile is a day that an event is on
         return true;
     }
     return false;
   }
 
-  daysOfTheWeek(date) {
-      var daysInMonth = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
-      var week = [[],[],[],[],[],[],[]];
-      for(var j=1;j<=daysInMonth;j++) {    //looping through days in month
-        var newDate = new Date(date.getFullYear(),date.getMonth(),j)
-        if (!week[newDate.getDay()]) {
+  daysOfTheWeek(date) { //Function to determine the date that the schedule item would land on depending on that weekday written on the schedule json
+      var daysInMonth = new Date(date.getFullYear(), date.getMonth(), 0).getDate(); //Get the amount of days in the selected month
+      var week = [[],[],[],[],[],[],[]]; //Array that stores the days for each day of the week where each array is a new day (Sunday, Monday, Tuesday, etc)
+      for(var j=1;j<=daysInMonth;j++) {  //looping through days in month
+        var newDate = new Date(date.getFullYear(),date.getMonth(), j)
+        if (!week[newDate.getDay()]) { //Initialise multidimensional array
           week[newDate.getDay()] = []
           }
-        week[newDate.getDay()].push(j);
+        week[newDate.getDay()].push(j); //Push the day into the associated index of the week array
       }
       return week;
   }
 
 
-  loadJson() {
-    console.log("Hello");
-    var today = new Date();
-    var date;
-    var scheduleDay;
-    var scheduleWeek;
-    var scheduleMonth;
-    var scheduleYear;
-    var counter=0;
-    for (var k=0; k<2; k++) {
-      for (var j=0; j<(testData.length*3); j++) {
-        if (j >= testData.length) {
+  loadJson() { //Function to load data from a json file
+    var today = new Date(); //Create Date object of the current day
+    var date; //Store value of the today var
+    var scheduleDay; //Value of the day of the schedule event
+    var scheduleWeek; //Value of which week of the month that the event should be placed on
+    var scheduleMonth; //Value of the month of the schedule event
+    var scheduleYear; //Value of the year of the schedule event
+    var counter=0; //Counter to determine how many times the json has been looped through
+    for (var k=0; k<2; k++) { //Create events for the schedule in the user's Google Calendar for the next two months
+      for (var j=0; j<(testData.length*3); j++) { //Schedules are made for two weeks and are then repeated. testData is the json file and the length is multiplied by 3 to ensure that every week in a month is properly filled 
+        if (j >= testData.length) { //If the json file has been looped through once
           var i = j%testData.length;
           counter = 1;
         }
@@ -200,56 +200,56 @@ class CalendarPage extends Component {
           i = j;
           counter = 0;
         }
-        if (j >= testData.length*2) {
+        if (j >= testData.length*2) { //If the json file has been looped through twice
           counter = 2;
         }
-        if (testData[i]) {
-          date = today;
-          today = new Date();
-          date.setMonth(today.getMonth()+k);
-          scheduleMonth = date.getMonth() + 1;
-          scheduleYear = date.getFullYear();
-          var week = this.daysOfTheWeek(date);
-          if (testData[i].week === "1") {
+        if (testData[i]) { //If data exists
+          date = today; //Store value of today var
+          today = new Date(); //Create new today var
+          date.setMonth(today.getMonth()+k); //Set month of date to the current month plus the current iteration of the loop so that the month after can be filled out
+          scheduleMonth = date.getMonth() + 1; //Set scheduleMonth to the month of the date var plus 1 because Date object's months are 0-indexed
+          scheduleYear = date.getFullYear(); //Set scheduleYear to the year of the year of the date var
+          var week = this.daysOfTheWeek(date); //Get the scheduleDay of the date
+          if (testData[i].week === "1") { //If the schedule item is meant for the 1st week
             scheduleWeek=0
           }
-          else {
+          else { //If the schedule item is meant for the 2nd week
             scheduleWeek=1
           }
-          if (counter === 1) {
+          if (counter === 1) { //If the json has been looped through once already, the third/fourth week must now be filled out
             scheduleWeek = scheduleWeek + 2;
           }
-          if (counter === 2) {
+          if (counter === 2) { //If the json file has been looped through twice already, the fifth week must now be filled out
             scheduleWeek = scheduleWeek + 4;
           } 
-          if (week[testData[i].day][scheduleWeek]) {
+          if (week[testData[i].day][scheduleWeek]) { //If the value in week array exists
             scheduleDay = week[testData[i].day][scheduleWeek];
             var event = {
-              summary: "Hair Thing - " + testData[i].event,
-              start: {
+              summary: "Hair Thing - " + testData[i].event, //Events created by the app must begin witth "Hair Thing - "
+              start: { //Create start date in the format for Google Calendar API to read
                 dateTime: scheduleYear + "-" + scheduleMonth + "-" + scheduleDay + "T" + testData[i].start + "-04:00"
               },
-              end: {
+              end: { //Create end date in the format for Google Calendar API to read
                 dateTime: scheduleYear + "-" + scheduleMonth + "-"  + scheduleDay + "T" + testData[i].end + "-04:00"
               }
             };
-            this.createEvent(event);
+            this.createEvent(event); //Create and add the event to the user's Google Calendar
           }
         }
       }
     }
   }
 
-  async deleteEvent() {
+  async deleteEvent() { //Function to delete all Hair Thing events from the user's Google Calendar
     if (ApiCalendar.sign) { //Only executes if the user is signed in to Google Calendar
       console.log('Signed in');
-      const response = await ApiCalendar.listUpcomingEvents(100);
+      const response = await ApiCalendar.listUpcomingEvents(100); //Retrieve the next 100 events
       var result = response.result;
         for (var i=0; i<result.items.length; i++) { //Loops through the list of upcoming events
-          if (result.items[i].summary.substring(0, 10) === "Hair Thing") {
+          if (result.items[i].summary.substring(0, 10) === "Hair Thing") { //If the event is a Hair Thing event
             try {
-              const tryDelete = await ApiCalendar.deleteEvent(result.items[i].id);
-              console.log(tryDelete.result);
+              const tryDelete = await ApiCalendar.deleteEvent(result.items[i].id); //Delete the event from the user's Google Calendar
+              console.log(tryDelete.result); //Something must be done with tryDelete.result or else the event wont be deleted
             }
             catch(error) {
               console.log(error);
