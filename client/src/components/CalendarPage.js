@@ -4,8 +4,7 @@ import 'react-calendar/dist/Calendar.css';
 import '../App.css';
 import ApiCalendar from 'react-google-calendar-api';
 
-import testData from '../test';
-
+import testData from '../json';
 
 class CalendarPage extends Component {
 
@@ -168,7 +167,7 @@ class CalendarPage extends Component {
     return false;
   }
 
-  daysOfTheWeek(date) { //Function to determine the date that the schedule item would land on depending on that weekday written on the schedule json
+  daysOfTheWeek(date) { //Function to sort the days of the week within a month 
       var daysInMonth = new Date(date.getFullYear(), date.getMonth(), 0).getDate(); //Get the amount of days in the selected month
       var week = [[],[],[],[],[],[],[]]; //Array that stores the days for each day of the week where each array is a new day (Sunday, Monday, Tuesday, etc)
       for(var j=1;j<=daysInMonth;j++) {  //looping through days in month
