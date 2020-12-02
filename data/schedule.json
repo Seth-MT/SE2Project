@@ -1,0 +1,146 @@
+[
+    {
+        "event": "Hair Mask",
+        "description": "Apply hair mask and rinse thoroughly afterward",
+        "start": "11:30:00",
+        "end": "12:00:00",
+        "day": 0,
+        "week": "1"
+    },
+    {
+        "event": "Wash and Condition Hair",
+        "description": "Massage shampoo into scalp, rinse, and then condition hair from roots to tips. Detangle using a wide teethed comb or brush.",
+        "start": "12:00:00",
+        "end": "13:00:00",
+        "day": 0,
+        "week": "1"
+    },
+    {
+        "event": "Oil Hair",
+        "description": "Apply a few drops of oil directly to the scalp",
+        "start": "20:00:00",
+        "end": "20:10:00",
+        "day": 2,
+        "week": "1"
+    },
+    {
+        "event": "Condition Hair",
+        "description": "After detangling hair, condition hair from roots to tips. Detangle using a wide-teethed comb or brush.",
+        "start": "12:00:00",
+        "end": "13:00:00",
+        "day": 3,
+        "week": "1"
+    },
+    {
+        "event": "Oil Hair",
+        "description": "Apply a few drops of oil directly to the scalp",
+        "start": "20:00:00",
+        "end": "20:10:00",
+        "day": 4,
+        "week": "1"
+    },
+    {
+        "event": "Wash and Condition Hair",
+        "description": "After detangling hair, massage shampoo into scalp, rinse, and then condition hair from roots to tips. Detangle using a wide teethed comb or brush.",
+        "start": "12:00:00",
+        "end": "13:00:00",
+        "day": 0,
+        "week": "2"
+    },
+    {
+        "event": "Oil Hair",
+        "description": "Apply a few drops of oil directly to the scalp",
+        "start": "20:00:00",
+        "end": "20:10:00",
+        "day": 2,
+        "week": "2"
+    },
+    {
+        "event": "Condition Hair",
+        "description": "After detangling hair, condition hair from roots to tips. Detangle using a wide-teethed comb or brush.",
+        "start": "12:00:00",
+        "end": "13:00:00",
+        "day": 3,
+        "week": "2"
+    },
+    {
+        "event": "Oil Hair",
+        "description": "Apply a few drops of oil directly to the scalp",
+        "start": "20:00:00",
+        "end": "20:10:00",
+        "day": 4,
+        "week": "2"
+    },
+    {
+        "event": "Wash and Condition Hair",
+        "description": "After detangling hair, massage shampoo into scalp, rinse, and then condition hair from roots to tips. Detangle using a wide teethed comb or brush.",
+        "start": "12:00:00",
+        "end": "13:00:00",
+        "day": 0,
+        "week": "3"
+    },
+    {
+        "event": "Oil Hair",
+        "description": "Apply a few drops of oil directly to the scalp",
+        "start": "20:00:00",
+        "end": "20:10:00",
+        "day": 2,
+        "week": "3"
+    },
+    {
+        "event": "Condition Hair",
+        "description": "After detangling hair, condition hair from roots to tips. Detangle using a wide-teethed comb or brush.",
+        "start": "12:00:00",
+        "end": "13:00:00",
+        "day": 3,
+        "week": "3"
+    },
+    {
+        "event": "Oil Hair",
+        "description": "Apply a few drops of oil directly to the scalp",
+        "start": "20:00:00",
+        "end": "20:10:00",
+        "day": 4,
+        "week": "3"
+    },
+    {
+        "event": "Wash and Condition Hair",
+        "description": "After detangling hair, massage shampoo into scalp, rinse, and then condition hair from roots to tips. Detangle using a wide teethed comb or brush.",
+        "start": "12:00:00",
+        "end": "13:00:00",
+        "day": 0,
+        "week": "4"
+    },
+    {
+        "event": "Oil Hair",
+        "description": "Apply a few drops of oil directly to the scalp",
+        "start": "20:00:00",
+        "end": "20:10:00",
+        "day": 2,
+        "week": "4"
+    },
+    {
+        "event": "Condition Hair",
+        "description": "After detangling hair, condition hair from roots to tips. Detangle using a wide-teethed comb or brush.",
+        "start": "12:00:00",
+        "end": "13:00:00",
+        "day": 3,
+        "week": "4"
+    },
+    {
+        "event": "Oil Hair",
+        "description": "Apply a few drops of oil directly to the scalp",
+        "start": "20:00:00",
+        "end": "20:10:00",
+        "day": 4,
+        "week": "4"
+    },
+    {
+        "event": "Deep Condition",
+        "description": "Deep condition and rinse hair",
+        "start": "12:00:00",
+        "end": "13:00:00",
+        "day": 6,
+        "week": "4"
+    }
+]
