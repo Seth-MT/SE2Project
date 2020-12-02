@@ -31,6 +31,7 @@ if (process.env.NODE_ENV === "production") {
 /* ROUTES */
 
 // test route - this route is just a way for me to check that the backend route is connected and functioning
+// delete this after development
 app.get("/", (req, res) => {
   res.send("Test");
 });
@@ -42,14 +43,16 @@ app.use("/auth", require("./routes/jwtAuth"));
 // route for user functions
 app.use("/profile", require("./routes/profile"));
 
-/* Product */
+
+/* Products */
 app.use("/products", require("./routes/productRouter"));
 
 //posts route
 app.use("/posts", require("./routes/posts"));
 
-//styles route
+/* Styles */ 
 app.use("/styles", require("./routes/styleRouter"));
+
 
 // if a bad route is entered
 if (process.env.NODE_ENV === "production") {
