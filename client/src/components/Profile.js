@@ -16,7 +16,6 @@ const Profile = ({ setAuth }) => {
   const [newName, setNewName] = useState("");
   const [loading, setLoading] = useState(false);
   const [inputStatus, setStatus] = useState("");
-  const [sign, setSign] = useState("");
 
   //Get username and profile image
   useEffect(() => {
@@ -338,6 +337,20 @@ const Profile = ({ setAuth }) => {
       console.log("Not signed in");
     }
   }
+
+  useEffect(() => {
+    ApiCalendar.onLoad(() => { //Function is called when the API is loaded
+      if (ApiCalendar.sign) { //Set visibility of log in/log out buttons depending on if the user is signed in or not
+        document.getElementById("calendar-login").style.display = "none";
+        document.getElementById("calendar-logout").style.display = "block";
+      }
+      else
+      {
+        document.getElementById("calendar-login").style.display = "block";
+        document.getElementById("calendar-logout").style.display = "none";
+      }
+    })
+  });
 
   return (
     <div className="container-fluid">

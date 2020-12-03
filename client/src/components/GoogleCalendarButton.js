@@ -12,19 +12,9 @@ class GoogleCalendarButton extends Component {
             sign: ApiCalendar.sign, //Boolean value that is set to true if user is signed in to Google Calendar and false if not
         };
         this.signUpdate = this.signUpdate.bind(this);
-        console.log("HAHA");
         ApiCalendar.onLoad(() => { //Function is called when the API is loaded
             ApiCalendar.listenSign(this.signUpdate); //Checks if user is signed in to Google Calendar
-            if (ApiCalendar.sign) { //Set visibility of log in/log out buttons depending on if the user is signed in or not
-              document.getElementById("calendar-login").style.display = "none";
-              document.getElementById("calendar-logout").style.display = "block";
-            }
-            else
-            {
-              document.getElementById("calendar-login").style.display = "block";
-              document.getElementById("calendar-logout").style.display = "none";
-            }
-          });
+          }); 
     }
 
     handleItemClick(event, name) { //Function that calls when the user clicks to sign in/out of Google Calendar
