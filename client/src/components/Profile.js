@@ -277,7 +277,8 @@ const Profile = ({ setAuth }) => {
               },
               end: { //Create end date in the format for Google Calendar API to read
                 dateTime: scheduleYear + "-" + scheduleMonth + "-"  + scheduleDay + "T" + scheduleData[i].end + "-04:00"
-              }
+              },
+              description: scheduleData[i].description
             };
             await createEvent(event); //Create and add the event to the user's Google Calendar
           }
@@ -337,43 +338,6 @@ const Profile = ({ setAuth }) => {
       console.log("Not signed in");
     }
   }
-
-  /* function signUpdate(sign) {
-    setSign(sign); //Sets sign state to true if user is signed in and false if not
-    if (sign) { //Set visibility of log in/log out buttons when the user logs in or out
-      document.getElementById("calendar-login").style.display = "none";
-      document.getElementById("calendar-logout").style.display = "block";
-    }
-    else
-    {
-      document.getElementById("calendar-login").style.display = "block";
-      document.getElementById("calendar-logout").style.display = "none";
-    }
-    window.location.reload(); //Refresh the page
-  }
-
-   function handleItemClick(event, name) { //Function that calls when the user clicks to sign in/out of Google Calendar
-    if (name === 'sign-in') {
-      ApiCalendar.handleAuthClick(); //Call function to bring up Google sign in menu
-    } else if (name === 'sign-out') {
-      ApiCalendar.handleSignoutClick(); //Call function to sign out of Google Calendar
-    }
-  }
-
-  useEffect(() => {
-    ApiCalendar.onLoad(() => { //Function is called when the API is loaded
-      ApiCalendar.listenSign(signUpdate); //Checks if user is signed in to Google Calendar
-      if (ApiCalendar.sign) { //Set visibility of log in/log out buttons depending on if the user is signed in or not
-        document.getElementById("calendar-login").style.display = "none";
-        document.getElementById("calendar-logout").style.display = "block";
-      }
-      else
-      {
-        document.getElementById("calendar-login").style.display = "block";
-        document.getElementById("calendar-logout").style.display = "none";
-      }
-    });
-  }, []); */
 
   return (
     <div className="container-fluid">

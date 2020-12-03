@@ -3,7 +3,8 @@ import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import '../App.css';
 import ApiCalendar from 'react-google-calendar-api';
-import scheduleData from '../schedule.json';
+import { toast } from "react-toastify";
+
 
 
 class CalendarPage extends Component {
@@ -16,7 +17,8 @@ class CalendarPage extends Component {
       sign: ApiCalendar.sign, //Boolean value that is set to true if user is signed in to Google Calendar and false if not
       value: new Date(), //Date of the calendar tile that the user clicked
       loading: true,
-      newEvent: 0
+      newEvent: 0,
+      loggedIn: false
     };
     this.signUpdate = this.signUpdate.bind(this);
     ApiCalendar.onLoad(() => { //Function is called when the API is loaded
@@ -109,6 +111,10 @@ class CalendarPage extends Component {
               var title = result.items[i].summary.substring(13); //Ignore the first 13 characters of the event name (this would be the part of the event that says "Hair Thing - ")
               var textnode = document.createTextNode(title + " - " + hour[0] + ":" + minute + " " + hour[1]); //Create text that would show the event title and start time
               node.appendChild(textnode); //Add text to node
+              textnode = document.createTextNode(result.items[i].description); //Create text node for the event description
+              var breaknode = document.createElement("BR"); //Create break element
+              node.appendChild(breaknode);
+              node.appendChild(textnode);
               scheduleCard.appendChild(node); //Add node to the schedule card
             }
           }
