@@ -220,15 +220,6 @@ class Home extends Component {
     this.setState({ //Sets sign state to true if user is signed in and false if not
       sign,
     })
-    if (sign) { //Set visibility of log in/log out buttons when the user logs in or out
-      document.getElementById("calendar-login").style.display = "none";
-      document.getElementById("calendar-logout").style.display = "block";
-    }
-    else
-    {
-      document.getElementById("calendar-login").style.display = "block";
-      document.getElementById("calendar-logout").style.display = "none";
-    }
     window.location.reload(); //Refresh the page
   }
 
