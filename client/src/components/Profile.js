@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import ApiCalendar from 'react-google-calendar-api';
 import scheduleData from '../schedule.json';
+import GoogleCalendarButton from './GoogleCalendarButton';
 
 const Profile = ({ setAuth }) => {
   const [name, setName] = useState("");
@@ -135,7 +136,7 @@ const Profile = ({ setAuth }) => {
       else {
         toast.error("Please log into Google Calendar and then save your changes again to generate your schedule.", {
           position: "top-right",
-          autoClose: 2000,
+          autoClose: 10000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -335,9 +336,44 @@ const Profile = ({ setAuth }) => {
     else {
       console.log("Not signed in");
     }
-  } 
+  }
 
+  /* function signUpdate(sign) {
+    setSign(sign); //Sets sign state to true if user is signed in and false if not
+    if (sign) { //Set visibility of log in/log out buttons when the user logs in or out
+      document.getElementById("calendar-login").style.display = "none";
+      document.getElementById("calendar-logout").style.display = "block";
+    }
+    else
+    {
+      document.getElementById("calendar-login").style.display = "block";
+      document.getElementById("calendar-logout").style.display = "none";
+    }
+    window.location.reload(); //Refresh the page
+  }
 
+   function handleItemClick(event, name) { //Function that calls when the user clicks to sign in/out of Google Calendar
+    if (name === 'sign-in') {
+      ApiCalendar.handleAuthClick(); //Call function to bring up Google sign in menu
+    } else if (name === 'sign-out') {
+      ApiCalendar.handleSignoutClick(); //Call function to sign out of Google Calendar
+    }
+  }
+
+  useEffect(() => {
+    ApiCalendar.onLoad(() => { //Function is called when the API is loaded
+      ApiCalendar.listenSign(signUpdate); //Checks if user is signed in to Google Calendar
+      if (ApiCalendar.sign) { //Set visibility of log in/log out buttons depending on if the user is signed in or not
+        document.getElementById("calendar-login").style.display = "none";
+        document.getElementById("calendar-logout").style.display = "block";
+      }
+      else
+      {
+        document.getElementById("calendar-login").style.display = "block";
+        document.getElementById("calendar-logout").style.display = "none";
+      }
+    });
+  }, []); */
 
   return (
     <div className="container-fluid">
@@ -514,6 +550,8 @@ const Profile = ({ setAuth }) => {
           <button type="submit" className="btn btn-primary" disabled={loading}>
             Save Changes
           </button>
+          <br></br><br></br>
+          <GoogleCalendarButton></GoogleCalendarButton>
         </form>
       </div>
 
