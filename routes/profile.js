@@ -62,7 +62,7 @@ router.put("/update", authorization, async (req, res) => {
     res.status(200).json("User updated successfully!");
   } catch (err) {
     console.error(err.message);
-    res.status(400).json("Server Error2");
+    res.status(400).json("Server Error");
   }
 });
 
