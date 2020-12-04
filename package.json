@@ -27,6 +27,7 @@
     "pg": "^8.4.2",
     "pg-hstore": "^2.3.3",
     "react-slideshow-image": "^3.3.2",
+    "react-tooltip": "^4.2.11",
     "sequelize": "^6.3.5"
   }
 }
