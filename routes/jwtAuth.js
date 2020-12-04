@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const jwtGenerator = require("../utils/jwtGenerator");
 const authorization = require("../middleware/authorization");
 
-//register route
+// registers user
 router.post("/register", async (req, res) => {
   try {
     //destructure data passed from register form
@@ -36,7 +36,7 @@ router.post("/register", async (req, res) => {
         "https://www.searchpng.com/wp-content/uploads/2019/02/Profile-ICon.png",
     });
 
-    //creating jwt token
+    // creates jwt token
     const token = jwtGenerator(newUser.id);
 
     res.json({ token });
@@ -85,4 +85,5 @@ router.get("/is-verify", authorization, async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
 module.exports = router;

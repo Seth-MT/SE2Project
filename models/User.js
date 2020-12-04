@@ -1,7 +1,7 @@
 const { Sequelize } = require("sequelize");
 const db = require("../db");
 
-// User
+// User model
 const User = db.define("user", {
   firstName: {
     allowNull: false,

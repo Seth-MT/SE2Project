@@ -1,7 +1,7 @@
 // initializes database with json files
 // populates the respective tables with data
-
-const fs = require("fs"); // file system module to read data from files
+// file system module to read data from files
+const fs = require("fs"); 
 const db = require("./db");
 
 // imports models to create table records
