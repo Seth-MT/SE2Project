@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "bootstrap": "^4.5.3",
     "formik": "^2.2.5",
+    "hookrouter": "^1.2.3",
     "materialize-css": "^1.0.0-rc.2",
     "react": "^16.14.0",
     "react-bootstrap": "^1.4.0",
@@ -18,12 +19,13 @@
     "react-scripts": "^4.0.0",
     "react-slideshow-image": "^3.4.1",
     "react-toastify": "^6.0.9",
+    "react-tooltip": "^4.2.11",
     "yup": "^0.30.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -41,5 +43,15 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000"
+  "proxy": "http://localhost:5000",
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "transform": {
+      "node_modules/variables/.+\\.(j|t)sx?$": "ts-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!variables/.*)"
+    ]
+  }
 }

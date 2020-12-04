@@ -11,7 +11,6 @@ import Posts from "./Posts";
 import CreatePosts from "./CreatePosts";
 // import FormPage from "./FormPage";
 import PageNotFound from "./PageNotFound.js";
-import { Form } from "react-bootstrap";
 import ProductsPage from "./ProductsPage";
 import HairstylesPage from "./HairstylesPage"
 import AR_Camera from "./AR";
@@ -20,6 +19,7 @@ toast.configure();
 
 function Main({ setUser }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
   const setAuth = (boolean) => {
     setIsAuthenticated(boolean);
@@ -33,10 +33,12 @@ function Main({ setUser }) {
       });
 
       const parseRes = await res.json();
-
-      parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
+      parseRes.auth === true
+        ? setIsAuthenticated(true)
+        : setIsAuthenticated(false);
 
       setUser(isAuthenticated);
+      setLoading(false);
     } catch (err) {
       console.error(err.message);
     }
@@ -84,16 +86,47 @@ function Main({ setUser }) {
             )
           }
         />
+        <Route exact path="/posts" render={() => <Posts />} />
         <Route
           exact
           path="/createposts"
-          render={(props) => <CreatePosts {...props} />}
+          render={() =>
+            isLoading ? (
+              <div
+                className="container d-flex h-100"
+                style={{ marginTop: "50%" }}
+              >
+                <div
+                  className="justify-content-center align-self-center spinner-grow text-info"
+                  role="status"
+                  style={{ width: "3rem", height: "3rem" }}
+                >
+                  <span className="sr-only">Loading...</span>
+                </div>
+              </div>
+            ) : isAuthenticated ? (
+              <CreatePosts />
+            ) : (
+              toast.error("Please log in", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                onClose: () => (window.location.href = "/login"),
+              })
+            )
+          }
         />
+
         <Route exact path="/posts" render={() => <Posts />} />
         <Route path = "/products" render={() => <ProductsPage/>}/>
         <Route path = "/hairstyles" render={() => <HairstylesPage/>}/>
         <Route path = "/ARCamera" component = {AR_Camera}/>
         <Route component= {PageNotFound} />
+
         <Redirect from="*" to="/" />
       </Switch>
     </div>

@@ -64,6 +64,15 @@
   width: 500px;
 }
 
+.homeCalendar .react-calendar {
+  width: 300px;
+  font-size: 10px;
+}
+
+.homeCalendar .react-calendar__tile {
+  padding: 0.7em 0.7em;
+}
+
 .register-card {
   position: relative;
   top: 100px;
