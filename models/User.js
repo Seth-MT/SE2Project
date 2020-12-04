@@ -55,7 +55,7 @@ const User = db.define("user", {
 
 User.associate = (models) => {
   User.belongsToMany(models.Post, {
-    through: "UserReact",
+    through: UserReact,
     as: "posts",
     foreignKey: "userID",
   });

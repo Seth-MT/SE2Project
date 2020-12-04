@@ -19,6 +19,13 @@ const UserReact = require("./models/UserReact");
 User.hasMany(Post, { foreignKey: "userID" });
 Post.belongsTo(User, { foreignKey: "userID" });
 
+User.belongsToMany(Post, { through: UserReact });
+Post.belongsToMany(User, { through: UserReact });
+UserReact.belongsTo(User);
+UserReact.belongsTo(Post);
+User.hasMany(UserReact);
+Post.hasMany(UserReact);
+
 // app connection and resources sharing setup
 app.use(cors());
 app.use(express.json()); //req.body

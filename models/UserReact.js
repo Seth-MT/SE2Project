@@ -6,14 +6,14 @@ const Post = require("./Post");
 const UserReact = db.define(
   "userreact",
   {
-    userID: {
+    userId: {
       type: Sequelize.INTEGER,
       references: {
         model: User,
         key: "id",
       },
     },
-    postID: {
+    postId: {
       type: Sequelize.INTEGER,
       references: {
         model: Post,

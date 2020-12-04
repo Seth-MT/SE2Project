@@ -6,7 +6,8 @@ const Posts = () => {
   const [activeCard, setActiveCard] = useState(null);
   const [verified, setVerified] = useState([]);
   const [activeSort, setActiveSort] = useState("");
-  let [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState([]);
+  const [disliked, setDisliked] = useState(false);
 
   async function getPosts() {
     try {
@@ -16,6 +17,12 @@ const Posts = () => {
       });
 
       const parseData = await res.json();
+
+      const likedPosts = parseData
+        .filter((item) => item.userreacts[0].liked === "liked")
+        .map((post) => post.id);
+
+      setLiked(likedPosts);
       setPosts(
         parseData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
       );
@@ -115,11 +122,22 @@ const Posts = () => {
     }
   };
 
-  const handleLike = async (postID, like) => {
+  const handleLike = async (postID) => {
     try {
-      setLiked(like);
-      let body = { postID, like };
-      const res = await fetch("/posts/like", {
+      let like = !liked.includes(postID);
+
+      let react = "";
+      if (like === true) {
+        react = "liked";
+        setLiked(liked.push(postID));
+      } else if (like === false) {
+        react = "notliked";
+        let index = liked.indexOf(postID);
+        setLiked(liked.splice(index, 1));
+      }
+
+      let body = { postID, react };
+      const res = await fetch("/posts/react", {
         method: "PUT",
         headers: {
           token: localStorage.token,
@@ -132,6 +150,50 @@ const Posts = () => {
       const selectedPost = posts.findIndex((item) => item.id === postID);
       const newPosts = [...posts];
       newPosts[selectedPost].likes = parseData.likes;
+      setPosts(newPosts);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  const updateColor = (postID) => {
+    for (var i = 0; i < liked.length; i++) {
+      if (liked[i] === postID) {
+        return "blue";
+      } else {
+        return "red"; //black
+      }
+    }
+  };
+
+  // useEffect(() => {
+  //   handleLike();
+  //   updateColor();
+  // }, []);
+
+  const handleDislike = async (postID, dislike) => {
+    try {
+      setDisliked(dislike);
+      let react = "";
+      if (dislike === true) {
+        react = "disliked";
+      } else if (dislike === false) {
+        react = "notdisliked";
+      }
+      let body = { postID, react };
+      const res = await fetch("/posts/react", {
+        method: "PUT",
+        headers: {
+          token: localStorage.token,
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+
+      const parseData = await res.json();
+      const selectedPost = posts.findIndex((item) => item.id === postID);
+      const newPosts = [...posts];
+      newPosts[selectedPost].dislikes = parseData.dislikes;
       setPosts(newPosts);
     } catch (err) {
       console.error(err.message);
@@ -236,13 +298,13 @@ const Posts = () => {
                     <h4 className="card-title">{post.title}</h4>
                     <h6 className="card-text">{post.description}</h6>
                   </div>
-                  {post.user.id === verified.userID ? (
+                  {post.user.id === verified.userID ? ( //If the user is logged in then display like, disclick and delete buttons
                     <span>
                       <svg
                         onClick={() => {
-                          handleLike(post.id, !liked);
+                          handleLike(post.id);
                         }}
-                        style={liked ? { color: "blue" } : { color: "black" }}
+                        style={{ color: updateColor(post.id) }}
                         data-tip
                         data-for="Like"
                         width="1.3em"
@@ -262,6 +324,12 @@ const Posts = () => {
                       </ReactTooltip>
                       <span>{post.likes}</span>
                       <svg
+                        onClick={() => {
+                          handleDislike(post.id);
+                        }}
+                        style={
+                          disliked ? { color: "blue" } : { color: "black" }
+                        }
                         data-tip
                         data-for="Dislike"
                         width="1.3em"
