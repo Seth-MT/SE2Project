@@ -60,11 +60,14 @@ const GetPosts = () => {
                         <h4 class="card-title">{post.title}</h4>
                         <h6 class="card-text">{post.description}</h6>
                     </div>
-                    <div class="text-right">
-                        <p class="card-text">
-                        <small>Last updated at: {post.updatedAt}</small>
-                        </p>
+                    <div className="col text-right">
+                    <div className="card-text">
+                      <i><b>Made by: {post.user.userName}</b></i>
                     </div>
+                    <div className="mt-0 card-text">
+                      <small>Last updated at: {post.updatedAt}</small>
+                    </div>
+                  </div>
                   </a>
                 </div>
               </div>
