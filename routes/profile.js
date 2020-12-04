@@ -34,7 +34,7 @@ router.put("/update", authorization, async (req, res) => {
 
     const user = await User.findOne({ where: { id: `${req.user}` } });
 
-    if (newName != user.userName) {
+    if (newName && newName != user.userName) {
       user.userName = newName;
     }
 
