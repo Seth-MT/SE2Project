@@ -1,5 +1,9 @@
 //React 
 import React, {Component, Fragment, useState, useEffect} from "react";
+import image1 from './homepageimages/1.jpg'
+import image2 from './homepageimages/2.jpg'
+import image3 from './homepageimages/3.jpg'
+import image4 from './homepageimages/4.jpg'
 
 
 //React-bootstrap & bootstrap
@@ -28,9 +32,6 @@ function WelcomeCarousel() {
   };
   
   const hStyle1 = { color: 'white' };
-  const hStyle2 = { color: 'red' };
-  const hStyle3 = { color: 'green' };
-  const hStyle4 = { color: 'black' };
 
   return (
     <Carousel activeIndex={index} onSelect={handleSelect}>
@@ -41,7 +42,7 @@ function WelcomeCarousel() {
           opacity = {0}
           width={400} height={400} 
           className="a-block w-100"
-          src="https://ak.picdn.net/shutterstock/videos/1031742335/thumb/1.jpg"
+          src={image1}
           alt="First slide"
         />
         </a>
@@ -64,7 +65,7 @@ function WelcomeCarousel() {
           <img
             width={400} height={400} 
             className="d-block w-100"
-            src="https://images.askmen.com/1080x540/2020/09/29-040142-25_best_natural_hair_products_for_black_men.jpg"
+            src={image2}
             alt="Second slide"
           />
         </a>
@@ -79,7 +80,7 @@ function WelcomeCarousel() {
           <img
             width={400} height={400} 
             className="d-block w-100"
-            src="https://image.freepik.com/free-vector/happy-businesswoman-with-many-thumbs-up-hands_52569-640.jpg"
+            src={image3}
             alt="Third slide"
           />
         </a>
@@ -94,7 +95,7 @@ function WelcomeCarousel() {
           <img
             width={400} height={400} 
             className="d-block w-100"
-            src="https://d3329inlf62scx.cloudfront.net/app/uploads/2018/09/guy-holding-camera-1460x840.jpg"
+            src={image4}
             alt="Fourth slide"
           />
         </a>
@@ -126,13 +127,15 @@ function FeaturedHairStyle(){
 
           <Card.Header>Featured Hairstyle</Card.Header>
 
+          <a href = '/hairstyles'>
           <Card.Img alt="Featured Hairstyle" variant="top" src={style.imageUrl}
            />
+           </a>
 
           <Card.Body>
-            <Card.Title><a href=''>{style.name}</a></Card.Title>       
+            <Card.Title><a href='/hairstyles'>{style.name}</a></Card.Title>       
             <Card.Text>
-              Hair Length: {style.hairLength}
+              <b>Hair Length:</b> <i>{style.hairLength}</i>
             </Card.Text>
   
           </Card.Body>
@@ -190,7 +193,7 @@ function FeaturedProducts(){
                   <a href='/products/{product.id}'><Card.Img variant="top" src={product.imageUrl}
                   height={200} width={200} /></a>
                  <Card.Body>
-                    <Card.Title><a href='/products/{product.id}'>{product.name}</a></Card.Title>
+                    <Card.Title><a href='/products/{product.id}'><u>{product.name}</u></a></Card.Title>
                     <Card.Text>
                       {product.description}
                     </Card.Text>
@@ -212,7 +215,7 @@ function FeaturedProducts(){
                   <a href='/products/{product.id}'><Card.Img variant="top" src={product.imageUrl}
                   height={200} width={200} /></a>
                  <Card.Body>
-                    <Card.Title><a href='/products/{product.id}'>{product.name}</a></Card.Title>
+                    <Card.Title><a href='/products/{product.id}'><u>{product.name}</u></a></Card.Title>
                     <Card.Text>
                       {product.description}
                     </Card.Text>
