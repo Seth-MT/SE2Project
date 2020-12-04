@@ -1,7 +1,32 @@
+/* REQUIREMENTS TRACEABILITY:
+
+This page fulfills the following requirements:
+  USER REQUIREMENTS:
+  3. The user shall be able to log in or sign up to the app  
+  4. System shall allow users to enter and save account information upon login 
+  5. System shall create a personal hair assistant and schedule based on the user’s entered information
+  7. System shall send notifications to the user based on the created schedule //Google Calendar API takes care of this
+  8. The users shall be able to edit their profile information
+  9. The system shall store products, hairstyles and user information  
+  
+  FUNCTIONAL SYSTEM REQUIREMENTS:
+  3.2 The login button will then become a logout button and the user can press it to log out of their profile.  
+  4.1 Upon logging in, the system displays a form page where the user enters information that would improve the application experience and allow the assistant and scheduler to be created.
+  4.2 The information entered is saved in a user database
+  5.2 The system creates a personal calendar displaying wash days, hairstyles etc. The calendar is part of the personal assistant.  
+  5.3 The hair assistant is updated when the user information is updated, for example, when a user’s hair grows or is damaged.        
+  7.1 The system shall request permission from the user to send notifications to their device.  //Google Calendar API takes care of this
+  7.2 On hair activity days, the user gets a notification of the activity and information about the activity. //Google Calendar API takes care of this
+  8.1 Once on their profile, a user can select to edit and update their information. The form page is displayed, and the related fields can be edited. 
+  9.1 Using a cloud server database and created models, products, hairstyles and users are stored and accessed by the system.    
+*/
+
+
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import ApiCalendar from 'react-google-calendar-api';
-import scheduleData from '../schedule.json';
+import scheduleData1 from '../schedule.json';
+import scheduleDataStraight from '../schedule_straight.json';
 import GoogleCalendarButton from './GoogleCalendarButton';
 
 const Profile = ({ setAuth }) => {
@@ -17,6 +42,7 @@ const Profile = ({ setAuth }) => {
   const [loading, setLoading] = useState(false);
   const [inputStatus, setStatus] = useState("");
 
+  //Fulfills requirement 9.1
   //Get username and profile image
   useEffect(() => {
     async function getProfile() {
@@ -37,6 +63,7 @@ const Profile = ({ setAuth }) => {
     getProfile();
   }, []);
 
+  //Fulfills requirement 3.2
   //Logout user
   const logout = async (e) => {
     e.preventDefault();
@@ -49,6 +76,7 @@ const Profile = ({ setAuth }) => {
     }
   };
 
+  //Fulfills requirement 9.1 and 4.2
   //Send uploaded image to Cloudinary
   const fileSelectedHandler = async (e) => {
     const files = e.target.files;
@@ -76,6 +104,7 @@ const Profile = ({ setAuth }) => {
     setLoading(false);
   };
 
+  //Fulfills requirement 9.1 and 4.2
   //Send updated profile name and profile picture to backend server
   const fileUploadHandler = async (e) => {
     e.preventDefault();
@@ -149,6 +178,7 @@ const Profile = ({ setAuth }) => {
     }
   };
 
+  //Fulfills requirement 9.1 and 4.2
   //When newName state is updated then post to backend server to check if name is available
   useEffect(() => {
     const inputSubmitter = async () => {
@@ -238,7 +268,9 @@ const Profile = ({ setAuth }) => {
     }
   };
 
-  async function loadJson() { //Function to load data from a json file
+  //Fulfills requirements 5.2 & 5.3
+  //Function to load schedule data from a json file
+  async function loadJson() { 
     var today = new Date(); //Create Date object of the current day
     var date; //Store value of the today var
     var scheduleDay; //Value of the day of the schedule event
@@ -246,6 +278,15 @@ const Profile = ({ setAuth }) => {
     var scheduleMonth; //Value of the month of the schedule event
     var scheduleYear; //Value of the year of the schedule event
     var counter=0; //Counter to determine how many times the json has been looped through
+    var scheduleData;
+    console.log("HT", hairType);
+    if (hairType === "Straight") {
+      scheduleData = scheduleDataStraight;
+    }
+    else {
+      scheduleData = scheduleData1;
+    }
+    console.log("Hair Type:", hairType);
     for (var k=0; k<2; k++) { //Create events for the schedule in the user's Google Calendar for the next two months
       for (var j=0; j<(scheduleData.length); j++) { //Schedules are made for four weeks and are then repeated. scheduleData is the json file and the length is multiplied by 2 to ensure that the possible 5th week in a month is properly filled 
         if (j >= scheduleData.length) { //If the json file has been looped through once
@@ -286,6 +327,7 @@ const Profile = ({ setAuth }) => {
     }
   }
 
+  //Fulfills requirements 5.2 & 5.3
   function daysOfTheWeek(date) { //Function to determine the date that the schedule item would land on depending on that weekday written on the schedule json
     var daysInMonth = new Date(date.getFullYear(), date.getMonth(), 0).getDate(); //Get the amount of days in the selected month
     var week = [[],[],[],[],[],[],[]]; //Array that stores the days for each day of the week where each array is a new day (Sunday, Monday, Tuesday, etc)
@@ -299,6 +341,7 @@ const Profile = ({ setAuth }) => {
     return week;
   }
 
+  //Fulfills requirements 5.2 & 5.3
   async function createEvent(event) { //Function used to create a new event in the user's Google Calendar
     if (ApiCalendar.sign) { //Only executes if the user is signed in to Google Calendar
       let keepTrying; //Bool value that indicates whether to keep trying to make the API call or not
@@ -316,6 +359,7 @@ const Profile = ({ setAuth }) => {
     }
   }
 
+  //Fulfills requirements 5.2 & 5.3
   async function deleteEvent() { //Function to delete all Hair Thing events from the user's Google Calendar
     if (ApiCalendar.sign) { //Only executes if the user is signed in to Google Calendar
       console.log('Signed in');
@@ -338,6 +382,7 @@ const Profile = ({ setAuth }) => {
     }
   }
 
+  //Fulfills requirement 4.1 & 8.1
   return (
     <div className="container-fluid">
       <h1 className="mt-5 text-center">Profile</h1>
@@ -416,9 +461,9 @@ const Profile = ({ setAuth }) => {
               id="hairType"
               onChange={(e) => inputHairTypeHandler(e)}
             >
+              <option>Curly</option>
               <option>Straight</option>
               <option>Wavy</option>
-              <option>Curly</option>
               <option>Coily</option>
             </select>
           </div>
