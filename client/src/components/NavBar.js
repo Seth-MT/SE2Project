@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import  HairStylersLogo from "./homepageimages/HairStylersLogo.png"
 import { Image } from "react-bootstrap";
+import Results from "./Results"
 
 import {
   Navbar,
@@ -46,7 +47,7 @@ const NavBar = ({ user }) => {
   );
   return (
     <Navbar collapseOnSelect expand="lg" sticky="top" bg="dark" variant="dark">
-      <Navbar.Brand href="/">Hair Stylers</Navbar.Brand>
+      <Navbar.Brand href="/"><Image src={HairStylersLogo} height={40}/></Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
@@ -57,9 +58,9 @@ const NavBar = ({ user }) => {
           <Nav.Link href="/hairstyles">Hairstyles</Nav.Link>
           <Nav.Link href="/ARCamera">Camera & AR Photo</Nav.Link>
         </Nav>
-        <Form inline className="ml-auto">
-          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          <Button variant="outline-light">Search</Button>
+        <Form  inline className="ml-auto">
+          <FormControl  type="text" placeholder="Search" className="mr-sm-2"/>
+          <Button  variant="outline-light">Search</Button>
         </Form>
         {!user ? (
           <Nav.Link href="login">Log In</Nav.Link>
