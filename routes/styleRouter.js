@@ -4,7 +4,7 @@ const Style = require("../models/Style");
 const authorization = require("../middleware/authorization");
 
 //Return all posts created
-router.post("/", authorization, async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const styles = await Style.findAll();
     res.json(styles);
