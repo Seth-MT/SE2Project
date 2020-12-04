@@ -20,24 +20,26 @@ router.get("/all", async(req, res) => {
 })
 
 // search for products using some criteria (name, brand, type)
-router.get("/search/:query", async(req, res) => {
+router.get("/search/", async(req, res) => {
     try {
+        const{searchInput} = req.body
+
         const products = await Product.findAll({
             where: {
                 [Op.or]: [
                     {
                         name: {
-                            [Op.substring]: req.params.query
+                            [Op.substring]: searchInput
                         }
                     },
                     {
                         brand: {
-                            [Op.startsWith]: req.params.query
+                            [Op.startsWith]: searchInput
                         }
                     },
                     {
                         type: {
-                            [Op.substring]: req.params.query
+                            [Op.substring]: searchInput
                         }
                     }
                 ]

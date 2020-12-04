@@ -15,6 +15,7 @@ import ProductsPage from "./ProductsPage";
 import HairstylesPage from "./HairstylesPage"
 import AR_Camera from "./AR";
 
+
 toast.configure();
 
 function Main({ setUser }) {
