@@ -2,6 +2,7 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const db = require("../db");
 
+// Product model
 const Product = db.define("product", {
     name: {
       type: Sequelize.STRING,
@@ -25,5 +26,4 @@ const Product = db.define("product", {
     }
   });
 
-  
   module.exports = Product;

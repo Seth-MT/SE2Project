@@ -12,6 +12,7 @@ import CreatePosts from "./CreatePosts";
 // import FormPage from "./FormPage";
 import PageNotFound from "./PageNotFound.js";
 import ProductsPage from "./ProductsPage";
+import HairstylesPage from "./HairstylesPage"
 import AR_Camera from "./AR";
 
 toast.configure();
@@ -119,9 +120,13 @@ function Main({ setUser }) {
             )
           }
         />
-        <Route path="/products" render={() => <ProductsPage />} />
-        <Route path="/ARCamera" component={AR_Camera} />
-        <Route component={PageNotFound} />
+
+        <Route exact path="/posts" render={() => <Posts />} />
+        <Route path = "/products" render={() => <ProductsPage/>}/>
+        <Route path = "/hairstyles" render={() => <HairstylesPage/>}/>
+        <Route path = "/ARCamera" component = {AR_Camera}/>
+        <Route component= {PageNotFound} />
+
         <Redirect from="*" to="/" />
       </Switch>
     </div>

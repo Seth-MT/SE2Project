@@ -2,6 +2,7 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const db = require("../db");
 
+// Product-Type bridge table model
 const ProductType = db.define("producttype", {
     productID: {
       type: Sequelize.INTEGER,
@@ -13,5 +14,4 @@ const ProductType = db.define("producttype", {
     }
   });
 
-  
   module.exports = ProductType;

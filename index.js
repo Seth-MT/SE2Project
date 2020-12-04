@@ -15,7 +15,10 @@ const Product = require("./models/Product");
 const Post = require("./models/Post");
 const Style = require("./models/Style");
 const UserReact = require("./models/UserReact");
+const Type = require('./models/Type');
+const ProductType = require("./models/Product-Type");
 
+// setup relationships in models
 User.hasMany(Post, { foreignKey: "userID" });
 Post.belongsTo(User, { foreignKey: "userID" });
 
@@ -40,7 +43,7 @@ if (process.env.NODE_ENV === "production") {
 // test route - this route is just a way for me to check that the backend route is connected and functioning
 // delete this after development
 app.get("/", (req, res) => {
-  res.send("Test");
+  res.send("Server Running");
 });
 
 /* User */

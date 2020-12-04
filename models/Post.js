@@ -1,7 +1,7 @@
 const { Sequelize } = require("sequelize");
 const db = require("../db");
 
-// Post
+// Post model
 const Post = db.define("post", {
   title: {
     allowNull: true,
