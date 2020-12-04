@@ -1,24 +1,24 @@
 import React from "react";
-import PullProducts from "./PullProducts";
+import PullHairstyles from "./PullHairstyles";
 import Card from 'react-bootstrap/Card';
 import CardColumns from 'react-bootstrap/CardColumns'
 
 
-const ProductsPage = () => {
+const HairstylesPage = () => {
     
-  var products = PullProducts()
+  var hairstyles = PullHairstyles()
 
     return (
         <div className="container-fluid home-page-background">
           <a href='/products'>
           <h1 style = {{color:'white'}} className="
             text-center products-row-background-colour">
-              Products
+              Hairstyles
           </h1>
           </a>
           <div className="container md-8 border border-light background-white">
             <CardColumns align='center' className='background-color-white'> 
-            {products.map(function (product) {
+            {hairstyles.map(function (hairstyle) {
               return (
                 
                 <Card
@@ -26,22 +26,21 @@ const ProductsPage = () => {
                 style={{ width: '18rem' }}
                 text='light'
                 bg='dark'
-                key={product.id}                 
+                                 
                 >
-                  <Card.Img variant="top" src={product.imageUrl}
+                  <Card.Img variant="top" src={hairstyle.imageUrl}
                      style={{width: '100%'}} />
                     
                      <Card.Body>
-                       <Card.Title ><a href='' class='align-left' style={{color:'white'}}>{product.name}</a></Card.Title>
+                       <Card.Title ><a href=''  style={{color:'white'}}>{hairstyle.name}</a></Card.Title>
                        <Card.Text class='text-left'>
-                         {product.description}
+                         <b>Type:</b> <i>{hairstyle.type}</i>
                        </Card.Text>
-                        <div class="text-right">
-                          <p class="card-text">
-                            <small>Last updated at: {product.updatedAt}</small>
-                          </p>
-                        </div>
-                      </Card.Body>
+                       <Card.Text class='text-left'>
+                         <b>Hair Length:</b> <i>{hairstyle.hairLength}</i>
+                       </Card.Text>
+                        
+                     </Card.Body>
                  
                 </Card>
               );
@@ -52,4 +51,4 @@ const ProductsPage = () => {
       );
     };
 
-export default ProductsPage;
+export default HairstylesPage;

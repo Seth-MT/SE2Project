@@ -8,8 +8,7 @@ const { Op } = require("sequelize");
 
 const authorization = require("../middleware/authorization");
 
-// return all posts created
-router.post("/", authorization, async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const styles = await Style.findAll();
     res.json(styles);
