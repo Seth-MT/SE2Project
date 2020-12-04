@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import  HairStylersLogo from "./homepageimages/HairStylersLogo.png"
+import HairStylersLogo from "./homepageimages/HairStylersLogo.png";
 import { Image } from "react-bootstrap";
 
 import {
@@ -16,8 +16,7 @@ const NavBar = ({ user }) => {
   const [name, setName] = useState("");
   const [profileImage, setImage] = useState("");
   const [searchInput, setInput] = useState("");
-
-
+  const [searchData, setSearchData] = useState([]);
 
   const getUser = async () => {
     try {
@@ -48,30 +47,37 @@ const NavBar = ({ user }) => {
     </span>
   );
 
-  const onChange = (e) =>
-    setInput(e.target.value)
+  const onChange = (e) => {
+    setInput(e.target.value);
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
-  
-    try{
-      const body = {searchInput};
 
-      const res = await fetch("/styles/search/", {
-        method: "GET",
-        body : JSON.stringify(body),
+    try {
+      const body = { searchInput };
 
+      const res = await fetch("/products/search", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
 
-      })
-    }catch (err) {
+      const parseData = await res.json();
+      console.log(parseData);
+      setSearchData(parseData);
+    } catch (err) {
       console.error(err.message);
     }
-  
-  }
+  };
 
   return (
     <Navbar collapseOnSelect expand="lg" sticky="top" bg="dark" variant="dark">
-      <Navbar.Brand href="/"><Image src={HairStylersLogo} height={40}/></Navbar.Brand>
+      <Navbar.Brand href="/">
+        <Image src={HairStylersLogo} height={40} />
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
@@ -82,14 +88,17 @@ const NavBar = ({ user }) => {
           <Nav.Link href="/hairstyles">Hairstyles</Nav.Link>
           <Nav.Link href="/ARCamera">Camera & AR Photo</Nav.Link>
         </Nav>
-        <Form  onSubmit={onSubmit} inline className="ml-auto">
-          <FormControl 
-          value={searchInput}
-          onChange={(e) => onChange(e)} 
-           type="text" 
-           placeholder="Search" 
-           className="mr-sm-2"/>
-          <Button type="submit" variant="outline-light">Search</Button>
+        <Form onSubmit={onSubmit} inline className="ml-auto">
+          <FormControl
+            value={searchInput}
+            onChange={(e) => onChange(e)}
+            type="text"
+            placeholder="Search"
+            className="mr-sm-2"
+          />
+          <Button type="submit" variant="outline-light">
+            Search
+          </Button>
         </Form>
         {!user ? (
           <Nav.Link href="login">Log In</Nav.Link>
