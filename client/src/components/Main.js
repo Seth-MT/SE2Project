@@ -91,14 +91,14 @@ function Main({ setUser }) {
           path="/createposts"
           render={() =>
             isLoading ? (
-              <div
-                className="container d-flex h-100"
-                style={{ marginTop: "50%" }}
-              >
+              <div className="container text-center">
                 <div
-                  className="justify-content-center align-self-center spinner-grow text-info"
+                  className="spinner-grow text-info"
                   role="status"
-                  style={{ width: "3rem", height: "3rem" }}
+                  style={{
+                    width: "4rem",
+                    height: "4rem",
+                  }}
                 >
                   <span className="sr-only">Loading...</span>
                 </div>

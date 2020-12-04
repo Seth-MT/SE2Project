@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import ReactTooltip from "react-tooltip";
 import Reacts from "./Reacts";
 const Posts = () => {
   const [posts, setPosts] = useState([]);
   const [activeCard, setActiveCard] = useState(null);
   const [verified, setVerified] = useState([]);
   const [activeSort, setActiveSort] = useState("");
-  const [liked, setLiked] = useState([]);
+
   async function getPosts() {
     try {
       const res = await fetch("/posts/", {
@@ -16,12 +15,6 @@ const Posts = () => {
       });
 
       const parseData = await res.json();
-
-      const likedPosts = parseData
-        .filter((item) => item.userreacts[0].liked === "liked")
-        .map((post) => post.id);
-
-      setLiked(likedPosts);
       setPosts(
         parseData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
       );
@@ -188,7 +181,7 @@ const Posts = () => {
                     <h6 className="card-text">{post.description}</h6>
                   </div>
                   {post.user.id === verified.userID ? ( //If the user is logged in then display like, disclick and delete buttons
-                    <Reacts post={posts} post={post} setPosts={setPosts} />
+                    <Reacts post={post} />
                   ) : (
                     <div></div>
                   )}

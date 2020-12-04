@@ -39,6 +39,7 @@ router.post("/", async (req, res, next) => {
     }
 
     res.json(posts);
+    console.log(posts);
   } catch (err) {
     console.error(err.message);
     res.status(500).json("Server Error");
@@ -67,9 +68,14 @@ router.delete("/delete", authorization, async (req, res) => {
   try {
     const { postID } = req.body;
 
-    console.log(postID);
+    // const allReactions = await UserReact.findAll);
+
     const post = await Post.findOne({
       where: { id: `${postID}`, userID: `${req.user}` },
+    });
+
+    await UserReact.destroy({
+      where: { postId: `${postID}` },
     });
 
     await post.destroy();
@@ -80,33 +86,23 @@ router.delete("/delete", authorization, async (req, res) => {
   }
 });
 
-router.put("/react", authorization, async (req, res) => {
+router.put("/upLike", authorization, async (req, res) => {
   try {
     const { postID, react } = req.body;
-
     console.log(react);
-    //Update like or dislike counter
-    const post = await Post.findOne({
-      where: { id: `${postID}` },
-    });
 
+    //if a reaction does not exist for this user on a particular post in UserReacts table then create a new record, if reaction exists then update it to liked
     if (react === "liked") {
-      post.likes += 1;
-    } else if (react === "notliked") {
-      post.likes -= 1;
-    } else if (react === "disliked") {
-      post.disliked += 1;
-    } else if (react === "notdisliked") {
-      post.disliked -= 1;
-    }
+      //Find the post
+      const post = await Post.findOne({
+        where: { id: `${postID}` },
+      });
 
-    await post.save();
-
-    //Update user react records, used to show whether a user liked/disliked a post already
-    if (react === "liked" || react === "disliked") {
+      //Find the UserReact record
       const userReact = await UserReact.findOne({
         where: { postId: `${postID}`, userId: `${req.user}` },
       });
+
       if (userReact === null) {
         await UserReact.create({
           userId: req.user,
@@ -117,19 +113,140 @@ router.put("/react", authorization, async (req, res) => {
         userReact.liked = react;
         await userReact.save();
       }
-    } else if (react === "notliked" || react === "notdisliked") {
-      const userReact = await UserReact.findOne({
-        where: { postId: `${postID}`, userId: `${req.user}` },
-      });
-      userReact.liked = "noreact";
-      await userReact.save();
+
+      //update the number of likes the post has
+      post.likes += 1;
+
+      //If the value previously stored in the UserReact row was dislike then also decrement the number of likes for the post
+      if (userReact.liked === "disliked") {
+        post.dislikes -= 1;
+      }
+
+      await post.save();
     }
 
-    res.status(200).json(post);
+    res.status(200).json("Success");
   } catch (err) {
     console.log(err.message);
     res.status(500).json("Server Error");
   }
 });
 
+router.put("/unLike", authorization, async (req, res) => {
+  try {
+    const { postID, react } = req.body;
+    console.log(react);
+
+    //If a reaction exists for a post(as it should because in order to undislike a user must have liked previously) then update it to no reaction
+    if (react === "noreact") {
+      //Find the post
+      const post = await Post.findOne({
+        where: { id: `${postID}` },
+      });
+
+      //Find the UserReact record
+      const userReact = await UserReact.findOne({
+        where: { postId: `${postID}`, userId: `${req.user}` },
+      });
+
+      //In order to unlike a post the reaction must exist already
+      if (userReact != null) {
+        userReact.liked = react;
+        await userReact.save();
+      }
+
+      //update the number of likes the post has
+      post.likes -= 1;
+
+      await post.save();
+    }
+
+    res.status(200).json("Success");
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json("Server Error");
+  }
+});
+
+router.put("/upDislike", authorization, async (req, res) => {
+  try {
+    const { postID, react } = req.body;
+    console.log(react);
+
+    //if a reaction does not exist for this user on a particular post in UserReacts table then create a new record, if reaction exists then update it to disliked
+    if (react === "disliked") {
+      //Find the post
+      const post = await Post.findOne({
+        where: { id: `${postID}` },
+      });
+
+      //Find the UserReact record
+      const userReact = await UserReact.findOne({
+        where: { postId: `${postID}`, userId: `${req.user}` },
+      });
+
+      if (userReact === null) {
+        await UserReact.create({
+          userId: req.user,
+          postId: postID,
+          liked: react,
+        });
+      } else {
+        userReact.liked = react;
+        await userReact.save();
+      }
+
+      //update the number of dislikes the post has
+      post.dislikes += 1;
+
+      //If the value previously stored in the UserReact row was liked then also decrement the number of dislikes for the post
+      if (userReact.liked === "liked") {
+        post.likes -= 1;
+      }
+
+      await post.save();
+    }
+
+    res.status(200).json("Success");
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json("Server Error");
+  }
+});
+
+router.put("/unDislike", authorization, async (req, res) => {
+  try {
+    const { postID, react } = req.body;
+    console.log(react);
+
+    //If a reaction exists for a post(as it should because in order to undislike a user must have disliked previously) then update it to no reaction
+    if (react === "noreact") {
+      //Find the post
+      const post = await Post.findOne({
+        where: { id: `${postID}` },
+      });
+
+      //Find the UserReact record
+      const userReact = await UserReact.findOne({
+        where: { postId: `${postID}`, userId: `${req.user}` },
+      });
+
+      //In order to unlike a post the reaction must exist already
+      if (userReact != null) {
+        userReact.liked = react;
+        await userReact.save();
+      }
+
+      //update the number of dislikes the post has
+      post.dislikes -= 1;
+
+      await post.save();
+    }
+
+    res.status(200).json("Success");
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json("Server Error");
+  }
+});
 module.exports = router;
