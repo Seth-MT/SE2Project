@@ -15,7 +15,10 @@ const Product = require("./models/Product");
 const Post = require("./models/Post");
 const Style = require("./models/Style");
 const UserReact = require("./models/UserReact");
+const Type = require('./models/Type');
+const ProductType = require("./models/Product-Type");
 
+// setup relationships in models
 User.hasMany(Post, { foreignKey: "userID" });
 Post.belongsTo(User, { foreignKey: "userID" });
 

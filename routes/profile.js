@@ -88,4 +88,53 @@ router.post("/userExists", authorization, async (req, res) => {
   }
 });
 
+// get all users
+router.get("/all", async (req, res) => {
+  try {
+    const users = await User.findAll();
+    res.json(users);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+// delete a user where userID = id
+router.delete("/user/:id", async (req, res) => {
+  try {
+
+    const user = await User.findOne({ 
+      where: { id: req.params.id } 
+    });
+
+    if (!user) {
+      res.status(500).json("User not found");
+    }
+
+    res.status(200).json("User deleted");
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+// get a user where userID = id
+router.get("/user/:id", async (req, res) => {
+  try {
+
+    const user = await User.findOne({ 
+      where: { id: req.params.id } 
+    });
+
+    if (!user) {
+      res.status(500).json("User not found");
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 module.exports = router;
