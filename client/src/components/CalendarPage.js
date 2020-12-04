@@ -21,7 +21,7 @@ class CalendarPage extends Component {
       loggedIn: false
     };
     this.signUpdate = this.signUpdate.bind(this);
-    ApiCalendar.onLoad(() => { //Function is called when the API is loaded
+     ApiCalendar.onLoad(() => { //Function is called when the API is loaded
         ApiCalendar.listenSign(this.signUpdate); //Checks if user is signed in to Google Calendar
         if (ApiCalendar.sign) { //Set visibility of log in/log out buttons depending on if the user is signed in or not
           document.getElementById("calendar-login").style.display = "none";
