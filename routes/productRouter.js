@@ -51,5 +51,4 @@ router.get("/search/:query", async(req, res) => {
     }
 });
 
-
 module.exports = router;

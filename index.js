@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === "production") {
 // test route - this route is just a way for me to check that the backend route is connected and functioning
 // delete this after development
 app.get("/", (req, res) => {
-  res.send("Test");
+  res.send("Server Running");
 });
 
 /* User */
