@@ -14,6 +14,19 @@ class GoogleCalendarButton extends Component {
         this.signUpdate = this.signUpdate.bind(this);
         ApiCalendar.onLoad(() => { //Function is called when the API is loaded
             ApiCalendar.listenSign(this.signUpdate); //Checks if user is signed in to Google Calendar
+            if (ApiCalendar.sign) { //Set visibility of log in/log out buttons depending on if the user is signed in or not
+              if (document.getElementById("calendar-login")) { //If the component has been rendered already
+                document.getElementById("calendar-login").style.display = "none";
+                document.getElementById("calendar-logout").style.display = "block";
+              }
+            }
+            else
+            {
+              if (document.getElementById("calendar-login")) {
+                document.getElementById("calendar-login").style.display = "block";
+                document.getElementById("calendar-logout").style.display = "none";
+              }
+            }
           }); 
     }
 
@@ -57,6 +70,17 @@ class GoogleCalendarButton extends Component {
           });
         }
     }
+
+    componentDidMount () {
+      if (ApiCalendar.sign) {
+        document.getElementById("calendar-login").style.display = "none";
+        document.getElementById("calendar-logout").style.display = "block";
+      }
+      else {
+        document.getElementById("calendar-login").style.display = "block";
+        document.getElementById("calendar-logout").style.display = "none";
+      }
+    } 
 
     render() {
         return(
