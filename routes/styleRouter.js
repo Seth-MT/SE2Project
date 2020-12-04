@@ -19,7 +19,6 @@ router.post("/", authorization, async (req, res) => {
   }
 });
 
-
 //Searches for hair styles using query parameters that are entered by the user
 router.get("/search/:query", async(req, res) => {
   var type;
@@ -70,6 +69,5 @@ router.get("/search/:query", async(req, res) => {
       res.status(500).send("Server Error");
   }
 });
-
 
 module.exports = router;
