@@ -21,7 +21,16 @@ router.post("/", authorization, async (req, res) => {
 // update user record
 router.put("/update", authorization, async (req, res) => {
   try {
-    const { profileImage, newName, dateOfBirth, sex, hairType, hairLength, bleach, coloring } = req.body;
+    const {
+      profileImage,
+      newName,
+      dateOfBirth,
+      sex,
+      hairType,
+      hairLength,
+      bleach,
+      coloring,
+    } = req.body;
 
     const user = await User.findOne({ where: { id: `${req.user}` } });
 
@@ -32,15 +41,15 @@ router.put("/update", authorization, async (req, res) => {
     if (profileImage) {
       user.profileImage = profileImage;
     }
-    
+
     if (dateOfBirth) {
       user.dateOfBirth = dateOfBirth;
     }
-    
+
     if (sex) {
       user.sex = sex;
     }
-    
+
     if (hairType) {
       user.hairType = hairType;
     }

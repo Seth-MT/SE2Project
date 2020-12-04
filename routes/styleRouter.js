@@ -8,6 +8,7 @@ const { Op } = require("sequelize");
 
 const authorization = require("../middleware/authorization");
 
+// return all posts created
 router.post("/", async (req, res) => {
   try {
     const styles = await Style.findAll();
@@ -55,14 +56,11 @@ router.get("/search/:query", async(req, res) => {
   var type;
   if (req.params.query.toLowerCase() == "straight") {
     type = 1;
-  }
-  else if (req.params.query.toLowerCase() == "wavy") {
+  } else if (req.params.query.toLowerCase() == "wavy") {
     type = 2;
-  }
-  else if (req.params.query.toLowerCase() == "curly") {
+  } else if (req.params.query.toLowerCase() == "curly") {
     type = 3;
-  }
-  else if (req.params.query.toLowerCase() == "coily") {
+  } else if (req.params.query.toLowerCase() == "coily") {
     type = 4;
   }
 

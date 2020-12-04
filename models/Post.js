@@ -31,12 +31,4 @@ const Post = db.define("post", {
   },
 });
 
-Post.associate = (models) => {
-  Post.belongsToMany(models.User, {
-    through: "UserReact",
-    as: "users",
-    foreignKey: "postID",
-  });
-};
-
 module.exports = Post;
