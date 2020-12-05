@@ -66,8 +66,9 @@ const NavBar = ({ user }) => {
       });
 
       const parseData = await res.json();
-      console.log(parseData);
       setSearchData(parseData);
+
+      
     } catch (err) {
       console.error(err.message);
     }
