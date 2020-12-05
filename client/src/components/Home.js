@@ -3,6 +3,12 @@ This page fulfills the following requirements:
   USER REQUIREMENTS:
   1. System shall display a collection of hairstyles
   2. System shall display a collection of products
+  10. The user should be able to select and view a product or hairstyle
+  19. System shall allow user’s posted hairstyles to be viewed by other users
+  10.1 & 19.1 Upon selecting and clicking a product or hairstyle, information is cascaded
+and displayed to the user about the item. The brand, description, prescribed hair type and
+hair length, ingredients etc. of the product is displayed. 
+
  
   FUNCTIONAL SYSTEM REQUIREMENTS:
   1.1 When the app is loaded, a database request is sent to retrieve the collection of
