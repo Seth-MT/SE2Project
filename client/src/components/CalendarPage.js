@@ -1,10 +1,18 @@
+/* REQUIREMENTS TRACEABILITY:
+
+This page fulfills the following requirements:
+  USER REQUIREMENTS:
+  6. The user shall be able to view the hair care schedule  
+
+  FUNCTIONAL SYSTEM REQUIREMENTS:
+  6.1. The user can view the created calendar and view the hair activities on the calendar.
+*/
+
 import React, { Component } from "react";
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import '../App.css';
 import ApiCalendar from 'react-google-calendar-api';
-import { toast } from "react-toastify";
-
 
 
 class CalendarPage extends Component {
@@ -38,6 +46,7 @@ class CalendarPage extends Component {
 
   events = [[],[],[]]; //Array used to store all events that are retrieved from the user's Google Calendar
 
+  //Fulfills Requirements 6.1
   signUpdate(sign) {
     this.setState({ //Sets sign state to true if user is signed in and false if not
       sign,
@@ -54,6 +63,7 @@ class CalendarPage extends Component {
     window.location.reload(); //Refresh the page
   }
 
+  //Fulfills Requirements 6 & 6.1
   handleItemClick(event, name) { //Function that calls when the user clicks to sign in/out of Google Calendar
     if (name === 'sign-in') {
       ApiCalendar.handleAuthClick(); //Call function to bring up Google sign in menu
@@ -63,6 +73,7 @@ class CalendarPage extends Component {
     }
   }
 
+  //Fulfills Requirements 6 & 6.1
   convertHour(hour) { //Function that converts 24hr time to 12hr time
     var time = {}; //Array that stores hour value in 0 index and AM or PM in the 1 index
     if (hour > 12) {
@@ -76,6 +87,7 @@ class CalendarPage extends Component {
     return time;
   }
 
+  //Fulfills Requirements 6 & 6.1
   convertMinute(minute) { //Function that converts the minute value to a more readable value when the minute is at the start of the hour
     var time;             //This is needed or else a time such as "5:00" will appear as "5:0"
     if (minute === 0) {
@@ -87,6 +99,7 @@ class CalendarPage extends Component {
     return time;
   }
 
+  //Fulfills Requirements 6 & 6.1
   changeSelectedDate = date => { //Function that calls when the user clicks on a tile on the calendar
     var month = date.getMonth();
     var year = date.getFullYear();
@@ -125,6 +138,7 @@ class CalendarPage extends Component {
       }
   };
 
+  //Fulfills Requirements 6 & 6.1
   async getEventDays () { //Function used to retrieve the events on the user's Google Calendar
     var j=0;
     if (ApiCalendar.sign) { //If the user is signed into Google Calendar
@@ -151,6 +165,7 @@ class CalendarPage extends Component {
     }
   }
 
+  //Fulfills Requirements 6 & 6.1
   allEvents(events, date) { //Function to mark days where an event is on
     for (var i=0; i<this.events.length; i++) {
       if(date.getDate() === this.events[i][0] && date.getMonth() === this.events[i][1] && date.getFullYear() === this.events[i][2]) //If the calendar tile is a day that an event is on
@@ -159,45 +174,46 @@ class CalendarPage extends Component {
     return false;
   }
 
+  //Fulfills Requirements 6 & 6.1
   onChange = value => this.setState({ value }) //Sets value state to the date that the user clicked on the calendar
 
-    render() { 
-        const { value } = this.state.value;
-        var tileClassName=({ date, view }) => {
-          if(this.allEvents(this.events, date)) {
-            return 'highlight'
-          }
-        }
-        return (
-          <div className="content">
-            <div className="container-fluid">
-              <div className="calendar-main-panel">
-                <div className="row">
-                  <div className="col-md-5">
-                    <div className="calendar">
-                      <Calendar
-                        tileClassName = {tileClassName}
-                        value={value}
-                        onChange={this.changeSelectedDate} >
-                      </Calendar>
-                    </div>
-                  </div>
-                  <div className="col-md-7">
-                      <div id="calendar-card" className="card calendar-card h-100">
-                        <ul id="schedule-list" className="list-group">
-                        </ul>
-                      </div>
-                  </div>
-                </div>
-                <div className="google-calendar-buttons">
-                  <button type="button" id="calendar-login" className="btn btn-primary" style={{display: "none"}} onClick={(e) => this.handleItemClick(e, 'sign-in')}>Log in to Google Calendar</button>
-                  <button type="button" id="calendar-logout" className="btn btn-danger" style={{display: "none"}} onClick={(e) => this.handleItemClick(e, 'sign-out')}>Log Out of Google Calendar</button>
-                </div>
+render() { 
+  const { value } = this.state.value;
+  var tileClassName=({ date, view }) => {
+    if(this.allEvents(this.events, date)) {
+      return 'highlight'
+    }
+  }
+  return (
+    <div className="content">
+      <div className="container-fluid">
+        <div className="calendar-main-panel">
+          <div className="row">
+            <div className="col-md-5">
+              <div className="calendar">
+                <Calendar
+                  tileClassName = {tileClassName}
+                  value={value}
+                  onChange={this.changeSelectedDate} >
+                </Calendar>
               </div>
             </div>
+            <div className="col-md-7">
+                <div id="calendar-card" className="card calendar-card h-100">
+                  <ul id="schedule-list" className="list-group">
+                  </ul>
+                </div>
+            </div>
           </div>
-        )
-    }
+          <div className="google-calendar-buttons">
+            <button type="button" id="calendar-login" className="btn btn-primary" style={{display: "none"}} onClick={(e) => this.handleItemClick(e, 'sign-in')}>Log in to Google Calendar</button>
+            <button type="button" id="calendar-logout" className="btn btn-danger" style={{display: "none"}} onClick={(e) => this.handleItemClick(e, 'sign-out')}>Log Out of Google Calendar</button>    
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
 }
 
 export default CalendarPage;
