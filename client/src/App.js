@@ -6,6 +6,7 @@ import NavBar from "./components/NavBar";
 function App() {
   const [user, setAuthenticated] = useState(false);
 
+  //Function used to get authentication information from child component Main.js
   const setUser = (boolean) => {
     setAuthenticated(boolean);
   };
@@ -13,6 +14,7 @@ function App() {
   return (
     <div className="wrapper">
       <Router>
+        {/* Lets the navbar know whether a user is authenticated on every page */}
         <NavBar user={user} />
 
         <Switch>

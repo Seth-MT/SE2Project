@@ -1,12 +1,25 @@
+/* REQUIREMENTS TRACEABILITY:
+
+This page fulfills the following requirements:
+  USER REQUIREMENTS:
+  19. System shall allow user’s posted hairstyles to be viewed by other users 
+
+  FUNCTIONAL SYSTEM REQUIREMENTS:
+  19.1 When a user selects and views hairstyles or products, they can leave star reviews or comments about the product or hairstyle. 
+*/
+
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Reacts from "./Reacts";
+
 const Posts = () => {
+  //The variableS and functionS used to set data about posts, activeCard on hover, verified user information and sorting
   const [posts, setPosts] = useState([]);
   const [activeCard, setActiveCard] = useState(null);
   const [verified, setVerified] = useState([]);
   const [activeSort, setActiveSort] = useState("");
 
+  //Get data on all posts stored in the database
   async function getPosts() {
     try {
       const res = await fetch("/posts/", {
@@ -24,11 +37,11 @@ const Posts = () => {
     }
   }
 
-  //Get posts data
   useEffect(() => {
     getPosts();
   }, []);
 
+  //Verifies a user a exists and set their username and id.
   const verifyUser = async () => {
     try {
       const res = await fetch("/auth/is-verify", {
@@ -51,6 +64,7 @@ const Posts = () => {
     setActiveCard(cardId);
   };
 
+  //Sort by newest post
   const toggleNewest = () => {
     try {
       setPosts(
@@ -62,6 +76,7 @@ const Posts = () => {
     }
   };
 
+  //Sort by oldest post
   const toggleOldest = () => {
     try {
       setPosts(
@@ -73,6 +88,7 @@ const Posts = () => {
     }
   };
 
+  //Sort by most popular post
   const togglePopular = () => {
     try {
       setPosts([...posts].sort((a, b) => b.likes - a.likes));

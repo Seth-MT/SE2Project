@@ -12,6 +12,7 @@ require("dotenv").config();
 router.post("/", async (req, res, next) => {
   try {
     let posts;
+    //If the user has a token then verify the user and return User and UserReact information as part of the JSON Array. Otherwise return only basic post information
     if (req.header("token") != "undefined" && req.header("token") != null) {
       const payload = jwt.verify(req.header("token"), process.env.jwtSecret);
       user = payload.user;
@@ -67,17 +68,17 @@ router.post("/create", authorization, async (req, res) => {
 router.delete("/delete", authorization, async (req, res) => {
   try {
     const { postID } = req.body;
-
-    // const allReactions = await UserReact.findAll);
-
+    //Find the post that the user wishes to delete
     const post = await Post.findOne({
       where: { id: `${postID}`, userID: `${req.user}` },
     });
 
+    //Destroy all userreacts that involve this post
     await UserReact.destroy({
       where: { postId: `${postID}` },
     });
 
+    //destroy the post
     await post.destroy();
     res.status(200).json("Post deleted!");
   } catch (err) {

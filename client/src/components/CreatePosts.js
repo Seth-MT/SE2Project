@@ -1,20 +1,36 @@
+/* REQUIREMENTS TRACEABILITY:
+
+This page fulfills the following requirements:
+  USER REQUIREMENTS:
+  17. The user shall be allowed to share hairstyles on the application  
+
+  FUNCTIONAL SYSTEM REQUIREMENTS:
+  17.1 The system will allow users to fill out a form that includes all the fields that a hairstyle record does including additional information like comments. 
+
+  17.2 The system should request permission to access the user’s device media. The system accepts uploads of images of the user’s hairstyles.  
+
+  17.3 The system then saves the entered information and uploads the posts on the server so all users can view it.  
+*/
+
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 const CreatePosts = () => {
+  //The variables and function used to set the values entered by the user for the Post's title and description
   const [inputs, setInputs] = useState({
     postTitle: "",
     postDescription: "",
   });
+  //Default image viewed by users when creating posts
   const [hairStyleImg, setImage] = useState(
     "https://icons-for-free.com/iconfiles/png/512/box+document+outline+share+top+upload+icon-1320195323221671611.png"
   );
 
   const [loading, setLoading] = useState(false);
   const [postLoading, setPostLoading] = useState(false);
-  const { postTitle, postDescription } = inputs;
-  const [activeCard, setActiveCard] = useState(null);
-  const [selectedCard, setSelectedCard] = useState(null);
+  const { postTitle, postDescription } = inputs; //deconstruct the inputs so that they can be accessed easily
+  const [activeCard, setActiveCard] = useState(null); //used when changing the colour of a card on hover
+  const [selectedCard, setSelectedCard] = useState(null); //used when changing the colour of a card on click
 
   //Send uploaded image to Cloudinary
   const fileSelectedHandler = async (e) => {
@@ -83,7 +99,7 @@ const CreatePosts = () => {
     }
   };
 
-  //Get styles data
+  //Get hairstyles data from the database for use in modal
   const [styles, setStyles] = useState([]);
 
   const getStyles = async (e) => {
@@ -109,6 +125,7 @@ const CreatePosts = () => {
     setSelectedCard(cardId);
   };
 
+  //Change the default image to the selected one
   const updateImage = () => {
     setLoading(true);
     const selectedStyle = styles.filter((item) => {

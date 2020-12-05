@@ -76,6 +76,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
+//Route used to verify jwt tokens and returns username and id, uses the authorization middleware to verify
 router.get("/is-verify", authorization, async (req, res) => {
   try {
     res.status(200).send(JSON.stringify({ auth: true, userID: req.user }));

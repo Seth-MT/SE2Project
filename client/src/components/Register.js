@@ -1,3 +1,10 @@
+/* REQUIREMENTS TRACEABILITY:
+
+This page fulfills the following requirements:
+  USER REQUIREMENTS:
+  3. The user shall be able to log in or sign up to the app  
+*/
+
 import React, { Fragment } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -6,6 +13,7 @@ import { toast } from "react-toastify";
 
 const Register = ({ setAuth }) => (
   <Formik
+    //Set initial form values
     initialValues={{
       firstName: "",
       lastName: "",
@@ -14,6 +22,7 @@ const Register = ({ setAuth }) => (
       password: "",
       confirmPass: "",
     }}
+    //onSubmit send the data to the backend and if successful/unsuccessful call a toast function
     onSubmit={async (values, { setSubmitting }) => {
       try {
         const res = await fetch("/auth/register", {
@@ -26,6 +35,7 @@ const Register = ({ setAuth }) => (
 
         if (parseRes.token) {
           localStorage.setItem("token", parseRes.token);
+          //User is now authorized if a verified token exists
           setAuth(true);
           toast.success("Registered successfully");
         } else {
@@ -36,6 +46,7 @@ const Register = ({ setAuth }) => (
         console.error(err.message);
       }
     }}
+    //Validate the email, password and confirm password input values
     validationSchema={Yup.object().shape({
       email: Yup.string().email().required("Required"),
       password: Yup.string()

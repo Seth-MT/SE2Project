@@ -12,20 +12,22 @@ import CreatePosts from "./CreatePosts";
 // import FormPage from "./FormPage";
 import PageNotFound from "./PageNotFound.js";
 import ProductsPage from "./ProductsPage";
-import HairstylesPage from "./HairstylesPage"
+import HairstylesPage from "./HairstylesPage";
 import AR_Camera from "./AR";
-
 
 toast.configure();
 
 function Main({ setUser }) {
+  //variables used for setting authenticated and page loading
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setLoading] = useState(true);
 
+  //Function passed to child components to set authentication
   const setAuth = (boolean) => {
     setIsAuthenticated(boolean);
   };
 
+  //Send the token in local storage to verify the user
   async function isAuth() {
     try {
       const res = await fetch("/auth/is-verify", {
@@ -34,10 +36,12 @@ function Main({ setUser }) {
       });
 
       const parseRes = await res.json();
+      //If the auth (boolean) part of the response from the server is true then set authenticated
       parseRes.auth === true
         ? setIsAuthenticated(true)
         : setIsAuthenticated(false);
 
+      //function used to send data to parent componet App.js
       setUser(isAuthenticated);
       setLoading(false);
     } catch (err) {
@@ -45,6 +49,7 @@ function Main({ setUser }) {
     }
   }
 
+  //Calls isAuth on load and when state variables change
   useEffect(() => {
     isAuth();
   });
@@ -123,10 +128,10 @@ function Main({ setUser }) {
         />
 
         <Route exact path="/posts" render={() => <Posts />} />
-        <Route path = "/products" render={() => <ProductsPage/>}/>
-        <Route path = "/hairstyles" render={() => <HairstylesPage/>}/>
-        <Route path = "/ARCamera" component = {AR_Camera}/>
-        <Route component= {PageNotFound} />
+        <Route path="/products" render={() => <ProductsPage />} />
+        <Route path="/hairstyles" render={() => <HairstylesPage />} />
+        <Route path="/ARCamera" component={AR_Camera} />
+        <Route component={PageNotFound} />
 
         <Redirect from="*" to="/" />
       </Switch>

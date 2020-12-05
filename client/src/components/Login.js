@@ -1,18 +1,32 @@
+/* REQUIREMENTS TRACEABILITY:
+
+This page fulfills the following requirements:
+  USER REQUIREMENTS:
+  3. The user shall be able to log in or sign up to the app  
+
+  FUNCTIONAL SYSTEM REQUIREMENTS:
+  3.1 The system would allow the user to select the login button which would then prompt the user to enter their login information or new information to sign up and create a new user profile
+*/
+
 import React, { Fragment, useState } from "react";
 import { Nav } from "react-bootstrap";
 import { toast } from "react-toastify";
 
 const Login = ({ setAuth }) => {
+  //The variables and function used to set the values entered by the user for username and password
   const [inputs, setInputs] = useState({
     userName: "",
     password: "",
   });
 
+  //Destructure inputs for easy access
   const { userName, password } = inputs;
 
+  //When the values entered by the user changes set those values to the inputs state variable
   const onChange = (e) =>
     setInputs({ ...inputs, [e.target.name]: e.target.value });
 
+  //On submit send the username password to the backend for verification
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -26,6 +40,7 @@ const Login = ({ setAuth }) => {
 
       const parseRes = await res.json();
 
+      //If a token was received from the backend server set the token to localStorage and authorize the user
       if (parseRes.token) {
         localStorage.setItem("token", parseRes.token);
 
