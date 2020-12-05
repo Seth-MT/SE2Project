@@ -1,3 +1,20 @@
+/* REQUIREMENTS TRACEABILITY:
+This page fulfills the following requirements:
+  USER REQUIREMENTS:
+  1. System shall display a collection of hairstyles
+  2. System shall display a collection of products
+ 
+  FUNCTIONAL SYSTEM REQUIREMENTS:
+  1.1 When the app is loaded, a database request is sent to retrieve the collection of
+products
+1.2 The retrieved items are displayed in frames on the homepage.
+2.1 When the app is loaded, a database request is sent to retrieve the collection of
+hairstyles
+2.2 The retrieved items are displayed in frames on the homepage.
+
+*/
+
+
 //React 
 import React, {Component, Fragment, useState, useEffect} from "react";
 import image1 from './homepageimages/1.jpg'
