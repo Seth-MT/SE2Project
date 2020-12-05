@@ -1,3 +1,23 @@
+  
+/* REQUIREMENTS TRACEABILITY:
+This page fulfills the following requirements:
+  USER REQUIREMENTS:
+
+  2. System shall display a collection of products
+  10. The user should be able to select and view a product or hairstyle
+  
+ 
+  FUNCTIONAL SYSTEM REQUIREMENTS:
+
+2.1 When the app is loaded, a database request is sent to retrieve the collection of
+hairstyles
+2.2 The retrieved items are displayed in frames on the homepage.
+
+  10.1 & 19.1 Upon selecting and clicking a product or hairstyle, information is cascaded
+and displayed to the user about the item. The brand, description, prescribed hair type and
+hair length, ingredients etc. of the product is displayed.
+*/
+
 import React from "react";
 import PullProducts from "./PullProducts";
 import Card from 'react-bootstrap/Card';
